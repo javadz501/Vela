@@ -97,7 +97,6 @@ jobs:
           version_name="0.5.${GITHUB_RUN_NUMBER}"
           version_code="$(( (2000 + GITHUB_RUN_NUMBER) * 10 ))"
           ./gradlew :app:assembleRelease --no-daemon \
-            -PappId=com.kenzo.vela \
             -PappVersionName="$version_name" \
             -PappVersionCode="$version_code"
 
@@ -119,7 +118,7 @@ jobs:
           tag="fork-${GITHUB_RUN_NUMBER}"
           gh release create "$tag" \
             --title "Vela Fork $version_name" \
-            --notes "Signed Vela fork build. Application ID: com.kenzo.vela" \
+            --notes "Signed Vela fork build. Application ID preserved from upstream (app.vela)." \
             --prerelease \
             --target "$GITHUB_SHA" || true
           for apk in "${apks[@]}"; do
