@@ -197,7 +197,6 @@ jobs:
           VELA_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: >
           ./gradlew :app:assembleRelease --no-daemon
-          -PappId=com.kenzo.vela
           -PappVersionName=${{ steps.ver.outputs.name }}
           -PappVersionCode=${{ steps.ver.outputs.code }}
           -PmaptilerKey=${{ secrets.MAPTILER_KEY }}
