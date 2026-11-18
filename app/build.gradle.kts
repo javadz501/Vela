@@ -25,9 +25,8 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        // The fork defaults to its own installable ID. CI and local builds may override it
-        // with -PappId=<id> without changing the Kotlin namespace.
-        applicationId = (project.findProperty("appId") as String?)?.takeIf { it.isNotBlank() } ?: "com.kenzo.vela"
+        // Preserve the upstream application ID for package and signing continuity.
+        applicationId = (project.findProperty("appId") as String?)?.takeIf { it.isNotBlank() } ?: "app.vela"
         minSdk = 26
         targetSdk = 35
         // Overridable from CI: -PappVersionCode / -PappVersionName (ci.yml derives them from the
