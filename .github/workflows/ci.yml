@@ -85,18 +85,22 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
 
-      - name: Decode release keystore (optional)
-        # If the secret isn't set the release APK is debug-signed — still
-        # installable for testing. app/build.gradle.kts handles the fallback.
+      - name: Validate and decode release keystore
         env:
-          KEYSTORE_B64: ${{ secrets.VELA_KEYSTORE_BASE64 }}
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          if [ -n "$KEYSTORE_B64" ]; then
-            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/vela-release.jks"
-            echo "Decoded release keystore."
-          else
-            echo "No keystore secret — release APK will be debug-signed."
-          fi
+          set -euo pipefail
+          for name in KEYSTORE_BASE64 KEYSTORE_PASSWORD KEY_ALIAS KEY_PASSWORD; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::Required repository secret $name is missing or empty."
+              exit 1
+            fi
+          done
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/vela-release.jks"
+          test -s "$RUNNER_TEMP/vela-release.jks"
 
       - name: Fetch obf routing runtime jars
         # OsmAnd's Java router + obf reader (:core's offline routing engine, GPLv3 like Vela).
@@ -189,15 +193,34 @@ jobs:
       - name: Build release APK
         env:
           VELA_KEYSTORE_PATH: ${{ runner.temp }}/vela-release.jks
-          VELA_KEYSTORE_PASSWORD: ${{ secrets.VELA_KEYSTORE_PASSWORD }}
-          VELA_KEY_ALIAS: ${{ secrets.VELA_KEY_ALIAS }}
+          VELA_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          VELA_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          VELA_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: >
           ./gradlew :app:assembleRelease --no-daemon
+          -PappId=com.kenzo.vela
           -PappVersionName=${{ steps.ver.outputs.name }}
           -PappVersionCode=${{ steps.ver.outputs.code }}
           -PmaptilerKey=${{ secrets.MAPTILER_KEY }}
           ${{ vars.ABI_SPLITS == 'true' && '-PabiSplits' || '' }}
 
+      - name: Verify signed APKs
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          apks=(app/build/outputs/apk/release/*.apk)
+          if [ "${#apks[@]}" -eq 0 ]; then
+            echo "::error::No release APK was generated."
+            exit 1
+          fi
+          apksigner="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n1)"
+          if [ -z "$apksigner" ]; then
+            echo "::error::apksigner was not found in the Android SDK."
+            exit 1
+          fi
+          for apk in "${apks[@]}"; do
+            "$apksigner" verify --verbose --print-certs "$apk"
+          done
 
       - name: Publish canary build (rolling release)
         # The canary CHANNEL: every push to the canary branch replaces the single APK on the
