@@ -198,12 +198,6 @@ jobs:
           -PmaptilerKey=${{ secrets.MAPTILER_KEY }}
           ${{ vars.ABI_SPLITS == 'true' && '-PabiSplits' || '' }}
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: vela-maps-apk
-          path: app/build/outputs/apk/release/*.apk
-          if-no-files-found: error
 
       - name: Publish canary build (rolling release)
         # The canary CHANNEL: every push to the canary branch replaces the single APK on the
