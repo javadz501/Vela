@@ -156,18 +156,35 @@ android {
         )
     }
 
-    // Real release signing comes from CI env vars; local dev falls back to the
-    // debug keystore so `adb install` still works.
-    //   VELA_KEYSTORE_PATH / VELA_KEYSTORE_PASSWORD / VELA_KEY_ALIAS (=vela)
+    // Release builds must use the dedicated CI keystore and all four signing values.
+    // Debug signing remains available only to the debug build type.
+    val releaseKeystorePath = System.getenv("VELA_KEYSTORE_PATH")
+    val releaseStorePassword = System.getenv("VELA_KEYSTORE_PASSWORD")
+    val releaseKeyAlias = System.getenv("VELA_KEY_ALIAS")
+    val releaseKeyPassword = System.getenv("VELA_KEY_PASSWORD")
+    val releaseTaskRequested = gradle.startParameter.taskNames.any {
+        it.substringAfterLast(':').contains("Release", ignoreCase = true)
+    }
+    if (releaseTaskRequested) {
+        require(
+            !releaseKeystorePath.isNullOrBlank() &&
+                File(releaseKeystorePath).isFile &&
+                !releaseStorePassword.isNullOrBlank() &&
+                !releaseKeyAlias.isNullOrBlank() &&
+                !releaseKeyPassword.isNullOrBlank()
+        ) {
+            "Release signing is not configured. Set KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, and KEY_PASSWORD in GitHub Actions Secrets."
+        }
+    }
+
     signingConfigs {
         create("releaseFromEnv") {
-            val path = System.getenv("VELA_KEYSTORE_PATH")
-            if (!path.isNullOrBlank() && File(path).exists()) {
-                storeFile = File(path)
-                storePassword = System.getenv("VELA_KEYSTORE_PASSWORD")
-                keyAlias = System.getenv("VELA_KEY_ALIAS") ?: "vela"
-                keyPassword = System.getenv("VELA_KEYSTORE_PASSWORD")
+            if (!releaseKeystorePath.isNullOrBlank()) {
+                storeFile = File(releaseKeystorePath)
             }
+            storePassword = releaseStorePassword
+            keyAlias = releaseKeyAlias
+            keyPassword = releaseKeyPassword
         }
     }
 
@@ -191,12 +208,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            val envSigning = signingConfigs.getByName("releaseFromEnv")
-            signingConfig = if (envSigning.storeFile?.exists() == true) {
-                envSigning
-            } else {
-                signingConfigs.getByName("debug")
-            }
+            signingConfig = signingConfigs.getByName("releaseFromEnv")
         }
     }
 
