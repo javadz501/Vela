@@ -46,11 +46,13 @@ If `.github/workflows/ci.yml` names a newer file than this page does, trust the 
 ./gradlew :core:test
 ```
 
-Release signing comes from environment variables (`VELA_KEYSTORE_PATH`,
-`VELA_KEYSTORE_PASSWORD`, `VELA_KEY_ALIAS`). Without them a local build is signed with the
-debug keystore, so `adb install` still works. Do not hand out a local build with a
-`-PappVersionCode` above the release line: the next real release then looks like a downgrade.
-`-PappId=app.vela.dev` builds a copy that installs beside the real app.
+Release signing for the fork's `persian` branch is configured through four GitHub
+Actions repository secrets: `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, and
+`KEY_PASSWORD`. The release workflow decodes the keystore at runtime, requires all four values,
+and verifies the APK signature. Never commit the keystore or a `key.properties` file.
+
+The fork release workflow builds with `-PappId=com.kenzo.vela`. The Gradle namespace remains
+`app.vela`; the installable Android application ID is `com.kenzo.vela`.
 
 ## What CI does
 
