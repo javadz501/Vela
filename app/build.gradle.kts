@@ -25,10 +25,8 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        // `-PappId=<id>` builds the app under another package name: the Android Auto ownership
-        // experiment (2026-09-22, ROADMAP "A Google Play listing") sideloads Vela under the id of
-        // an app the account once installed from Play, to learn whether Android Auto's check is
-        // Play's library record alone or also the signing certificate. Never a shipped path.
+        // The fork defaults to its own installable ID. CI and local builds may override it
+        // with -PappId=<id> without changing the Kotlin namespace.
         applicationId = (project.findProperty("appId") as String?)?.takeIf { it.isNotBlank() } ?: "com.kenzo.vela"
         minSdk = 26
         targetSdk = 35
