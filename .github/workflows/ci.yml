@@ -1,8 +1,7 @@
 name: CI
 
-# Three channels (2026-08-07). Pushes to main and canary BUILD + TEST only (the APK
-# rides as a workflow artifact) - a push no longer mints a release, so a burst of
-# pushes can never spam the release page again. The NIGHTLY prerelease is cut once
+# Three channels (2026-08-07). Pushes to main and canary BUILD + TEST only;
+# signed APKs are published directly to GitHub Releases by the channel steps below. The NIGHTLY prerelease is cut once
 # a day by the cron below (skipped when main has not moved since the last nightly),
 # or on demand via workflow_dispatch when a fix genuinely cannot wait for the cron.
 # The weekly promote-stable workflow still flips the newest nightly to stable.
