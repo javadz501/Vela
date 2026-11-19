@@ -210,7 +210,7 @@ jobs:
           -PappVersionName=${{ steps.ver.outputs.name }}
           -PappVersionCode=${{ steps.ver.outputs.code }}
           -PmaptilerKey=${{ secrets.MAPTILER_KEY }}
-          ${{ vars.ABI_SPLITS == 'true' && '-PabiSplits' || '' }}
+          ${{ (github.ref == 'refs/heads/persian' || vars.ABI_SPLITS == 'true') && '-PabiSplits' || '' }}
 
       - name: Verify APK package and signing identity
         run: |
@@ -257,8 +257,11 @@ jobs:
           set -euo pipefail
           VER="${{ steps.ver.outputs.name }}"
           CODE="${{ steps.ver.outputs.code }}"
-          mapfile -t APKS < <(bash scripts/stage-apks.sh vela-maps-persian vela-maps-persian.apk)
-          NOTES="$(printf 'Persian preview build. This fork is signed with its own established keystore and is not update-compatible with the official upstream Vela signing key. Uninstall the official Vela app before installing this fork; back up app data first. UI localization is in progress and untranslated strings fall back to English. Persian navigation uses phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
+          ARM64_APK="app/build/outputs/apk/release/app-arm64-v8a-release.apk"
+          test -s "$ARM64_APK"
+          cp "$ARM64_APK" vela-maps-persian.apk
+          APKS=(vela-maps-persian.apk)
+          NOTES="$(printf 'Persian preview build — ARM64 (arm64-v8a) only. This fork is signed with its own established keystore and is not update-compatible with the official upstream Vela signing key. Uninstall the official Vela app before installing this fork; back up app data first. UI localization is in progress and untranslated strings fall back to English. Persian navigation uses phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\narchitecture: arm64-v8a\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
           gh release delete persian --yes --cleanup-tag 2>/dev/null || true
           gh release create persian \
             --prerelease \
