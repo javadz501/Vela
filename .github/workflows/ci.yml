@@ -223,10 +223,22 @@ jobs:
             "$apksigner" verify --verbose --print-certs "$apk"
           done
 
+      - name: Verify repository state with GitHub CLI
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh auth status
+          BRANCH_SHA="$(gh api "repos/$GITHUB_REPOSITORY/branches/persian" --jq '.commit.sha')"
+          test "$BRANCH_SHA" = "$GITHUB_SHA"
+          RUN_SHA="$(gh run view "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --json headSha --jq '.headSha')"
+          test "$RUN_SHA" = "$GITHUB_SHA"
+          printf 'CLI verified branch and run commit: %s\n' "$GITHUB_SHA"
+
       - name: Publish persian branch build (rolling release)
-        # Manual builds from the customization branch use a dedicated non-v0.* tag.
-        # This keeps test builds out of the nightly/stable channels and app updater.
-        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/persian'
+        # Pushes and manual builds from the customization branch use a dedicated non-v0.* tag.
+        # This preview tag stays outside the nightly/stable channels and the in-app updater.
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -234,15 +246,31 @@ jobs:
           VER="${{ steps.ver.outputs.name }}"
           CODE="${{ steps.ver.outputs.code }}"
           mapfile -t APKS < <(bash scripts/stage-apks.sh vela-maps-persian vela-maps-persian.apk)
-          NOTES="$(printf 'Persian branch test build.\n\nversionName: %s\nversionCode: %s\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
-          # Keep one rolling test release; the non-v0.* tag is excluded from app update channels.
+          NOTES="$(printf 'Persian preview build. UI localization is in progress; untranslated strings fall back to English. Persian navigation uses the phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
           gh release delete persian --yes --cleanup-tag 2>/dev/null || true
           gh release create persian \
             --prerelease \
             --target "$GITHUB_SHA" \
-            --title "Vela Persian Branch Build" \
+            --title "Vela Persian Preview Build" \
             --notes "$NOTES" \
             "${APKS[@]}"
+
+      - name: Verify published release with GitHub CLI
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release view persian --repo "$GITHUB_REPOSITORY" --json tagName,isPrerelease,assets --jq '{tagName, isPrerelease, assets: [.assets[] | {name, size}]}'
+          mkdir -p "$RUNNER_TEMP/persian-release-check"
+          gh release download persian --repo "$GITHUB_REPOSITORY" --pattern '*.apk' --dir "$RUNNER_TEMP/persian-release-check"
+          shopt -s nullglob
+          apks=("$RUNNER_TEMP"/persian-release-check/*.apk)
+          test "${#apks[@]}" -gt 0
+          apksigner="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n1)"
+          for apk in "${apks[@]}"; do
+            "$apksigner" verify --verbose --print-certs "$apk"
+          done
 
       - name: Publish canary build (rolling release)
         # The canary CHANNEL: every push to the canary branch replaces the single APK on the
