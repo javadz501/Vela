@@ -60,6 +60,15 @@ class PlaceStatusTest {
         assertEquals(true, SearchParser.parseOpenNow("פתוח · נסגר בשעה 22:00", "he"))
     }
 
+    @Test fun `persian - closed and opens-later statuses win before open prefixes`() {
+        assertEquals(false, SearchParser.parseOpenNow("بسته است · فردا ساعت ۹ باز می‌شود", "fa"))
+        assertEquals(false, SearchParser.parseOpenNow("به‌زودی باز می‌شود", "fa"))
+        assertEquals(false, SearchParser.parseOpenNow("موقتاً بسته است", "fa"))
+        assertEquals(true, SearchParser.parseOpenNow("باز است · ساعت ۲۲ بسته می‌شود", "fa"))
+        assertEquals(true, SearchParser.parseOpenNow("بسته می‌شود", "fa"))
+        assertEquals(true, SearchParser.isTemporarilyClosed("این مکان موقتاً بسته است"))
+    }
+
     @Test fun `english - Opens-prefixed statuses are CLOSED, not swallowed by the Open prefix`() {
         assertEquals(false, SearchParser.parseOpenNow("Opens 5 AM", "en"))
         assertEquals(false, SearchParser.parseOpenNow("Opens soon ⋅ 5 AM", "en"))
@@ -161,7 +170,7 @@ class PlaceStatusTest {
      *  the UI can't color open/closed. It MUST equal the shipped keyword-table languages (Hebrew
      *  is keyed under both "iw" and "he"). */
     @Test fun `STATUS_LANGS covers exactly the shipped status-table languages`() {
-        val expected = setOf("en", "fr", "de", "es", "it", "pt", "nl", "ru", "pl", "sv", "uk", "hu", "ro", "zh", "ja", "iw", "he")
+        val expected = setOf("en", "fr", "de", "es", "it", "pt", "nl", "ru", "pl", "sv", "uk", "hu", "ro", "zh", "ja", "iw", "he", "fa")
         assertEquals(expected, SearchParser.STATUS_LANGS)
     }
 

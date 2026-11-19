@@ -68,7 +68,7 @@ class QueryIntentTest {
     private fun p(s: String, l: String) = QueryIntents.parse(s, l)
 
     @Test fun `every app language has a command vocabulary`() {
-        val app = setOf("en", "fr", "de", "es", "it", "pt", "nl", "ru", "pl", "sv", "uk", "hu", "ro", "zh", "ja", "he")
+        val app = setOf("en", "fr", "de", "es", "it", "pt", "nl", "ru", "pl", "sv", "uk", "hu", "ro", "zh", "ja", "he", "fa")
         assertEquals(emptySet<String>(), app - QueryIntents.supportedLanguages)
     }
 

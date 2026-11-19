@@ -379,7 +379,7 @@ object SearchParser {
      *  a temp-closed place STAYS on the map — the UI banners it instead. */
     private val TEMP_CLOSED_WORDS = listOf(
         "Temporarily", "temporairement", "Vorübergehend", "temporalmente", "temporaneamente",
-        "temporariamente", "Tijdelijk", "Временно", "Tymczasowo", "Tillfälligt", "Тимчасово", "זמנית", "temporar",
+        "temporariamente", "Tijdelijk", "Временно", "Tymczasowo", "Tillfälligt", "Тимчасово", "זמנית", "temporar", "موقتاً بسته", "موقتا بسته", "به‌طور موقت بسته", "به طور موقت بسته",
     )
 
     /** The edit menu's "Reopen this place" entry (kind `[6]` 3), which Google offers only on a
@@ -429,6 +429,7 @@ object SearchParser {
         // legacy code on Android) + "he" for parity.
         "iw" to listOf("סגור", "נפתח", "ייפתח", "המקום סגור"),
         "he" to listOf("סגור", "נפתח", "ייפתח", "המקום סגור"),
+        "fa" to listOf("بسته است", "بسته‌شده", "بسته شده", "بسته شد", "باز می‌شود", "باز می شود", "به‌زودی باز", "به زودی باز", "موقتاً بسته", "موقتا بسته", "برای همیشه بسته", "دائماً بسته", "دائما بسته", "بازگشایی"),
     )
 
     /** Languages [parseOpenNow] actually has a keyword table for. `GoogleMapsDataSource.localized()`
@@ -461,6 +462,7 @@ object SearchParser {
         // form Google actually serves (see CLOSED_WORDS note).
         "iw" to listOf("פתוח", "נסגר", "המקום פתוח"),
         "he" to listOf("פתוח", "נסגר", "המקום פתוח"),
+        "fa" to listOf("باز است", "باز", "بسته می‌شود", "بسته می شود", "به‌زودی بسته", "به زودی بسته", "در حال حاضر باز", "تا ساعت"),
     )
 
     /** Live status text → open/closed, in the language the scrape requested (`hl=` follows

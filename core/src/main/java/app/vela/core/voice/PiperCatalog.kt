@@ -54,7 +54,7 @@ object PiperCatalog {
         "en" to "English", "fr" to "Français", "de" to "Deutsch", "es" to "Español",
         "it" to "Italiano", "pt" to "Português", "nl" to "Nederlands", "ru" to "Русский",
         "pl" to "Polski", "sv" to "Svenska", "uk" to "Українська", "hu" to "Magyar", "ro" to "Română",
-        "zh" to "中文", "ja" to "日本語",
+        "zh" to "中文", "ja" to "日本語", "fa" to "فارسی",
     )
 
     /** The recommended default voice for a language code (used to auto-suggest a voice for the app
