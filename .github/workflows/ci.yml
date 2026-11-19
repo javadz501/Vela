@@ -48,6 +48,7 @@ on:
 # `contents: write` is needed to publish channel releases. Publish steps are
 # restricted to main/canary/persian; pull requests never publish.
 permissions:
+  actions: read
   contents: write
 
 # A newer commit on the same branch supersedes an older build; only the latest
@@ -231,7 +232,7 @@ jobs:
             test "$package" = "app.vela" || { echo "::error::Unexpected applicationId: $package"; exit 1; }
             cert="$("$apksigner" verify --print-certs "$apk" | sed -n 's/.*certificate SHA-256 digest: //p' | head -n1 | tr -d ':' | tr '[:lower:]' '[:upper:]')"
             test "$cert" = "$expected_cert" || { echo "::error::Signing certificate does not match upstream Vela identity."; exit 1; }
-            printf 'Verified %s: applicationId=%s, certificate=%s\\n' "$apk" "$package" "$cert"
+            printf 'Verified %s: applicationId=%s, certificate=%s\n' "$apk" "$package" "$cert"
           done
 
       - name: Verify repository state with GitHub CLI
