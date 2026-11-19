@@ -486,8 +486,8 @@ object SearchParser {
         val s = status?.trim()?.ifBlank { null } ?: return null
         val closedTable = remoteClosedWords ?: CLOSED_WORDS
         val openTable = remoteOpenWords ?: OPEN_WORDS
-        val closed = closedTable[lang] ?: closedTable["en"] ?: CLOSED_WORDS.getValue("en")
-        val open = openTable[lang] ?: openTable["en"] ?: OPEN_WORDS.getValue("en")
+        val closed = closedTable[lang] ?: CLOSED_WORDS[lang] ?: closedTable["en"] ?: CLOSED_WORDS.getValue("en")
+        val open = openTable[lang] ?: OPEN_WORDS[lang] ?: openTable["en"] ?: OPEN_WORDS.getValue("en")
         return when {
             closed.any { s.startsWith(it) } -> false
             open.any { s.startsWith(it) } -> true

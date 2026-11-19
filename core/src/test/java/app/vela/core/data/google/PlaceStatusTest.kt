@@ -184,6 +184,7 @@ class PlaceStatusTest {
             assertEquals(true, SearchParser.parseOpenNow("Trading now", "en"))
             // the compiled word no longer matches once the table is replaced
             assertEquals(null, SearchParser.parseOpenNow("Closed", "en"))
+            assertEquals(true, SearchParser.parseOpenNow("باز است", "fa"))
         } finally {
             SearchParser.remoteClosedWords = null
             SearchParser.remoteOpenWords = null
