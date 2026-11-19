@@ -305,7 +305,13 @@ object PlaceNames {
         "השכרת", "מכירה", "תיקון", "תיקוני", "ניקיון", "מכבסה", "פרחים", "אופטיקה", "תכשיטים", "נעליים", "בגדים", "אופנה", "חדר",
         "כושר", "ספורט", "בריכה", "ספרייה", "מוזיאון", "תיאטרון", "קולנוע",
     )
-    private val GENERIC_ALL: Set<String> = GENERIC_EN + GENERIC_FR + GENERIC_DE + GENERIC_ES + GENERIC_IT + GENERIC_PT + GENERIC_NL +
+    private val GENERIC_FA = setOf(
+        "و", "در", "به", "از", "با", "برای", "فروشگاه", "مغازه", "مرکز", "خدمات", "بانک",
+        "داروخانه", "درمانگاه", "بیمارستان", "کلینیک", "رستوران", "کافه", "قهوه", "هتل",
+        "پارک", "مدرسه", "دانشگاه", "شرکت", "شعبه", "بازار", "سوپرمارکت", "پمپ", "بنزین",
+        "پارکینگ", "اداره", "دفتر", "مسجد", "کتابخانه", "باشگاه", "آموزشگاه", "آزمایشگاه",
+    )
+    private val GENERIC_ALL: Set<String> = GENERIC_FA + GENERIC_EN + GENERIC_FR + GENERIC_DE + GENERIC_ES + GENERIC_IT + GENERIC_PT + GENERIC_NL +
         GENERIC_SV + GENERIC_PL + GENERIC_RU + GENERIC_UK + GENERIC_HU + GENERIC_HE
 
     /**

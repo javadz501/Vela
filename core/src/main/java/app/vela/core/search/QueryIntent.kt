@@ -228,6 +228,21 @@ object QueryIntents {
         notFrom = emptyList(),
         goBare = listOf("du-mă", "du mă", "condu-mă", "navighează", "navigare", "mergi", "mergem", "hai", "vreau să ajung", "vreau să merg", "trebuie să ajung"),
     )
+
+    private val FA = Words(
+        go = listOf("منو ببر به", "مرا ببر به", "ببر منو به", "ببر مرا به", "مسیریابی به", "مسیریابی تا", "مسیر به", "مسیر تا", "راهنمایی به", "برو به", "برو سمت", "حرکت به سمت", "من را ببر به"),
+        home = listOf("خونه", "خانه", "منزل", "خونه من", "خانه من", "برگرد خونه", "برو خونه"),
+        work = listOf("محل کار", "محل کارم", "سر کار", "اداره", "دفتر کار", "دفترم", "محل کار من", "به محل کار"),
+        nearPrefix = listOf("نزدیک‌ترین", "نزدیک ترین", "نزدیکترین", "کجا هست", "کجاست", "پیدا کن", "پیدا کن برام", "برام پیدا کن", "جستجوی", "جستجو برای", "جستجو کن", "نشان بده", "نزدیک من"),
+        nearSuffix = listOf("نزدیک من", "اطراف من", "اطرافم", "نزدیکمه", "نزدیکم", "در نزدیکی من", "همین اطراف"),
+        eta = listOf("کی می‌رسم", "کی میرسم", "کی می‌رسیم", "چقدر مونده", "چقدر مانده", "چقدر دیگه مونده", "زمان رسیدن", "زمان تقریبی رسیدن", "کی به مقصد می‌رسم", "چند دقیقه دیگه", "چقدر تا رسیدن مونده", "eta"),
+        from = listOf("از"),
+        to = listOf("به", "تا"),
+        please = listOf("لطفا", "لطفاً", "خواهشا", "خواهشاً", "الان"),
+        notFrom = listOf("کجا", "چطور", "چی", "چه", "چرا", "برو", "ببر"),
+        goBare = listOf("منو ببر", "مرا ببر", "من را ببر", "ببر منو", "ببر مرا", "برو", "مسیریابی کن", "راهنمایی کن", "مسیر بده"),
+    )
+
     private val HE = Words(
         go = listOf("קח אותי ל", "קח אותי אל", "תיקח אותי ל", "תקח אותי ל", "סע ל", "סע אל", "לך ל", "נווט ל", "נווט אל", "נווט", "ניווט ל", "ניווט אל", "מסלול ל", "מסלול אל", "דרך ל", "איך מגיעים ל", "איך להגיע ל", "אני רוצה להגיע ל", "אני רוצה לנסוע ל", "אני צריך להגיע ל", "אני צריכה להגיע ל", "תוביל אותי ל", "הדרך המהירה ל", "המסלול המהיר ל"),
         home = listOf("הביתה", "הבית", "הבית שלי", "בית", "לבית"),
@@ -276,7 +291,7 @@ object QueryIntents {
 
     private val TABLES = mapOf(
         "en" to EN, "fr" to FR, "de" to DE, "es" to ES, "it" to IT, "pt" to PT, "nl" to NL,
-        "ru" to RU, "uk" to UK, "pl" to PL, "sv" to SV, "hu" to HU, "ro" to RO, "he" to HE, "iw" to HE,
+        "ru" to RU, "uk" to UK, "pl" to PL, "sv" to SV, "hu" to HU, "ro" to RO, "he" to HE, "iw" to HE, "fa" to FA,
         "zh" to ZH, "ja" to JA,
     )
 
@@ -383,6 +398,7 @@ object QueryIntents {
 
     private fun normalize(s: String): String =
         s.trim().lowercase()
+            .replace('ي', 'ی').replace('ك', 'ک').replace("\\u200c", " ")
             .replace(Regex("[\"“”«»'’`]"), "")
             .replace(Regex("[!?.,;:！？。、，]+$"), "")
             // "e.t.a." / "e t a" -> "eta": dictation spells acronyms out.

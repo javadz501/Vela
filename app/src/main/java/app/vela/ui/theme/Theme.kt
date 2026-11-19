@@ -9,6 +9,9 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 
 // Containers are set to blue tints too - otherwise Material's defaults leave
 // primaryContainer/secondaryContainer a stock purple, which made the map FABs and
@@ -69,6 +72,13 @@ private val DarkColors = darkColorScheme(
 // still read as layers; the thin borders on Settings cards carry the structure.
 private val AmoledColors = DarkColors.onTrueBlack()
 
+private val PersianTypeface = FontFamily(
+    Font(app.vela.R.font.vazirmatn_regular, FontWeight.Normal),
+    Font(app.vela.R.font.vazirmatn_medium, FontWeight.Medium),
+    Font(app.vela.R.font.vazirmatn_semibold, FontWeight.SemiBold),
+    Font(app.vela.R.font.vazirmatn_bold, FontWeight.Bold),
+)
+
 /** A dark scheme on true black surfaces, its accents kept: Vela's own, or the wallpaper's. */
 private fun androidx.compose.material3.ColorScheme.onTrueBlack() = copy(
     background = androidx.compose.ui.graphics.Color(0xFF000000),
@@ -117,7 +127,7 @@ fun VelaTheme(
         darkTheme -> DarkColors
         else -> LightColors
     }
-    val family = app.vela.ui.AppFont.family.value
+    val family = if (app.vela.ui.AppLocale.effective().language == "fa" && app.vela.ui.AppFont.customName.value == null) PersianTypeface else app.vela.ui.AppFont.family.value
     val typography = androidx.compose.runtime.remember(family) { velaTypography(family) }
     MaterialTheme(colorScheme = colorScheme, typography = typography, content = content)
 }
