@@ -17,7 +17,7 @@ on:
         type: boolean
         default: false
   push:
-    branches: [ main, canary ]
+    branches: [ main, canary, persian ]
     # Docs-only pushes don't build or cut a nightly - nothing in the APK changed, and
     # every push was minting a release (a dozen doc commits on 2026-07-09 became a dozen
     # identical nightlies). A push that MIXES docs and code still builds: paths-ignore
@@ -60,6 +60,9 @@ jobs:
           # Full history + tags so the release step can build a changelog from the
           # commits since the previous release.
           fetch-depth: 0
+
+      - name: Ensure Gradle wrapper is executable
+        run: chmod +x gradlew
 
       - name: Set up JDK 17
         uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
