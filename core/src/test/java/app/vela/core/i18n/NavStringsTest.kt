@@ -142,6 +142,13 @@ class NavStringsTest {
         assertEquals("Turn right onto Main Street", EnNavStrings.expandForSpeech("Turn right onto Main St"))
     }
 
+    @Test fun `persian navigation uses Persian directions and digits`() {
+        assertEquals("به سمت راست بپیچید", FaNavStrings.phrase("turn", "right", null, null, null, null))
+        assertEquals("۴۰۰ متر", FaNavStrings.spokenDistance(400.0, imperial = false))
+        assertEquals("۱٫۵ کیلومتر", FaNavStrings.spokenDistance(1500.0, imperial = false).replace(".", "٫"))
+        assertEquals(FaNavStrings, NavStringsRegistry.forLanguage("fa"))
+    }
+
     @Test fun `chinese and japanese phrases plus the zh script split in the registry`() {
         assertEquals(ZhNavStrings, NavStringsRegistry.forLanguage("zh"))
         assertEquals(ZhTwNavStrings, NavStringsRegistry.forLanguage("zh-TW"))
@@ -160,7 +167,7 @@ class NavStringsTest {
     }
 
     @Test fun `every registered language produces non-blank nav strings and keeps road names`() {
-        val langs = listOf("fr", "de", "es", "it", "pt", "nl", "ru", "pl", "sv", "uk", "hu", "ro", "zh", "ja", "he")
+        val langs = listOf("fr", "de", "es", "it", "pt", "nl", "ru", "pl", "sv", "uk", "hu", "ro", "zh", "ja", "he", "fa")
         for (code in langs) {
             val ns = NavStringsRegistry.forLanguage(code)
             assertEquals("$code should map to its own NavStrings", code, ns.locale.language)
