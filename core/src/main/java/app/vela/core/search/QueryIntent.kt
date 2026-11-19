@@ -398,7 +398,7 @@ object QueryIntents {
 
     private fun normalize(s: String): String =
         s.trim().lowercase()
-            .replace('ي', 'ی').replace('ك', 'ک').replace("\\u200c", " ")
+            .replace('ي', 'ی').replace('ك', 'ک').replace("‌", " ")
             .replace(Regex("[\"“”«»'’`]"), "")
             .replace(Regex("[!?.,;:！？。、，]+$"), "")
             // "e.t.a." / "e t a" -> "eta": dictation spells acronyms out.
