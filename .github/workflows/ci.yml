@@ -225,7 +225,7 @@ jobs:
           aapt="$(find "$ANDROID_HOME/build-tools" -type f -name aapt | sort -V | tail -n1)"
           test -n "$apksigner" || { echo "::error::apksigner missing"; exit 1; }
           test -n "$aapt" || { echo "::error::aapt missing"; exit 1; }
-          expected_cert="29938B4858063E42E677FF95C901CD48248A7F032A3AE85F9B9E5617568B0D36"
+          expected_cert="BE0F299439C8B2A6B86BFFFD781E4BE714118DDA0842E793A90DC367C2EB594C"
           for apk in "${apks[@]}"; do
             "$apksigner" verify --verbose --print-certs "$apk"
             package="$("$aapt" dump badging "$apk" | sed -n "s/^package: name='\\([^']*\\)'.*/\\1/p" | head -n1)"
@@ -258,7 +258,7 @@ jobs:
           VER="${{ steps.ver.outputs.name }}"
           CODE="${{ steps.ver.outputs.code }}"
           mapfile -t APKS < <(bash scripts/stage-apks.sh vela-maps-persian vela-maps-persian.apk)
-          NOTES="$(printf 'Persian preview build. UI localization is in progress; untranslated strings fall back to English. Persian navigation uses the phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
+          NOTES="$(printf 'Persian preview build. This fork is signed with its own established keystore and is not update-compatible with the official upstream Vela signing key. Uninstall the official Vela app before installing this fork; back up app data first. UI localization is in progress and untranslated strings fall back to English. Persian navigation uses phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
           gh release delete persian --yes --cleanup-tag 2>/dev/null || true
           gh release create persian \
             --prerelease \
