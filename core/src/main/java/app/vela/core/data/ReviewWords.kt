@@ -80,7 +80,7 @@ object ReviewWords {
 
     /** The "All" topic chip that anchors the chips row: the word alone ("All"), or the word plus
      *  one review word ("Alle Rezensionen", "所有評論"). Anchored so "Allergens 4" is not it. */
-    const val ALL_PATTERN = "^(all|alle|todas|todos|tous|toutes|tutte|tutti|mais|meer|все|всі|wszystkie|alla|összes|toate|כל|すべて|全部|所有評論|全部評論|所有评价|全部评价|すべてのクチコミ)$|^(all|alle|todas|todos|tous|toutes|tutte|tutti|все|всі|wszystkie|alla|összes|toate)\\s+\\S+(\\s+\\S+)?$"
+    const val ALL_PATTERN = "^(all|alle|todas|todos|tous|toutes|tutte|tutti|mais|meer|все|всі|wszystkie|alla|összes|toate|כל|همه|すべて|全部|所有評論|全部評論|所有评价|全部评价|すべてのクチコミ)$|^(all|alle|todas|todos|tous|toutes|tutte|tutti|все|всі|wszystkie|alla|összes|toate)\\s+\\S+(\\s+\\S+)?$"
 
     /** The "reviews are automatically processed" disclaimer row the panel strips. */
     const val PROCESSED_PATTERN = "automatically processed|自動處理|自动处理|automatisch verarbeitet|traités automatiquement|procesan automáticamente|elaborate automaticamente|processadas automaticamente|automatisch verwerkt|автоматически обрабатыва|автоматично обробля|automatycznie przetwarzane|behandlas automatiskt|automatikusan|procesate automat|מעובדות באופן אוטומטי|به‌صورت خودکار پردازش شده|به صورت خودکار پردازش شده|自動的に処理"
