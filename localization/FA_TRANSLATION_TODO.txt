@@ -1,0 +1,2831 @@
+VELA — PERSIAN TRANSLATION TODO
+Repository: javadz501/Vela
+Branch: persian
+Source: app/src/main/res/values/strings.xml
+Missing entries: 703
+
+INSTRUCTIONS
+Translate only the ENGLISH_TEXT into natural, grammatically correct Persian.
+Keep every KEY unchanged.
+Preserve all format placeholders exactly, including %1$s, %2$d, escaped apostrophes, HTML entities, and markup tags.
+For PLURALS, translate each quantity independently and keep its quantity label.
+Return this file with Persian text after each key; do not change keys.
+
+FORMAT: [TYPE] KEY
+ENGLISH_TEXT: source text
+PERSIAN_TRANSLATION: [write translation here]
+
+================ MISSING TRANSLATIONS ================
+
+[STRING] settings_trip_delete
+ENGLISH_TEXT: Delete trip
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_delete_selected
+ENGLISH_TEXT: Delete (%1$d)
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_delete_selected_body
+ENGLISH_TEXT: The selected recorded drives are removed from this phone. This cannot be undone.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_rename
+ENGLISH_TEXT: Rename
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_rename_title
+ENGLISH_TEXT: Name this trip
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_rename_hint
+ENGLISH_TEXT: Trip name
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_rename_failed
+ENGLISH_TEXT: Could not rename that trip
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_select
+ENGLISH_TEXT: Select trips
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_select_done
+ENGLISH_TEXT: Done
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_share_selected
+ENGLISH_TEXT: Share %1$d
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_select_all
+ENGLISH_TEXT: Select all
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_more
+ENGLISH_TEXT: More for this trip
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_batch_title
+ENGLISH_TEXT: Share selected trips
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_batch_explain
+ENGLISH_TEXT: The trips go out together as one zip file. Each one is trimmed at the same distance: every point near its start, its end, its destination and your Home and Work is deleted, and the middle is kept at full precision.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_batch_summary
+ENGLISH_TEXT: Trips in the zip: %1$d of %2$d. Points removed: %3$d. Points kept: %4$d.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_batch_left_out
+ENGLISH_TEXT: Left out because they are shorter than the trim distance: %1$d. A smaller distance may keep them.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_batch_none
+ENGLISH_TEXT: Every selected trip is shorter than the trim distance, so there is nothing left to share. Try a smaller one.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_batch_confirm
+ENGLISH_TEXT: Share zip
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_batch_share_full
+ENGLISH_TEXT: Share full traces
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_batch_saved
+ENGLISH_TEXT: Saved the full traces
+PERSIAN_TRANSLATION:
+
+[STRING] settings_name_trips
+ENGLISH_TEXT: Name each trip when it is saved
+PERSIAN_TRANSLATION:
+
+[STRING] settings_name_trips_hint
+ENGLISH_TEXT: After a recorded drive ends, Vela asks what to call it. Off by default; you can always rename a trip later in the list below.
+PERSIAN_TRANSLATION:
+
+[STRING] trip_name_prompt_title
+ENGLISH_TEXT: Name this drive
+PERSIAN_TRANSLATION:
+
+[STRING] trip_name_prompt_save
+ENGLISH_TEXT: Save name
+PERSIAN_TRANSLATION:
+
+[STRING] trip_name_prompt_skip
+ENGLISH_TEXT: Not now
+PERSIAN_TRANSLATION:
+
+[STRING] settings_no_trips_hint
+ENGLISH_TEXT: No trips recorded yet. Navigate somewhere with this on and it\'ll show up here to replay.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_consent_title
+ENGLISH_TEXT: Save your trips?
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_consent_body
+ENGLISH_TEXT: Vela will record the GPS trace of each navigation on this phone, so a drive can be replayed for testing without driving it again. This is more revealing than diagnostics (it captures your exact routes) but it stays on the phone and is never uploaded. Turn it off any time.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_turn_on
+ENGLISH_TEXT: Turn on
+PERSIAN_TRANSLATION:
+
+[STRING] settings_cancel
+ENGLISH_TEXT: Cancel
+PERSIAN_TRANSLATION:
+
+[STRING] settings_crash_hint
+ENGLISH_TEXT: Vela closed unexpectedly recently. Sending the crash report (stack trace) helps fix it. It\'s a plain text file, no personal data.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_crash_export
+ENGLISH_TEXT: Export crash report
+PERSIAN_TRANSLATION:
+
+[STRING] settings_crash_discard
+ENGLISH_TEXT: Discard
+PERSIAN_TRANSLATION:
+
+[STRING] settings_crash_diag_offer
+ENGLISH_TEXT: Diagnostics is off, so nothing was recorded leading up to this. Turn it on to capture more detail if it happens again.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_crash_enable_diag
+ENGLISH_TEXT: Turn on diagnostics
+PERSIAN_TRANSLATION:
+
+[STRING] settings_diag_consent_title
+ENGLISH_TEXT: Turn on diagnostics?
+PERSIAN_TRANSLATION:
+
+[STRING] settings_diag_consent_body
+ENGLISH_TEXT: Vela will keep a short local log of your searches, routes and any errors. It never leaves the phone unless you tap Export and choose where to send it. Turn it off any time to wipe the log.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_about
+ENGLISH_TEXT: About
+PERSIAN_TRANSLATION:
+
+[STRING] settings_about_hint
+ENGLISH_TEXT: Vela is a degoogled maps client: open tiles for the basemap, scraped Google for places, routing and traffic-aware ETAs, and a Piper voice that runs on the phone. GPLv3. No Play Services required.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_support
+ENGLISH_TEXT: Support
+PERSIAN_TRANSLATION:
+
+[STRING] settings_support_hint
+ENGLISH_TEXT: Vela is free and ad-free. If it\'s become useful, a donation helps keep development going. Entirely optional.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_support_button
+ENGLISH_TEXT: Support Vela
+PERSIAN_TRANSLATION:
+
+[STRING] donate_no_browser
+ENGLISH_TEXT: No browser installed to open the donate page
+PERSIAN_TRANSLATION:
+
+[STRING] settings_version
+ENGLISH_TEXT: Version
+PERSIAN_TRANSLATION:
+
+[STRING] settings_version_line
+ENGLISH_TEXT: Vela %1$s (build %2$d)
+PERSIAN_TRANSLATION:
+
+[STRING] settings_installer_play
+ENGLISH_TEXT: Installed by %1$s. This install is set up for Android Auto; an in-app update would undo that, so update through the same installer.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_installer_started_by
+ENGLISH_TEXT: The install was started by %1$s, which is what newer Android Auto versions check.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_installer_none
+ENGLISH_TEXT: Sideloaded (no installer recorded). Android Auto will not list this install.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_installer_other
+ENGLISH_TEXT: Installed by %1$s. Android Auto will not list this install.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_version_copied
+ENGLISH_TEXT: Version copied
+PERSIAN_TRANSLATION:
+
+[STRING] settings_collapse
+ENGLISH_TEXT: Collapse
+PERSIAN_TRANSLATION:
+
+[STRING] settings_expand
+ENGLISH_TEXT: Expand
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_lib_empty_hint
+ENGLISH_TEXT: ★ marks the recommended voices. Every voice runs offline on your phone.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_lib_installed_hint
+ENGLISH_TEXT: Installed: %1$d MB · %2$d voice(s).
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_lib_lang_hint
+ENGLISH_TEXT: Directions are in %1$s. Download a %2$s voice below so the spoken directions match (an English voice would mispronounce %3$s street names).
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search
+ENGLISH_TEXT: Search voices
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_show_more
+ENGLISH_TEXT: Show %1$d more
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_show_less
+ENGLISH_TEXT: Show less
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_this_voice
+ENGLISH_TEXT: this voice
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_remove_title
+ENGLISH_TEXT: Remove %1$s?
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_remove_body
+ENGLISH_TEXT: This is your only Vela Voice. Spoken directions fall back to a system text-to-speech engine (or go silent if none is installed) until you download another.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_remove
+ENGLISH_TEXT: Remove
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_gender_female
+ENGLISH_TEXT: Female
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_gender_male
+ENGLISH_TEXT: Male
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_gender_multi
+ENGLISH_TEXT: %1$d voices
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_gender_neutral
+ENGLISH_TEXT: Neutral
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_row_downloading
+ENGLISH_TEXT: Downloading… %1$d%%
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_row_in_use
+ENGLISH_TEXT: In use · %1$s · %2$s · %3$s MB
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_row_other_language
+ENGLISH_TEXT: Directions are spoken in %1$s. To hear this voice, set the directions language to %2$s.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_row_downloaded
+ENGLISH_TEXT: Downloaded · %1$s · %2$s · %3$s MB
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_row_use
+ENGLISH_TEXT: Use
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_row_remove
+ENGLISH_TEXT: Remove %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] place_source_overture
+ENGLISH_TEXT: Overture
+PERSIAN_TRANSLATION:
+
+[STRING] place_source_atp
+ENGLISH_TEXT: AllThePlaces (%1$s)
+PERSIAN_TRANSLATION:
+
+[STRING] place_source_osm
+ENGLISH_TEXT: OpenStreetMap
+PERSIAN_TRANSLATION:
+
+[STRING] place_origin_checking
+ENGLISH_TEXT: From %1$s · checking Google
+PERSIAN_TRANSLATION:
+
+[STRING] place_origin_unlinked
+ENGLISH_TEXT: From %1$s · not matched on Google
+PERSIAN_TRANSLATION:
+
+[STRING] place_origin_plain
+ENGLISH_TEXT: From %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] place_also_at_location
+ENGLISH_TEXT: Also at this location
+PERSIAN_TRANSLATION:
+
+[STRING] place_photo_caption
+ENGLISH_TEXT: Photo · %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] stops_editor_title
+ENGLISH_TEXT: Stops
+PERSIAN_TRANSLATION:
+
+[STRING] stops_edit
+ENGLISH_TEXT: Edit stops
+PERSIAN_TRANSLATION:
+
+[STRING] steps_stop_at
+ENGLISH_TEXT: Stop: %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] steps_stop
+ENGLISH_TEXT: Stop
+PERSIAN_TRANSLATION:
+
+[STRING] stops_drag_reorder
+ENGLISH_TEXT: Drag to reorder
+PERSIAN_TRANSLATION:
+
+[STRING] place_depart_arrive
+ENGLISH_TEXT: Depart %1$s · arrive %2$s
+PERSIAN_TRANSLATION:
+
+[STRING] place_arriveby_leave
+ENGLISH_TEXT: Arrive by %1$s · leave %2$s
+PERSIAN_TRANSLATION:
+
+[STRING] place_arrive_approx
+ENGLISH_TEXT: Arrive at %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] place_usually_range
+ENGLISH_TEXT: Usually %1$s – %2$s
+PERSIAN_TRANSLATION:
+
+[STRING] place_gallery_counter
+ENGLISH_TEXT: %1$d / %2$d
+PERSIAN_TRANSLATION:
+
+[STRING] place_no_reviews_mention
+ENGLISH_TEXT: No reviews mention “%1$s” (searching the %2$d loaded).
+PERSIAN_TRANSLATION:
+
+[STRING] street_view_none
+ENGLISH_TEXT: No Street View imagery here
+PERSIAN_TRANSLATION:
+
+[STRING] street_view_offline
+ENGLISH_TEXT: Street View needs a connection here: this spot was not viewed before
+PERSIAN_TRANSLATION:
+
+[STRING] street_view_move
+ENGLISH_TEXT: Move here
+PERSIAN_TRANSLATION:
+
+[STRING] street_view_dates
+ENGLISH_TEXT: See other dates
+PERSIAN_TRANSLATION:
+
+[STRING] street_view_fullscreen
+ENGLISH_TEXT: Toggle full screen
+PERSIAN_TRANSLATION:
+
+[STRING] update_notes_show
+ENGLISH_TEXT: What\'s new
+PERSIAN_TRANSLATION:
+
+[STRING] update_notes_hide
+ENGLISH_TEXT: Hide what\'s new
+PERSIAN_TRANSLATION:
+
+[STRING] place_busyness_right_now
+ENGLISH_TEXT: %1$s right now
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_recenter
+ENGLISH_TEXT: Re-center
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_search_this_area
+ENGLISH_TEXT: Search this area
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_place
+ENGLISH_TEXT: Place
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_your_location
+ENGLISH_TEXT: Your location
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_choose_on_map
+ENGLISH_TEXT: Choose on map
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_choose_origin_hint
+ENGLISH_TEXT: Move the map to set the starting point
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_choose_stop_hint
+ENGLISH_TEXT: Move the map to set the stop
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_choose_dest_hint
+ENGLISH_TEXT: Move the map to set the destination
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_choose_set_dest
+ENGLISH_TEXT: Set destination
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_choose_set_start
+ENGLISH_TEXT: Set start
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_choose_set_stop
+ENGLISH_TEXT: Set stop
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_destination
+ENGLISH_TEXT: Destination
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_center_on_my_location
+ENGLISH_TEXT: Center on my location
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_zoom_in
+ENGLISH_TEXT: Zoom in
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_zoom_out
+ENGLISH_TEXT: Zoom out
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_dpad_engage
+ENGLISH_TEXT: OK: move the map
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_stop_replay
+ENGLISH_TEXT: Stop replay
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_location_tip_title
+ENGLISH_TEXT: No location yet?
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_location_tip_body
+ENGLISH_TEXT: GPS alone often cannot get a fix indoors. On GrapheneOS, turn on Network location in Settings > Location > Location services.
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_location_tip_settings
+ENGLISH_TEXT: Location settings
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_psds_tip_title
+ENGLISH_TEXT: Slow GPS lock?
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_psds_tip_body
+ENGLISH_TEXT: Enable PSDS in Settings → Location for a much faster fix (on GrapheneOS it routes through their proxy).
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_got_it
+ENGLISH_TEXT: Got it
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_heads_up
+ENGLISH_TEXT: Heads up
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_dismiss
+ENGLISH_TEXT: Dismiss
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_shrink_list
+ENGLISH_TEXT: Shrink list
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_expand_list
+ENGLISH_TEXT: Expand list
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_close_results
+ENGLISH_TEXT: Close search results
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_filter_open_now
+ENGLISH_TEXT: Open now
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_more_results
+ENGLISH_TEXT: More results
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_other_locations
+ENGLISH_TEXT: Show other locations
+PERSIAN_TRANSLATION:
+
+[STRING] settings_other_locations_auto
+ENGLISH_TEXT: Find other locations automatically
+PERSIAN_TRANSLATION:
+
+[STRING] settings_other_locations_auto_hint
+ENGLISH_TEXT: When a name search lands on one place, also ask Google for its other locations. That is a few more requests to Google with each such search. Off, a \"Show other locations\" button does it when you tap it.
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_view_map
+ENGLISH_TEXT: View map
+PERSIAN_TRANSLATION:
+
+[STRING] intent_home_unset
+ENGLISH_TEXT: Set Home first (search page, under the search bar)
+PERSIAN_TRANSLATION:
+
+[STRING] intent_work_unset
+ENGLISH_TEXT: Set Work first (search page, under the search bar)
+PERSIAN_TRANSLATION:
+
+[STRING] intent_eta_reply
+ENGLISH_TEXT: About %1$s to go
+PERSIAN_TRANSLATION:
+
+[STRING] intent_eta_not_navigating
+ENGLISH_TEXT: Start a drive first, then ask again
+PERSIAN_TRANSLATION:
+
+[STRING] intent_place_not_found
+ENGLISH_TEXT: Could not find \"%1$s\"
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_filter_rating
+ENGLISH_TEXT: Rating
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_filter_any_rating
+ENGLISH_TEXT: Any rating
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_filter_any_price
+ENGLISH_TEXT: Any price
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_filter_accessible
+ENGLISH_TEXT: Wheelchair accessible
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_sort_relevance
+ENGLISH_TEXT: Relevance
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_sort_rating_item
+ENGLISH_TEXT: Rating
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_sort_distance_item
+ENGLISH_TEXT: Distance
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_filter_price
+ENGLISH_TEXT: Price
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_sort
+ENGLISH_TEXT: Sort
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_sort_rating
+ENGLISH_TEXT: Sort: Rating
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_sort_distance
+ENGLISH_TEXT: Sort: Distance
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_permanently_closed
+ENGLISH_TEXT: Permanently closed
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_section_saved
+ENGLISH_TEXT: Saved
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_section_recent
+ENGLISH_TEXT: Recent
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_clear_recents
+ENGLISH_TEXT: Clear recents
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_search_empty_hint
+ENGLISH_TEXT: Search for places, addresses and categories.
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_set_shortcut_address
+ENGLISH_TEXT: Set %1$s address
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_edit_shortcut
+ENGLISH_TEXT: Edit %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_menu_change
+ENGLISH_TEXT: Change
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_menu_remove
+ENGLISH_TEXT: Remove
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_remove_from_history
+ENGLISH_TEXT: Remove from history
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_suggestion_options
+ENGLISH_TEXT: Suggestion options
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_saved_place_options
+ENGLISH_TEXT: Saved place options
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_menu_rename
+ENGLISH_TEXT: Rename
+PERSIAN_TRANSLATION:
+
+[STRING] saved_rename_title
+ENGLISH_TEXT: Rename saved place
+PERSIAN_TRANSLATION:
+
+[STRING] saved_rename_action
+ENGLISH_TEXT: Rename
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_set_as_home
+ENGLISH_TEXT: Set as Home
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_set_as_work
+ENGLISH_TEXT: Set as Work
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_cancel
+ENGLISH_TEXT: Cancel
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_assign_shortcut_hint
+ENGLISH_TEXT: Search for your %1$s address
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_pick_stop_hint
+ENGLISH_TEXT: Choose a place to add as a stop
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_learn_more
+ENGLISH_TEXT: Learn more
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_faster_route_title
+ENGLISH_TEXT: Faster route
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_faster_route_saves
+ENGLISH_TEXT: Saves about %1$s in current traffic
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_no
+ENGLISH_TEXT: No
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_switch
+ENGLISH_TEXT: Switch
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_resume_nav
+ENGLISH_TEXT: Resume navigation to %1$s?
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_resume
+ENGLISH_TEXT: Resume
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_your_destination
+ENGLISH_TEXT: your destination
+PERSIAN_TRANSLATION:
+
+[STRING] root_not_now
+ENGLISH_TEXT: Not now
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_title
+ENGLISH_TEXT: Spoken navigation voice
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_body_intro
+ENGLISH_TEXT: Vela\'s own voice runs entirely on your phone: natural spoken directions, no account, no extra app. Recommended, a one-time %1$d MB download.
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_body_system
+ENGLISH_TEXT: Prefer not to? Use a voice already on your phone.
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_body_outro
+ENGLISH_TEXT: Change it any time in Settings → Voice.
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_download
+ENGLISH_TEXT: Download Vela Voice
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_use_system
+ENGLISH_TEXT: Use system voice
+PERSIAN_TRANSLATION:
+
+[STRING] nav_preview_tap_resume
+ENGLISH_TEXT: Preview, tap to resume
+PERSIAN_TRANSLATION:
+
+[STRING] steps_title
+ENGLISH_TEXT: Steps
+PERSIAN_TRANSLATION:
+
+[STRING] steps_live_traffic
+ENGLISH_TEXT: live traffic
+PERSIAN_TRANSLATION:
+
+[STRING] steps_close_cd
+ENGLISH_TEXT: Close steps
+PERSIAN_TRANSLATION:
+
+[STRING] steps_continue
+ENGLISH_TEXT: Continue
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_tagline
+ENGLISH_TEXT: Maps &amp; navigation, degoogled.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_feature_no_tracking_title
+ENGLISH_TEXT: No tracking
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_feature_private_body
+ENGLISH_TEXT: No account, no ads, no analytics, and no Vela server.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_feature_places_title
+ENGLISH_TEXT: Real places &amp; routes
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_feature_places_body
+ENGLISH_TEXT: Live search, reviews, photos, transit, and traffic-aware directions.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_feature_open_source_title
+ENGLISH_TEXT: Free &amp; open source
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_feature_open_source_body
+ENGLISH_TEXT: GPLv3, built for GrapheneOS and other de-Googled phones.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_get_started
+ENGLISH_TEXT: Get started
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_continue
+ENGLISH_TEXT: Continue
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_cameras_title
+ENGLISH_TEXT: Plate cameras
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_cameras_intro
+ENGLISH_TEXT: This badge marks a Flock or other license plate reader on the map. Vela can also:
+PERSIAN_TRANSLATION:
+
+[STRING] camera_badge_plate
+ENGLISH_TEXT: License plate camera marker
+PERSIAN_TRANSLATION:
+
+[STRING] camera_badge_speed
+ENGLISH_TEXT: Speed camera marker
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_cameras_avoid
+ENGLISH_TEXT: Route around them
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_cameras_warn
+ENGLISH_TEXT: Warn me as I get close
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_customize
+ENGLISH_TEXT: Choose what Google is used for
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_title
+ENGLISH_TEXT: Use Google?
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_intro
+ENGLISH_TEXT: You can change this later in Settings, or turn off just parts of it.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_on_title
+ENGLISH_TEXT: Use Google
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_on_gives
+ENGLISH_TEXT: Reviews, photos, live traffic and Street View.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_on_sends
+ENGLISH_TEXT: Searches and routes go to Google, with no account.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_off_title
+ENGLISH_TEXT: No Google
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_off_gives
+ENGLISH_TEXT: Open data only. No reviews, photos or live traffic.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_google_off_sends
+ENGLISH_TEXT: Nothing is sent to Google.
+PERSIAN_TRANSLATION:
+
+[STRING] whatsnew_title
+ENGLISH_TEXT: What\'s new in %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] whatsnew_got_it
+ENGLISH_TEXT: Got it
+PERSIAN_TRANSLATION:
+
+[STRING] whatsnew_full_notes
+ENGLISH_TEXT: Full notes
+PERSIAN_TRANSLATION:
+
+[STRING] settings_whatsnew
+ENGLISH_TEXT: What\'s new in this version
+PERSIAN_TRANSLATION:
+
+[STRING] settings_whatsnew_hint
+ENGLISH_TEXT: The release notes for the build you are on.
+PERSIAN_TRANSLATION:
+
+[STRING] whatsnew_show_after_updates
+ENGLISH_TEXT: Show what\'s new after updates
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_donate_title
+ENGLISH_TEXT: Enjoying Vela?
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_donate_body
+ENGLISH_TEXT: Vela is free and ad-free, built on a shoestring. If it\'s become useful, a small one-off donation helps keep it going. Entirely optional, and this is the only time it\'ll ask. There\'s always a Support entry in Settings too.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_donate_confirm
+ENGLISH_TEXT: Support Vela
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_donate_dismiss
+ENGLISH_TEXT: Maybe later
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_shortcut_set
+ENGLISH_TEXT: %1$s set to %2$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_search_needs_recalibration
+ENGLISH_TEXT: Search needs recalibration: %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_offline_no_data
+ENGLISH_TEXT: You\'re offline. Download an area in Settings ▸ Offline to search without a connection.
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_offline_no_match
+ENGLISH_TEXT: No offline results for \"%1$s\" in your saved area. Offline search covers OpenStreetMap places you downloaded.
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_no_results
+ENGLISH_TEXT: No results for \"%1$s\".
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_offline_results
+ENGLISH_TEXT: Offline results (no connection)
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_search_failed_reason
+ENGLISH_TEXT: Search failed: %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_none_found_along_route
+ENGLISH_TEXT: No \"%1$s\" found along your route
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_search_failed
+ENGLISH_TEXT: Search failed
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_dropped_pin
+ENGLISH_TEXT: Dropped pin
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_no_mode_route_found
+ENGLISH_TEXT: No %1$s route found
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_directions_need_recalibration
+ENGLISH_TEXT: Directions need recalibration: %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_routing_failed_reason
+ENGLISH_TEXT: Routing failed: %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_no_transit_routes
+ENGLISH_TEXT: No transit routes found
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_trip_default_name
+ENGLISH_TEXT: Trip
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_no_voice_engine
+ENGLISH_TEXT: No voice installed for spoken directions
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_get_voice
+ENGLISH_TEXT: Get a voice
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_download_voice
+ENGLISH_TEXT: Download %1$s (%2$d MB)
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_system_voices
+ENGLISH_TEXT: System voices
+PERSIAN_TRANSLATION:
+
+[STRING] settings_spoken_directions
+ENGLISH_TEXT: Spoken directions
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_mode_on
+ENGLISH_TEXT: On
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_mode_alerts
+ENGLISH_TEXT: Alerts only
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_mode_off
+ENGLISH_TEXT: Off
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_mode_hint
+ENGLISH_TEXT: Alerts only keeps the speeding and camera alerts as a short chime and says nothing else. The speaker button during a drive opens the same three.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_spoken_road_names
+ENGLISH_TEXT: Say street names
+PERSIAN_TRANSLATION:
+
+[STRING] settings_spoken_road_names_hint
+ENGLISH_TEXT: Off, turns are announced without the street name: \"Turn left\" instead of \"Turn left onto Maple Street\". The map and the step list still show it.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_spoken_detail
+ENGLISH_TEXT: How much the voice says
+PERSIAN_TRANSLATION:
+
+[STRING] settings_spoken_detail_full
+ENGLISH_TEXT: Everything
+PERSIAN_TRANSLATION:
+
+[STRING] settings_spoken_detail_brief
+ENGLISH_TEXT: Brief
+PERSIAN_TRANSLATION:
+
+[STRING] settings_spoken_detail_exits
+ENGLISH_TEXT: Highway exits only
+PERSIAN_TRANSLATION:
+
+[STRING] settings_spoken_detail_hint
+ENGLISH_TEXT: Brief says each turn once, without the street name. Highway exits only stays quiet in town and speaks for exits, forks and turns taken at speed.
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_voice_lang_missing
+ENGLISH_TEXT: Spoken directions need a %1$s voice. Get one in Settings → Voice
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_voice_lang_system
+ENGLISH_TEXT: %1$s directions use your phone\'s voice. Add one in your system voice settings.
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_resume_waiting_gps
+ENGLISH_TEXT: Waiting for GPS to resume navigation…
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_resume_failed
+ENGLISH_TEXT: Couldn\'t resume navigation
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_no_track_to_replay
+ENGLISH_TEXT: That trip has no track to replay
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_replaying
+ENGLISH_TEXT: Replaying %1$s…
+PERSIAN_TRANSLATION:
+
+[STRING] replay_play
+ENGLISH_TEXT: Play
+PERSIAN_TRANSLATION:
+
+[STRING] replay_pause
+ENGLISH_TEXT: Pause
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_saved_subject
+ENGLISH_TEXT: Vela saved places (%1$d)
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_saved_chooser
+ENGLISH_TEXT: Export saved places
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_trip_subject
+ENGLISH_TEXT: Vela trip: %1$s (%2$d points)
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_trips_subject
+ENGLISH_TEXT: Vela trips: %1$d drives (%2$d points)
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_trip_scrubbed_subject
+ENGLISH_TEXT: Vela trip: %1$d points, ends trimmed
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_share_trip_chooser
+ENGLISH_TEXT: Share trip
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_voice_sample
+ENGLISH_TEXT: In a quarter mile, turn right onto Main Street.
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_not_enough_space
+ENGLISH_TEXT: Not enough free space for %1$s (%2$d MB)
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_voice_downloaded
+ENGLISH_TEXT: %1$s downloaded
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_voice_download_failed
+ENGLISH_TEXT: %1$s download failed
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_vela_voice_removed
+ENGLISH_TEXT: Vela Voice removed
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_opening_installer
+ENGLISH_TEXT: Opening installer for %1$s…
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_pan_to_area_first
+ENGLISH_TEXT: Open the map and pan to an area first
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_offline_routing_ready
+ENGLISH_TEXT: Offline routing ready: %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_offline_routing_failed
+ENGLISH_TEXT: Offline routing download failed
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_offline_routing_removed
+ENGLISH_TEXT: Offline routing removed
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_graphs_retired
+ENGLISH_TEXT: Offline routing moved to a smaller format. Download your regions again in Settings, Offline maps.
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_saved_places_offline
+ENGLISH_TEXT: Saved %1$d places for offline search
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_area_uses_pack
+ENGLISH_TEXT: Places and addresses for this area come with the %1$s download
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_saved_addresses_offline
+ENGLISH_TEXT: Saved %1$d addresses and %2$d streets for offline routing
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_title_arrived
+ENGLISH_TEXT: Arrived
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_title_navigating
+ENGLISH_TEXT: Navigating
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_title_in_distance
+ENGLISH_TEXT: In %1$s · %2$s
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_text_remaining
+ENGLISH_TEXT: %1$s · %2$s
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_text_faster_saving
+ENGLISH_TEXT: · %1$s faster available
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_text_faster_available
+ENGLISH_TEXT: · faster route available
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_action_pause
+ENGLISH_TEXT: Pause
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_action_resume
+ENGLISH_TEXT: Resume
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_action_end
+ENGLISH_TEXT: End
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_channel_name
+ENGLISH_TEXT: Navigation
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_channel_turns_name
+ENGLISH_TEXT: Spoken turn alerts
+PERSIAN_TRANSLATION:
+
+[STRING] update_available_title
+ENGLISH_TEXT: Vela %1$s is available
+PERSIAN_TRANSLATION:
+
+[STRING] update_downloading
+ENGLISH_TEXT: Downloading… %1$d%%
+PERSIAN_TRANSLATION:
+
+[STRING] update_later
+ENGLISH_TEXT: Not now
+PERSIAN_TRANSLATION:
+
+[STRING] update_install
+ENGLISH_TEXT: Update
+PERSIAN_TRANSLATION:
+
+[STRING] update_download_failed
+ENGLISH_TEXT: Update download failed. Try again later.
+PERSIAN_TRANSLATION:
+
+[STRING] update_car_title
+ENGLISH_TEXT: This update will drop Vela from Android Auto
+PERSIAN_TRANSLATION:
+
+[STRING] update_car_body
+ENGLISH_TEXT: Vela was installed in the way Android Auto accepts. Installing this update here replaces that, and the car will stop listing Vela until you install the file with the tool you used the first time (AAEnabler, King Installer).\n\nSave the file and install it that way to keep the car working.
+PERSIAN_TRANSLATION:
+
+[STRING] update_car_save
+ENGLISH_TEXT: Save the file
+PERSIAN_TRANSLATION:
+
+[STRING] update_car_anyway
+ENGLISH_TEXT: Update anyway
+PERSIAN_TRANSLATION:
+
+[STRING] download_notif_channel
+ENGLISH_TEXT: Downloads
+PERSIAN_TRANSLATION:
+
+[STRING] download_notif_title
+ENGLISH_TEXT: Downloading %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] download_label_update
+ENGLISH_TEXT: Vela update
+PERSIAN_TRANSLATION:
+
+[STRING] download_label_map_data
+ENGLISH_TEXT: map data
+PERSIAN_TRANSLATION:
+
+[STRING] download_label_offline_places
+ENGLISH_TEXT: offline places
+PERSIAN_TRANSLATION:
+
+[STRING] offline_area_saved
+ENGLISH_TEXT: This area is saved for offline
+PERSIAN_TRANSLATION:
+
+[STRING] offline_area_failed
+ENGLISH_TEXT: Offline download failed. Try again later.
+PERSIAN_TRANSLATION:
+
+[STRING] offline_area_too_large
+ENGLISH_TEXT: Area too large. Zoom in and save a smaller area.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_auto
+ENGLISH_TEXT: Check for updates on launch
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_auto_hint
+ENGLISH_TEXT: Checks GitHub about once a day and offers newer releases. Turn off if you update through Obtainium.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_check_now
+ENGLISH_TEXT: Check for updates
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_checking
+ENGLISH_TEXT: Checking…
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_none
+ENGLISH_TEXT: You\'re on the latest version.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_place_pages
+ENGLISH_TEXT: Place pages
+PERSIAN_TRANSLATION:
+
+[STRING] place_transit_stop_id
+ENGLISH_TEXT: Stop %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] route_detail_unavailable
+ENGLISH_TEXT: Route details unavailable
+PERSIAN_TRANSLATION:
+
+[STRING] place_transit_in_duration
+ENGLISH_TEXT: in %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] place_transit_cached
+ENGLISH_TEXT: Last seen %1$s. No connection, so times may have changed.
+PERSIAN_TRANSLATION:
+
+[STRING] place_every
+ENGLISH_TEXT: Every %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] transit_nav_arrived
+ENGLISH_TEXT: You have arrived.
+PERSIAN_TRANSLATION:
+
+[STRING] transit_nav_walk
+ENGLISH_TEXT: Walk %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] transit_nav_take
+ENGLISH_TEXT: Take %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] transit_nav_towards
+ENGLISH_TEXT: towards %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] transit_nav_from
+ENGLISH_TEXT: from %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] transit_nav_get_off
+ENGLISH_TEXT: Get off at %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] transit_nav_next
+ENGLISH_TEXT: Next
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_trips_title
+ENGLISH_TEXT: Your drives
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_trips_intro
+ENGLISH_TEXT: Kept on this phone so you can replay a drive or attach one to a bug report. Nothing leaves the phone unless you share it.
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_trips_save
+ENGLISH_TEXT: Save my drives on this phone
+PERSIAN_TRANSLATION:
+
+[STRING] welcome_trips_clear
+ENGLISH_TEXT: Delete drives after 30 days
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_auto_clear
+ENGLISH_TEXT: Delete drives after 30 days
+PERSIAN_TRANSLATION:
+
+[STRING] settings_trip_auto_clear_hint
+ENGLISH_TEXT: Saved drives older than 30 days are deleted on their own.
+PERSIAN_TRANSLATION:
+
+[STRING] transit_notice_next_is_yours
+ENGLISH_TEXT: Get off at the next stop: %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] transit_notice_to
+ENGLISH_TEXT: To %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] transit_notice_to_destination
+ENGLISH_TEXT: To your destination
+PERSIAN_TRANSLATION:
+
+[STRING] place_last_available
+ENGLISH_TEXT: Last available
+PERSIAN_TRANSLATION:
+
+[STRING] transit_min_late
+ENGLISH_TEXT: %1$d min late
+PERSIAN_TRANSLATION:
+
+[STRING] transit_min_early
+ENGLISH_TEXT: %1$d min early
+PERSIAN_TRANSLATION:
+
+[STRING] car_search
+ENGLISH_TEXT: Search
+PERSIAN_TRANSLATION:
+
+[STRING] car_search_hint
+ENGLISH_TEXT: Type to search for a destination
+PERSIAN_TRANSLATION:
+
+[STRING] car_go
+ENGLISH_TEXT: Go
+PERSIAN_TRANSLATION:
+
+[STRING] car_end
+ENGLISH_TEXT: End
+PERSIAN_TRANSLATION:
+
+[STRING] car_mute
+ENGLISH_TEXT: Mute
+PERSIAN_TRANSLATION:
+
+[STRING] car_unmute
+ENGLISH_TEXT: Unmute
+PERSIAN_TRANSLATION:
+
+[STRING] car_faster_route
+ENGLISH_TEXT: Faster −%1$d min
+PERSIAN_TRANSLATION:
+
+[STRING] car_pause
+ENGLISH_TEXT: Pause
+PERSIAN_TRANSLATION:
+
+[STRING] car_resume
+ENGLISH_TEXT: Resume
+PERSIAN_TRANSLATION:
+
+[STRING] car_paused
+ENGLISH_TEXT: Paused
+PERSIAN_TRANSLATION:
+
+[STRING] car_along_route
+ENGLISH_TEXT: Search along route
+PERSIAN_TRANSLATION:
+
+[STRING] car_along_none
+ENGLISH_TEXT: Nothing found nearby
+PERSIAN_TRANSLATION:
+
+[STRING] car_stop_added
+ENGLISH_TEXT: Added %1$s as the next stop
+PERSIAN_TRANSLATION:
+
+[STRING] car_continue_on
+ENGLISH_TEXT: Continue on %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] car_nearby
+ENGLISH_TEXT: Nearby
+PERSIAN_TRANSLATION:
+
+[STRING] car_more_nearby
+ENGLISH_TEXT: More nearby
+PERSIAN_TRANSLATION:
+
+[STRING] car_saved
+ENGLISH_TEXT: Saved
+PERSIAN_TRANSLATION:
+
+[STRING] car_saved_empty
+ENGLISH_TEXT: No saved places yet. Save one on your phone.
+PERSIAN_TRANSLATION:
+
+[STRING] car_home
+ENGLISH_TEXT: Home
+PERSIAN_TRANSLATION:
+
+[STRING] car_work
+ENGLISH_TEXT: Work
+PERSIAN_TRANSLATION:
+
+[STRING] car_settings
+ENGLISH_TEXT: Settings
+PERSIAN_TRANSLATION:
+
+[STRING] car_setting_voice
+ENGLISH_TEXT: Spoken directions
+PERSIAN_TRANSLATION:
+
+[STRING] car_setting_avoid_tolls
+ENGLISH_TEXT: Avoid tolls
+PERSIAN_TRANSLATION:
+
+[STRING] car_setting_avoid_highways
+ENGLISH_TEXT: Avoid highways
+PERSIAN_TRANSLATION:
+
+[STRING] car_setting_avoid_ferries
+ENGLISH_TEXT: Avoid ferries
+PERSIAN_TRANSLATION:
+
+[STRING] car_setting_traffic
+ENGLISH_TEXT: Traffic
+PERSIAN_TRANSLATION:
+
+[STRING] car_location_title
+ENGLISH_TEXT: Allow location
+PERSIAN_TRANSLATION:
+
+[STRING] car_location_body
+ENGLISH_TEXT: Vela needs it to show where you are and give directions
+PERSIAN_TRANSLATION:
+
+[STRING] car_location_denied
+ENGLISH_TEXT: Location is off. Turn it on for Vela in your phone\'s settings.
+PERSIAN_TRANSLATION:
+
+[STRING] car_no_route
+ENGLISH_TEXT: No route available. Check your location.
+PERSIAN_TRANSLATION:
+
+[STRING] map_import_needs_google
+ENGLISH_TEXT: A shared Google Maps list can\'t open while Vela runs without Google.
+PERSIAN_TRANSLATION:
+
+[STRING] map_link_needs_google
+ENGLISH_TEXT: \"Open shared Google Maps links\" is off in Settings > Privacy.
+PERSIAN_TRANSLATION:
+
+[STRING] map_link_unreadable
+ENGLISH_TEXT: Couldn\'t open that link.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_performance
+ENGLISH_TEXT: Performance
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_performance_sub
+ENGLISH_TEXT: What loads ahead of time, map drawing
+PERSIAN_TRANSLATION:
+
+[STRING] settings_performance_intro
+ENGLISH_TEXT: Loading things ahead of time makes them instant when you need them, and costs memory until then. The defaults follow how much memory this phone has.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_full_place_load
+ENGLISH_TEXT: Load all photos and reviews
+PERSIAN_TRANSLATION:
+
+[STRING] settings_full_place_load_hint
+ENGLISH_TEXT: Off, a place loads its first few photos and first page of reviews, and More photos or All reviews fetch the rest. On, every place you open walks its whole photo gallery and up to 50 reviews, which is slower and sends Google many more requests.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_speech_preload
+ENGLISH_TEXT: Load voice search at startup
+PERSIAN_TRANSLATION:
+
+[STRING] settings_speech_preload_hint
+ENGLISH_TEXT: Loads the voice search model when Vela opens, so the mic listens at once. It uses about 300 MB until two quiet minutes pass. Off, it loads when you tap into the search box. On by default on phones with about 8 GB of memory or more.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_google_uses
+ENGLISH_TEXT: What Google is used for
+PERSIAN_TRANSLATION:
+
+[STRING] settings_google_uses_hint
+ENGLISH_TEXT: Turn one off and Vela stops asking Google for it. Each switch is also on its own page.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_google_uses_traffic
+ENGLISH_TEXT: Traffic and routes
+PERSIAN_TRANSLATION:
+
+[STRING] settings_google_free_links
+ENGLISH_TEXT: Open shared Google Maps links
+PERSIAN_TRANSLATION:
+
+[STRING] settings_maps_links
+ENGLISH_TEXT: Google Maps links
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage
+ENGLISH_TEXT: Store downloaded regions on
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_internal
+ENGLISH_TEXT: Internal storage
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_sd
+ENGLISH_TEXT: SD card
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_hint
+ENGLISH_TEXT: Moves what is already downloaded. An SD card is slower, and while it is out the offline maps on it are unavailable and the map streams instead.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_missing
+ENGLISH_TEXT: The SD card is not there, so downloads go to internal storage until it is back.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_moving
+ENGLISH_TEXT: Moving offline data… %1$d%%
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_busy
+ENGLISH_TEXT: Wait for the download or drive to finish, then move the offline data.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_no_card
+ENGLISH_TEXT: No SD card found.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_no_space
+ENGLISH_TEXT: Not enough space there: the offline data needs about %1$d MB.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_moved
+ENGLISH_TEXT: Offline data moved.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_storage_failed
+ENGLISH_TEXT: The move did not finish; the offline data stays where it was.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_maps_links_on
+ENGLISH_TEXT: Links to Google Maps open in Vela.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_maps_links_partial
+ENGLISH_TEXT: Some Google Maps links open in Vela. Add the rest under Open by default so every kind of link does.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_maps_links_off
+ENGLISH_TEXT: Android opens Google Maps links in the browser. To open them in Vela, turn on Open supported links and add the links under Open by default.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_maps_links_open
+ENGLISH_TEXT: Open by default settings
+PERSIAN_TRANSLATION:
+
+[STRING] settings_google_free_links_hint
+ENGLISH_TEXT: A short Google Maps link (maps.app.goo.gl) doesn\'t say where it points. With this on, Vela asks Google\'s link shortener once, with no cookies, and opens the place with the open sources. Full google.com/maps links open without asking. Shared lists still need Google.
+PERSIAN_TRANSLATION:
+
+[STRING] map_mymap_failed
+ENGLISH_TEXT: Couldn\'t open that custom map. It may not be shared by link.
+PERSIAN_TRANSLATION:
+
+[STRING] map_import_failed
+ENGLISH_TEXT: Couldn\'t import that list. Check the link and try again.
+PERSIAN_TRANSLATION:
+
+[STRING] place_clear_parking
+ENGLISH_TEXT: Clear parking
+PERSIAN_TRANSLATION:
+
+[STRING] parking_history_title
+ENGLISH_TEXT: Parking history
+PERSIAN_TRANSLATION:
+
+[STRING] parking_history_clear_all
+ENGLISH_TEXT: Clear all
+PERSIAN_TRANSLATION:
+
+[STRING] parking_history_current
+ENGLISH_TEXT: Current
+PERSIAN_TRANSLATION:
+
+[STRING] parking_history_delete
+ENGLISH_TEXT: Delete
+PERSIAN_TRANSLATION:
+
+[STRING] parking_history_restore
+ENGLISH_TEXT: Restore
+PERSIAN_TRANSLATION:
+
+[STRING] settings_parking_history
+ENGLISH_TEXT: Parking history
+PERSIAN_TRANSLATION:
+
+[STRING] settings_parking_history_hint
+ENGLISH_TEXT: Recent parking spots. Tap Restore if you overwrote your spot by mistake.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_parking_history_empty
+ENGLISH_TEXT: No parking spots saved yet. Tap the P button on the map to save where you parked.
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_section_lists
+ENGLISH_TEXT: Your lists
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_new_list
+ENGLISH_TEXT: New
+PERSIAN_TRANSLATION:
+
+[STRING] list_edit
+ENGLISH_TEXT: Edit list
+PERSIAN_TRANSLATION:
+
+[STRING] list_new_title
+ENGLISH_TEXT: New list
+PERSIAN_TRANSLATION:
+
+[STRING] list_edit_title
+ENGLISH_TEXT: Edit list
+PERSIAN_TRANSLATION:
+
+[STRING] list_name_label
+ENGLISH_TEXT: List name
+PERSIAN_TRANSLATION:
+
+[STRING] list_icon_label
+ENGLISH_TEXT: Icon
+PERSIAN_TRANSLATION:
+
+[STRING] list_emoji_label
+ENGLISH_TEXT: Type any emoji
+PERSIAN_TRANSLATION:
+
+[STRING] list_color_label
+ENGLISH_TEXT: Color
+PERSIAN_TRANSLATION:
+
+[STRING] list_delete
+ENGLISH_TEXT: Delete
+PERSIAN_TRANSLATION:
+
+[STRING] list_export
+ENGLISH_TEXT: Export this list
+PERSIAN_TRANSLATION:
+
+[STRING] list_delete_title
+ENGLISH_TEXT: Delete %1$s?
+PERSIAN_TRANSLATION:
+
+[STRING] list_reorder
+ENGLISH_TEXT: Drag to reorder
+PERSIAN_TRANSLATION:
+
+[STRING] recent_remove
+ENGLISH_TEXT: Remove from history
+PERSIAN_TRANSLATION:
+
+[STRING] list_cancel
+ENGLISH_TEXT: Cancel
+PERSIAN_TRANSLATION:
+
+[STRING] list_save
+ENGLISH_TEXT: Save
+PERSIAN_TRANSLATION:
+
+[STRING] place_save_to_list
+ENGLISH_TEXT: Save to list
+PERSIAN_TRANSLATION:
+
+[STRING] place_edit_note
+ENGLISH_TEXT: Edit note
+PERSIAN_TRANSLATION:
+
+[STRING] place_note_label
+ENGLISH_TEXT: Note
+PERSIAN_TRANSLATION:
+
+[STRING] place_choose_icon
+ENGLISH_TEXT: Choose icon
+PERSIAN_TRANSLATION:
+
+[STRING] place_icon_title
+ENGLISH_TEXT: Map icon for %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] place_icon_default
+ENGLISH_TEXT: Use the list\'s icon
+PERSIAN_TRANSLATION:
+
+[STRING] map_save_mymap
+ENGLISH_TEXT: Save map
+PERSIAN_TRANSLATION:
+
+[STRING] shape_line
+ENGLISH_TEXT: Line
+PERSIAN_TRANSLATION:
+
+[STRING] shape_area
+ENGLISH_TEXT: Area
+PERSIAN_TRANSLATION:
+
+[STRING] shape_route_measure
+ENGLISH_TEXT: Route · %1$s · %2$d stops
+PERSIAN_TRANSLATION:
+
+[STRING] shape_line_measure
+ENGLISH_TEXT: Line · %1$s long
+PERSIAN_TRANSLATION:
+
+[STRING] shape_area_measure
+ENGLISH_TEXT: Area · %1$s · %2$s around
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_layers_chip
+ENGLISH_TEXT: Layers
+PERSIAN_TRANSLATION:
+
+[STRING] draw_action
+ENGLISH_TEXT: Draw
+PERSIAN_TRANSLATION:
+
+[STRING] draw_hint
+ENGLISH_TEXT: Tap the map to add points
+PERSIAN_TRANSLATION:
+
+[STRING] draw_hint_more
+ENGLISH_TEXT: Tap again to add the next point
+PERSIAN_TRANSLATION:
+
+[STRING] draw_hint_points
+ENGLISH_TEXT: Drag a point to move it. Tap a point to remove it.
+PERSIAN_TRANSLATION:
+
+[STRING] draw_edit
+ENGLISH_TEXT: Edit this drawing
+PERSIAN_TRANSLATION:
+
+[STRING] draw_changed
+ENGLISH_TEXT: Saved the changes to “%1$s”
+PERSIAN_TRANSLATION:
+
+[STRING] draw_name_hint
+ENGLISH_TEXT: Name (optional)
+PERSIAN_TRANSLATION:
+
+[STRING] draw_undo
+ENGLISH_TEXT: Remove the last point
+PERSIAN_TRANSLATION:
+
+[STRING] draw_cancel
+ENGLISH_TEXT: Cancel
+PERSIAN_TRANSLATION:
+
+[STRING] draw_save
+ENGLISH_TEXT: Save
+PERSIAN_TRANSLATION:
+
+[STRING] draw_saved
+ENGLISH_TEXT: Saved “%1$s” to My drawings
+PERSIAN_TRANSLATION:
+
+[STRING] draw_list_name
+ENGLISH_TEXT: My drawings
+PERSIAN_TRANSLATION:
+
+[STRING] draw_delete
+ENGLISH_TEXT: Delete this drawing
+PERSIAN_TRANSLATION:
+
+[STRING] map_list_saved
+ENGLISH_TEXT: Saved “%1$s” to your lists
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_nightly
+ENGLISH_TEXT: Include nightly builds
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_nightly_hint
+ENGLISH_TEXT: Update to the newest nightly (prerelease) instead of only stable releases. Nightlies are fresher but less tested.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_channel
+ENGLISH_TEXT: Update channel
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_channel_stable
+ENGLISH_TEXT: Stable (weekly)
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_channel_nightly
+ENGLISH_TEXT: Nightly (daily)
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_channel_canary
+ENGLISH_TEXT: Canary (development builds)
+PERSIAN_TRANSLATION:
+
+[STRING] settings_update_channel_hint
+ENGLISH_TEXT: Stable gets one tested release a week. Nightly gets a build each day there are changes. Canary follows work in progress and can break at any time.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_volume
+ENGLISH_TEXT: Guidance volume
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_volume_softer
+ENGLISH_TEXT: Softer
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_volume_normal
+ENGLISH_TEXT: Normal
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_volume_louder
+ENGLISH_TEXT: Louder
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_volume_loudest
+ENGLISH_TEXT: Loudest
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_volume_hint
+ENGLISH_TEXT: How loud spoken directions play over your media. Louder tiers apply to the Vela voice; system voices can only be made softer.
+PERSIAN_TRANSLATION:
+
+[STRING] place_avoid_not_honored
+ENGLISH_TEXT: These routes may still use tolls, highways, or ferries: Google could not be reached to route around them, and the open router cannot. In a downloaded area Vela avoids them offline.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_lists_export_hint
+ENGLISH_TEXT: Back up your lists to a file, or restore them on another device. Import also takes a list from Google Takeout\'s Saved folder (one CSV per list); each place in it is looked up, so it needs a connection.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_lists_imported
+ENGLISH_TEXT: Imported %1$d list(s)
+PERSIAN_TRANSLATION:
+
+[STRING] settings_takeout_list_default
+ENGLISH_TEXT: Imported list
+PERSIAN_TRANSLATION:
+
+[STRING] settings_takeout_progress
+ENGLISH_TEXT: Looking up place %1$d of %2$d
+PERSIAN_TRANSLATION:
+
+[STRING] settings_takeout_imported_none
+ENGLISH_TEXT: No place in that list could be found, so %1$s was not made.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_takeout_busy
+ENGLISH_TEXT: A list is still being imported, so wait for it to finish first.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_places_imported
+ENGLISH_TEXT: Imported %1$d place(s)
+PERSIAN_TRANSLATION:
+
+[STRING] settings_no_lists
+ENGLISH_TEXT: No lists to export yet
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_lists_subject
+ENGLISH_TEXT: Vela lists (%1$d)
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_lists_chooser
+ENGLISH_TEXT: Export lists
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_list_subject
+ENGLISH_TEXT: Vela list: %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_export_list_chooser
+ENGLISH_TEXT: Export list
+PERSIAN_TRANSLATION:
+
+[STRING] lists_empty_hint
+ENGLISH_TEXT: No lists yet. Tap New to create one, or save a place from its page.
+PERSIAN_TRANSLATION:
+
+[STRING] navservice_notif_eta
+ENGLISH_TEXT: Arrive %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] settings_advanced
+ENGLISH_TEXT: Advanced
+PERSIAN_TRANSLATION:
+
+[STRING] settings_advanced_hint
+ENGLISH_TEXT: Options most people never need.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_developer
+ENGLISH_TEXT: Developer
+PERSIAN_TRANSLATION:
+
+[STRING] settings_developer_hint
+ENGLISH_TEXT: Tools for demos, screenshots and testing. Turn each off for real use.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_browse_voices
+ENGLISH_TEXT: Browse voices
+PERSIAN_TRANSLATION:
+
+[STRING] settings_browse_voices_hint
+ENGLISH_TEXT: Download and switch between Vela\'s on-device voices.
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_listening
+ENGLISH_TEXT: Listening…
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_starting
+ENGLISH_TEXT: Getting ready…
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_done
+ENGLISH_TEXT: Done
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_asr_ready
+ENGLISH_TEXT: Vela Voice is ready
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_asr_download_failed
+ENGLISH_TEXT: Couldn\'t download the voice model. Check your connection and try again.
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_closing_soon
+ENGLISH_TEXT: %1$s closes at %2$s and you arrive around %3$s
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_closing_before_arrival
+ENGLISH_TEXT: %1$s closes at %2$s, before you arrive around %3$s
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_model
+ENGLISH_TEXT: Vela Voice
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_model_hint
+ENGLISH_TEXT: Vela Voice turns speech into a search right on your phone: no other app needed and nothing is uploaded. One-time %1$d MB download.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_download
+ENGLISH_TEXT: Download (%1$d MB)
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_remove
+ENGLISH_TEXT: Remove
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_downloading
+ENGLISH_TEXT: Downloading… %1$d%%
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_installing
+ENGLISH_TEXT: Installing…
+PERSIAN_TRANSLATION:
+
+[STRING] settings_asr_engines_title
+ENGLISH_TEXT: On-device recognition engine
+PERSIAN_TRANSLATION:
+
+[STRING] settings_asr_engines_hint
+ENGLISH_TEXT: Speech becomes a search right on your phone: no other app needed and nothing is uploaded. Download one or more engines and pick which the mic uses.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_asr_engine_meta
+ENGLISH_TEXT: %1$s · %2$d MB
+PERSIAN_TRANSLATION:
+
+[STRING] settings_asr_langs_whisper
+ENGLISH_TEXT: Every language Vela supports
+PERSIAN_TRANSLATION:
+
+[STRING] settings_asr_langs_sensevoice
+ENGLISH_TEXT: English, Chinese, Japanese, Korean, Cantonese
+PERSIAN_TRANSLATION:
+
+[STRING] settings_asr_langs_moonshine
+ENGLISH_TEXT: English only
+PERSIAN_TRANSLATION:
+
+[STRING] settings_asr_active
+ENGLISH_TEXT: Active
+PERSIAN_TRANSLATION:
+
+[STRING] settings_asr_use
+ENGLISH_TEXT: Use
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_engine_title
+ENGLISH_TEXT: When you tap the mic
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_engine_auto
+ENGLISH_TEXT: Vela Voice
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_engine_default
+ENGLISH_TEXT: Android default
+PERSIAN_TRANSLATION:
+
+[STRING] settings_voice_search_engine_system
+ENGLISH_TEXT: Other voice app
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_examples_title
+ENGLISH_TEXT: Things you can say
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_example_home
+ENGLISH_TEXT: \"Take me home\" or \"get me to work\"
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_example_go
+ENGLISH_TEXT: \"Go to 615 3rd Street, Davis\"
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_example_route
+ENGLISH_TEXT: \"Davis to San Francisco\"
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_example_nearest
+ENGLISH_TEXT: \"Nearest gas station\"
+PERSIAN_TRANSLATION:
+
+[STRING] voice_capture_example_eta
+ENGLISH_TEXT: \"What is my ETA\" while driving
+PERSIAN_TRANSLATION:
+
+[STRING] voice_cmd_home
+ENGLISH_TEXT: Go home
+PERSIAN_TRANSLATION:
+
+[STRING] voice_cmd_work
+ENGLISH_TEXT: Go to work
+PERSIAN_TRANSLATION:
+
+[STRING] voice_cmd_go
+ENGLISH_TEXT: Go somewhere
+PERSIAN_TRANSLATION:
+
+[STRING] voice_cmd_route
+ENGLISH_TEXT: Between two places
+PERSIAN_TRANSLATION:
+
+[STRING] voice_cmd_nearby
+ENGLISH_TEXT: Find nearby
+PERSIAN_TRANSLATION:
+
+[STRING] voice_cmd_eta
+ENGLISH_TEXT: Arrival time, while driving
+PERSIAN_TRANSLATION:
+
+[STRING] voice_cmd_hint
+ENGLISH_TEXT: These work spoken or typed into the search bar, in the app language or English. Anything else runs as a normal search.
+PERSIAN_TRANSLATION:
+
+[STRING] loc_off_title
+ENGLISH_TEXT: Location is off
+PERSIAN_TRANSLATION:
+
+[STRING] loc_off_body
+ENGLISH_TEXT: Vela doesn\'t have location access. You can allow it in system settings.
+PERSIAN_TRANSLATION:
+
+[STRING] loc_off_settings
+ENGLISH_TEXT: Open settings
+PERSIAN_TRANSLATION:
+
+[STRING] loc_approx_title
+ENGLISH_TEXT: Approximate location
+PERSIAN_TRANSLATION:
+
+[STRING] loc_approx_body
+ENGLISH_TEXT: Vela only knows your rough area, not where you are. The map shows a wide circle instead of a dot, and turn-by-turn navigation won\'t work. You can switch to precise location whenever you want.
+PERSIAN_TRANSLATION:
+
+[STRING] loc_approx_allow
+ENGLISH_TEXT: Allow precise
+PERSIAN_TRANSLATION:
+
+[STRING] loc_approx_keep
+ENGLISH_TEXT: Keep approximate
+PERSIAN_TRANSLATION:
+
+[STRING] notif_ask_title
+ENGLISH_TEXT: Skip notifications?
+PERSIAN_TRANSLATION:
+
+[STRING] notif_ask_body
+ENGLISH_TEXT: Navigation keeps your next turn in a notification, so directions stay with you when the screen is off or you switch apps. Without it, directions only show inside Vela.
+PERSIAN_TRANSLATION:
+
+[STRING] notif_ask_allow
+ENGLISH_TEXT: Allow
+PERSIAN_TRANSLATION:
+
+[STRING] notif_ask_skip
+ENGLISH_TEXT: Skip
+PERSIAN_TRANSLATION:
+
+[STRING] place_time_past_toast
+ENGLISH_TEXT: That time has passed. Set to now.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_ui_scale
+ENGLISH_TEXT: Interface size
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_look
+ENGLISH_TEXT: Map look
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_look_liberty
+ENGLISH_TEXT: Vela
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_look_bright
+ENGLISH_TEXT: Bright
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_look_positron
+ENGLISH_TEXT: Positron
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_look_fiord
+ENGLISH_TEXT: Fiord
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_look_dark
+ENGLISH_TEXT: Black
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_look_hint
+ENGLISH_TEXT: Vela is OpenFreeMap\'s Liberty style with Vela\'s own colors, icons and road widths. The others are OpenFreeMap\'s Bright, Positron, Fiord and Black (its Dark style) as they come; Fiord and Black are dark whatever the theme.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_colors
+ENGLISH_TEXT: Map colors
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_buttons
+ENGLISH_TEXT: Map buttons
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_buttons_round
+ENGLISH_TEXT: Round
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_buttons_square
+ENGLISH_TEXT: Square
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_buttons_hint
+ENGLISH_TEXT: The locate and parking buttons on the map: round, or with square corners like the Material You apps around them.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_colors_modern
+ENGLISH_TEXT: Modern
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_colors_classic
+ENGLISH_TEXT: Classic
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_colors_contrast
+ENGLISH_TEXT: Contrast
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_colors_hint
+ENGLISH_TEXT: Modern matches the Google app\'s current palette. Classic is Vela\'s earlier look: white roads, yellow motorways, true greens. Contrast is a night map with warm streets on slate land, for a glance from a mount; by day it draws as Modern.
+PERSIAN_TRANSLATION:
+
+[STRING] shortcut_home
+ENGLISH_TEXT: Home
+PERSIAN_TRANSLATION:
+
+[STRING] shortcut_work
+ENGLISH_TEXT: Work
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_data
+ENGLISH_TEXT: Map data
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_data_hint
+ENGLISH_TEXT: The map, its streets, labels and house numbers are OpenStreetMap data, available under the Open Database License, served as vector tiles by OpenFreeMap. The businesses on the map in covered regions are places data from the Overture Maps Foundation (sourced from Meta and Microsoft), available under the Community Data License Agreement, Permissive 2.0. Place details, reviews, routing and traffic come from Google. Satellite imagery is from Esri and Google. How the voice says some 3,500 place names comes from English Wikipedia and its contributors, under CC BY-SA 4.0.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_data_button
+ENGLISH_TEXT: OpenStreetMap copyright
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_data_overture_button
+ENGLISH_TEXT: Overture Maps license
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_data_fuel_gb
+ENGLISH_TEXT: UK fuel prices come from the UK government\'s Fuel Finder, republished by matthewgall/fuelfinder-archive on GitHub. Contains public sector information licensed under the Open Government Licence v3.0.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_data_ogl_button
+ENGLISH_TEXT: Open Government Licence
+PERSIAN_TRANSLATION:
+
+[STRING] place_fuel_updated_today
+ENGLISH_TEXT: Updated today
+PERSIAN_TRANSLATION:
+
+[STRING] place_fuel_updated_yesterday
+ENGLISH_TEXT: Updated yesterday
+PERSIAN_TRANSLATION:
+
+[STRING] settings_layers_button
+ENGLISH_TEXT: Show layers button
+PERSIAN_TRANSLATION:
+
+[STRING] settings_layers_button_hint
+ENGLISH_TEXT: The button on the map that picks the map look, flips satellite, traffic, transit, terrain, 3D buildings and place icons, and opens driving mode.
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_finding
+ENGLISH_TEXT: Finding the places in this trip
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_while_navigating
+ENGLISH_TEXT: End navigation to open this trip
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_looking_cd
+ENGLISH_TEXT: Looking it up
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_found_cd
+ENGLISH_TEXT: Found
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_not_found_cd
+ENGLISH_TEXT: Not found
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_stop_missing
+ENGLISH_TEXT: Could not find %1$s. The route skips it.
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_start_missing
+ENGLISH_TEXT: Could not find %1$s. The trip starts where you are.
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_search
+ENGLISH_TEXT: Search for it
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_skip
+ENGLISH_TEXT: Skip it
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_stop_title
+ENGLISH_TEXT: Stop not found
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_start_title
+ENGLISH_TEXT: Start not found
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_pick_start
+ENGLISH_TEXT: Choose a start
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_start_here
+ENGLISH_TEXT: Start where I am
+PERSIAN_TRANSLATION:
+
+[STRING] link_trip_fix
+ENGLISH_TEXT: Fix
+PERSIAN_TRANSLATION:
+
+[STRING] settings_places
+ENGLISH_TEXT: Places
+PERSIAN_TRANSLATION:
+
+[STRING] settings_cameras_group
+ENGLISH_TEXT: Cameras
+PERSIAN_TRANSLATION:
+
+[STRING] settings_road_alerts_group
+ENGLISH_TEXT: Road alerts
+PERSIAN_TRANSLATION:
+
+[STRING] settings_bridge_openings
+ENGLISH_TEXT: Bridge openings
+PERSIAN_TRANSLATION:
+
+[STRING] settings_bridge_openings_hint
+ENGLISH_TEXT: In the Netherlands, says when a movable bridge on your route is open or due to open as you reach it. Planned and live openings come from NDW\'s open road data, asked only when your route enters the Netherlands.
+PERSIAN_TRANSLATION:
+
+[STRING] nav_bridge_open_ahead
+ENGLISH_TEXT: Bridge ahead is open
+PERSIAN_TRANSLATION:
+
+[STRING] nav_bridge_opening_ahead
+ENGLISH_TEXT: Bridge ahead: opening planned at %1$s
+PERSIAN_TRANSLATION:
+
+[STRING] settings_experiments
+ENGLISH_TEXT: Experiments
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_places_sub
+ENGLISH_TEXT: Source, map icons, place pages
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_appearance_sub
+ENGLISH_TEXT: Theme, map style, units, language
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_map_sub
+ENGLISH_TEXT: Traffic, transit, layers, 3D buildings
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_navigation_sub
+ENGLISH_TEXT: Guidance, cameras, live rechecks
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_voice_sub
+ENGLISH_TEXT: Spoken directions and voices
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_search_sub
+ENGLISH_TEXT: Voice search, speech models and quick search buttons
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_offline_sub
+ENGLISH_TEXT: Offline maps, routing, places
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_saved_sub
+ENGLISH_TEXT: Your lists, export, parking history
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_privacy_sub
+ENGLISH_TEXT: What Google receives, clearing history
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_diagnostics_sub
+ENGLISH_TEXT: Crash reports, trips, demo mode, experiments
+PERSIAN_TRANSLATION:
+
+[STRING] settings_hub_about_sub
+ENGLISH_TEXT: Version, updates, support
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_theme_title
+ENGLISH_TEXT: Map
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_shortcut_add
+ENGLISH_TEXT: Add
+PERSIAN_TRANSLATION:
+
+[STRING] nav_steps_handle_cd
+ENGLISH_TEXT: Show steps
+PERSIAN_TRANSLATION:
+
+[STRING] cat_menu
+ENGLISH_TEXT: Categories
+PERSIAN_TRANSLATION:
+
+[STRING] settings_quick_chips_hint
+ENGLISH_TEXT: The Restaurants, Coffee, Gas… buttons under the search bar, on a route and in the car. Switch one off to take it off the rows, or drag the handle to change the order. A button that is off still works as a typed search.
+PERSIAN_TRANSLATION:
+
+[STRING] cat_more
+ENGLISH_TEXT: More
+PERSIAN_TRANSLATION:
+
+[STRING] settings_map_names_hint
+ENGLISH_TEXT: Romanized names are made by machine where OpenStreetMap has no English name, and read badly in Hebrew and some other scripts. The app language and the voice do not change.
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_rechecking_connection
+ENGLISH_TEXT: Checking the connection…
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_back_online
+ENGLISH_TEXT: Back online
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_still_offline
+ENGLISH_TEXT: Still offline. Vela will notice the moment the connection is back.
+PERSIAN_TRANSLATION:
+
+[STRING] search_offline_recheck
+ENGLISH_TEXT: Offline. Tap to check again
+PERSIAN_TRANSLATION:
+
+[STRING] map_zoom_mode_hint
+ENGLISH_TEXT: Zoom: ◀ out · in ▶ BACK to exit
+PERSIAN_TRANSLATION:
+
+[STRING] map_move_mode_hint
+ENGLISH_TEXT: Move map: ◀ ▲ ▼ ▶ BACK to exit
+PERSIAN_TRANSLATION:
+
+[STRING] softkey_options
+ENGLISH_TEXT: Options
+PERSIAN_TRANSLATION:
+
+[STRING] softkey_search
+ENGLISH_TEXT: Search
+PERSIAN_TRANSLATION:
+
+[STRING] softkey_move_map
+ENGLISH_TEXT: Move map
+PERSIAN_TRANSLATION:
+
+[STRING] softkey_stop_zoom
+ENGLISH_TEXT: Stop zoom
+PERSIAN_TRANSLATION:
+
+[STRING] softkey_recenter
+ENGLISH_TEXT: Recenter
+PERSIAN_TRANSLATION:
+
+[STRING] softkey_mute
+ENGLISH_TEXT: Mute
+PERSIAN_TRANSLATION:
+
+[STRING] softkey_unmute
+ENGLISH_TEXT: Unmute
+PERSIAN_TRANSLATION:
+
+[STRING] softkey_zoom_menu
+ENGLISH_TEXT: Zoom (◀ − ▶ +)
+PERSIAN_TRANSLATION:
+
+[STRING] map_asr_downloading
+ENGLISH_TEXT: Downloading Vela Voice mic · %1$d%%
+PERSIAN_TRANSLATION:
+
+[STRING] map_asr_installing
+ENGLISH_TEXT: Installing Vela Voice mic…
+PERSIAN_TRANSLATION:
+
+[STRING] map_asr_waiting
+ENGLISH_TEXT: Vela Voice mic · waiting for the voice
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_filter_top_rated
+ENGLISH_TEXT: 4.0★
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_section_recent_searches
+ENGLISH_TEXT: Recent searches
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_clear_recent_searches
+ENGLISH_TEXT: Clear recent searches
+PERSIAN_TRANSLATION:
+
+[STRING] root_diag_title
+ENGLISH_TEXT: Help improve Vela?
+PERSIAN_TRANSLATION:
+
+[STRING] root_diag_body
+ENGLISH_TEXT: Both stay on your phone. Nothing is sent unless you export it. Change either any time in Settings.
+PERSIAN_TRANSLATION:
+
+[STRING] root_diag_share_title
+ENGLISH_TEXT: Share diagnostics
+PERSIAN_TRANSLATION:
+
+[STRING] root_diag_share_desc
+ENGLISH_TEXT: A short local log of searches, routes &amp; errors.
+PERSIAN_TRANSLATION:
+
+[STRING] root_diag_trips_title
+ENGLISH_TEXT: Save my trips
+PERSIAN_TRANSLATION:
+
+[STRING] root_diag_trips_desc
+ENGLISH_TEXT: Records your nav GPS traces so drives can be replayed for testing. More revealing: your exact routes.
+PERSIAN_TRANSLATION:
+
+[STRING] root_diag_save
+ENGLISH_TEXT: Save choices
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_tts_title
+ENGLISH_TEXT: Speak directions aloud
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_tts_desc
+ENGLISH_TEXT: Spoken turn-by-turn. Recommended. One-time %1$d MB download.
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_mic_title
+ENGLISH_TEXT: Search by speaking
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_mic_desc
+ENGLISH_TEXT: Dictate searches without typing. Without it, the mic uses Google. One-time %1$d MB download.
+PERSIAN_TRANSLATION:
+
+[STRING] root_voice_none_picked
+ENGLISH_TEXT: Tick an option first, or choose Not now.
+PERSIAN_TRANSLATION:
+
+[STRING] root_offline_title
+ENGLISH_TEXT: Offline maps
+PERSIAN_TRANSLATION:
+
+[STRING] root_offline_body
+ENGLISH_TEXT: Vela gets places, search and directions from Google, so with no signal only areas you have downloaded will work. Set up an area now so you are covered when you lose service.
+PERSIAN_TRANSLATION:
+
+[STRING] root_offline_setup
+ENGLISH_TEXT: Set up offline
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_stop_added
+ENGLISH_TEXT: Stop added
+PERSIAN_TRANSLATION:
+
+[STRING] voice_error_title
+ENGLISH_TEXT: Voice search didn\'t start
+PERSIAN_TRANSLATION:
+
+[STRING] voice_error_retry
+ENGLISH_TEXT: Try again
+PERSIAN_TRANSLATION:
+
+[STRING] voice_error_model
+ENGLISH_TEXT: The voice model isn\'t ready. Re-download it in Settings \u2192 Search.
+PERSIAN_TRANSLATION:
+
+[STRING] voice_error_permission
+ENGLISH_TEXT: Vela needs microphone permission to listen. Grant it in Android\'s app settings.
+PERSIAN_TRANSLATION:
+
+[STRING] voice_error_vad
+ENGLISH_TEXT: Part of the voice model is missing. Re-download it in Settings \u2192 Search.
+PERSIAN_TRANSLATION:
+
+[STRING] voice_error_audio
+ENGLISH_TEXT: This phone wouldn\'t open its microphone for Vela. Close anything else that records audio and try again.
+PERSIAN_TRANSLATION:
+
+[STRING] voice_error_recording
+ENGLISH_TEXT: Recording stopped unexpectedly. Try again.
+PERSIAN_TRANSLATION:
+
+[STRING] no_browser_installed
+ENGLISH_TEXT: Your device does not have a browser
+PERSIAN_TRANSLATION:
+
+[STRING] routing_offer_title
+ENGLISH_TEXT: Offline routing for %1$s?
+PERSIAN_TRANSLATION:
+
+[STRING] routing_offer_download
+ENGLISH_TEXT: Download
+PERSIAN_TRANSLATION:
+
+[STRING] routing_offer_body
+ENGLISH_TEXT: Gets the roads, places and map for this region, about %1$s. Reroutes come faster and directions keep working with no signal. Downloads are in Settings, Offline maps.
+PERSIAN_TRANSLATION:
+
+[STRING] exp_chooser_alts_same
+ENGLISH_TEXT: About the same time
+PERSIAN_TRANSLATION:
+
+[STRING] exp_chooser_fewest_cams
+ENGLISH_TEXT: fewest cameras
+PERSIAN_TRANSLATION:
+
+[STRING] mapvm_start_from_here
+ENGLISH_TEXT: Starting from where you are
+PERSIAN_TRANSLATION:
+
+[STRING] place_show_reviews
+ENGLISH_TEXT: Show reviews
+PERSIAN_TRANSLATION:
+
+[STRING] place_traffic_not_loaded
+ENGLISH_TEXT: Times without live traffic.
+PERSIAN_TRANSLATION:
+
+[STRING] place_show_traffic
+ENGLISH_TEXT: Show traffic
+PERSIAN_TRANSLATION:
+
+[STRING] place_tab_overview
+ENGLISH_TEXT: Overview
+PERSIAN_TRANSLATION:
+
+[STRING] place_all_reviews_short
+ENGLISH_TEXT: All reviews
+PERSIAN_TRANSLATION:
+
+[STRING] place_tab_photos
+ENGLISH_TEXT: Photos
+PERSIAN_TRANSLATION:
+
+[STRING] place_photos_all
+ENGLISH_TEXT: All
+PERSIAN_TRANSLATION:
+
+[STRING] place_show_photos
+ENGLISH_TEXT: Show photos
+PERSIAN_TRANSLATION:
+
+[STRING] place_no_photos
+ENGLISH_TEXT: No photos yet
+PERSIAN_TRANSLATION:
+
+[STRING] place_all_n_reviews_open
+ENGLISH_TEXT: All %1$d reviews
+PERSIAN_TRANSLATION:
+
+[STRING] place_updates
+ENGLISH_TEXT: Updates
+PERSIAN_TRANSLATION:
+
+[STRING] place_updates_all
+ENGLISH_TEXT: Show all %1$d updates
+PERSIAN_TRANSLATION:
+
+[STRING] settings_zoom_to_turn_hint
+ENGLISH_TEXT: The map zooms out until the next turn sits just under the turn card, turns toward a turn off to the side, and zooms back in as you near it. Made for long stretches between turns; street names and traffic lights do not show that far out. On the car screen too.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_zoom_to_turn_floor_hint
+ENGLISH_TEXT: How far out the map may zoom to keep the next turn on screen. Each step reaches about four times as far; the far ones trade street names for the stretch ahead.
+PERSIAN_TRANSLATION:
+
+[STRING] settings_road_numbers_hint
+ENGLISH_TEXT: A road with a route number goes by the number, not a name such as Pearl Harbor Memorial Expressway. Under the arrow, on the car screen and in the directions of the next route.
+PERSIAN_TRANSLATION:
+
+[STRING] trip_shortcut_add
+ENGLISH_TEXT: Add to home screen
+PERSIAN_TRANSLATION:
+
+[STRING] trip_shortcut_unsupported
+ENGLISH_TEXT: This home screen cannot pin shortcuts
+PERSIAN_TRANSLATION:
+
+[STRING] nav_left_your_route
+ENGLISH_TEXT: Left “%1$s”. Taking the fastest way.
+PERSIAN_TRANSLATION:
+
+[STRING] list_sound_label
+ENGLISH_TEXT: Sound when you drive past one
+PERSIAN_TRANSLATION:
+
+[STRING] list_sound_off
+ENGLISH_TEXT: Off
+PERSIAN_TRANSLATION:
+
+[STRING] list_sound_ping
+ENGLISH_TEXT: Ping
+PERSIAN_TRANSLATION:
+
+[STRING] list_sound_bell
+ENGLISH_TEXT: Bell
+PERSIAN_TRANSLATION:
+
+[STRING] list_sound_double
+ENGLISH_TEXT: Two beeps
+PERSIAN_TRANSLATION:
+
+[STRING] list_sound_low
+ENGLISH_TEXT: Low tone
+PERSIAN_TRANSLATION:
+
+[STRING] list_sound_name
+ENGLISH_TEXT: Say its name
+PERSIAN_TRANSLATION:
+
+[STRING] bulk_select
+ENGLISH_TEXT: Select places
+PERSIAN_TRANSLATION:
+
+[STRING] bulk_all
+ENGLISH_TEXT: All
+PERSIAN_TRANSLATION:
+
+[STRING] bulk_move
+ENGLISH_TEXT: Move to list
+PERSIAN_TRANSLATION:
+
+[STRING] bulk_new_list
+ENGLISH_TEXT: New list…
+PERSIAN_TRANSLATION:
+
+[STRING] bulk_remove
+ENGLISH_TEXT: Remove
+PERSIAN_TRANSLATION:
+
+[STRING] bulk_done
+ENGLISH_TEXT: Done selecting
+PERSIAN_TRANSLATION:
+
+[STRING] bulk_moved
+ENGLISH_TEXT: %1$d moved to %2$s
+PERSIAN_TRANSLATION:
+
+[STRING] settings_saved_routes_empty
+ENGLISH_TEXT: Pick a route in the route chooser and use ⋮ &gt; Save this route. It shows up next to the others whenever you ask for the same trip.
+PERSIAN_TRANSLATION:
+
+[STRING] route_save_keep_stops_hint
+ENGLISH_TEXT: Off: the stops only shape the way, and the route is offered next to the others for this trip.
+PERSIAN_TRANSLATION:
+
+[STRING] mapscreen_section_routes
+ENGLISH_TEXT: Your routes
+PERSIAN_TRANSLATION:
+
+[STRING] stops_max
+ENGLISH_TEXT: A trip can have up to %1$d stops
+PERSIAN_TRANSLATION:
+
+[STRING] settings_saved_route_edit_hint
+ENGLISH_TEXT: Change the stops or pick another way, then ⋮ &gt; Save changes.
+PERSIAN_TRANSLATION:
+
+[STRING] saved_pin
+ENGLISH_TEXT: Pin to search page
+PERSIAN_TRANSLATION:
+
+[STRING] saved_unpin
+ENGLISH_TEXT: Unpin from search page
+PERSIAN_TRANSLATION:
+
+[STRING] saved_sheet_places
+ENGLISH_TEXT: Saved places
+PERSIAN_TRANSLATION:
+
+[STRING] saved_sheet_routes
+ENGLISH_TEXT: Your routes
+PERSIAN_TRANSLATION:
+
+[STRING] driven_route_title
+ENGLISH_TEXT: You went your own way
+PERSIAN_TRANSLATION:
+
+[STRING] driven_route_save
+ENGLISH_TEXT: Save the way you drove
+PERSIAN_TRANSLATION:
+
+[STRING] settings_page_transitions_hint
+ENGLISH_TEXT: Animate pages and bottom sheets as they open and close, and preview the previous page as you swipe back.
+PERSIAN_TRANSLATION:
+
+[STRING] trip_shortcut_themed
+ENGLISH_TEXT: Match themed icons
+PERSIAN_TRANSLATION:
+
