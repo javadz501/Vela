@@ -471,7 +471,7 @@ private const val COMPOUND_M = 500.0
 internal fun isCompoundNext(nextDistanceMeters: Double?): Boolean =
     nextDistanceMeters != null && nextDistanceMeters <= COMPOUND_M
 
-private val EXIT_RE = Regex("""\bexit\s+(\w[\w-]*)""", RegexOption.IGNORE_CASE)
+private val EXIT_RE = Regex("""(?:\bexit\s+([\w-]+))|(?:خروجی(?:\s+شماره)?\s+([۰-۹0-9][۰-۹0-9A-Za-z-]*))""", RegexOption.IGNORE_CASE)
 // I / US / SR / Hwy (space or dash), plus any 2-letter-DASH-number for state/provincial routes
 // (TX-35, ON-401, CA-99) — the dash keeps it route-like so it doesn't grab random "to 5" text;
 // parseRouteRef's state set then filters an unknown 2-letter prefix back to a plain chip.
@@ -492,7 +492,9 @@ internal fun roadSigns(text: String, explicitRef: String? = null): List<Sign> {
     val seen = HashSet<String>()
     val out = ArrayList<Sign>()
     EXIT_RE.find(text)?.let {
-        val label = "Exit ${it.groupValues[1]}"
+        val englishExit = it.groupValues[1]
+        val number = englishExit.ifBlank { it.groupValues[2] }
+        val label = if (englishExit.isNotBlank()) "Exit $number" else "خروجی $number"
         if (seen.add(label.lowercase())) out.add(Sign(isExit = true, label = label))
     }
     explicitRef?.trim()?.replace(WS_RUN, " ")?.uppercase()?.takeIf { it.isNotBlank() }?.let {
