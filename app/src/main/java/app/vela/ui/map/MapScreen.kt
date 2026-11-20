@@ -324,7 +324,6 @@ private fun androidx.compose.foundation.layout.BoxScope.OsmCredit(
 fun MapScreen(
     vm: MapViewModel,
     onOpenSettings: () -> Unit,
-    onOpenVoiceSettings: () -> Unit = {},
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
     val darkTheme = isAppInDarkTheme()
@@ -2726,9 +2725,6 @@ fun MapScreen(
                                         }
                                     }
                                 }
-                            }
-                            state.statusVoiceAction -> {
-                                { vm.clearStatus(); onOpenVoiceSettings() }
                             }
                             else -> null
                         },
