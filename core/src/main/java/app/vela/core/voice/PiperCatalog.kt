@@ -14,7 +14,7 @@ enum class VoiceGender { FEMALE, MALE, NEUTRAL, MULTI }
  * unit-tested.
  */
 data class PiperVoice(
-    val id: String, // e.g. "fr_FR-siwis-medium"
+    val id: String, // e.g. "en_US-hfc_female-medium"
     val displayName: String, // "Siwis"
     val gender: VoiceGender,
     val quality: VoiceQuality,
@@ -59,8 +59,8 @@ object PiperCatalog {
     fun defaultFor(langCode: String): PiperVoice =
         ALL.firstOrNull { it.langCode == langCode && it.recommended } ?: byId(VelaPiper.DEFAULT_VOICE_ID)!!
 
-    /** Curated Piper voices worth offering for spoken navigation. `recommended` = the best voice for
-     *  its language (the auto-suggested default; the ★-marked, top-of-group one). */
+    /** Curated English Piper voices available in this fork. Persian guidance uses Android system TTS. */
+    val ALL: List<PiperVoice> = listOf(
         // ── English (US) ──
         PiperVoice("en_US-hfc_female-medium", "HFC Female", VoiceGender.FEMALE, VoiceQuality.MEDIUM, 67, 1, "Bright, clear, the default, very Google-like", recommended = true),
         PiperVoice("en_US-libritts_r-medium", "LibriTTS-R", VoiceGender.MULTI, VoiceQuality.MEDIUM, 82, 904, "904 variants to pick from"),
@@ -88,10 +88,8 @@ object PiperCatalog {
 
     fun byId(id: String): PiperVoice? = ALL.firstOrNull { it.id == id }
 
-    /** True when the catalog ships a downloadable voice for [langCode]. False for languages Piper
-     *  can't train (Japanese: espeak-ng has no Japanese phonemizer), where spoken guidance falls to
-     *  the phone's own system TTS instead of a Vela voice. Drives the "get a Vela voice" vs "add a
-     *  system voice" fork in the no-voice nudge. */
+    /** True when the catalog ships a downloadable voice for [langCode]. Persian intentionally
+     *  uses the phone's own system TTS instead of a downloadable Vela voice. */
     fun hasVoiceFor(langCode: String): Boolean = ALL.any { it.langCode == langCode }
 
     /** All language codes present, English first then by endonym, for grouping the browser. */
