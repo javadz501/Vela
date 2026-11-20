@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
  * (from OSRM step geometry) rather than scraping them, so localizing navigation = translating this
  * small, bounded set of templates — NOT machine-translating prose. The road/dest NAME passed in is
  * DATA (already in the local language) and is never translated; each method decides the word ORDER
- * around it (which differs by language — "Turn left onto X" vs "Tournez à gauche sur X"), which is why
+ * around it (which differs by language — "Turn left onto X" versus Persian word order), which is why
  * this is per-language templates, not per-word substitution.
  *
  * Resolved by [NavStringsRegistry] (set explicitly from the app locale, never `Locale.getDefault()`,
