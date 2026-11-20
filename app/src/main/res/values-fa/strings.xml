@@ -1094,7 +1094,7 @@
     <string name="update_install">به‌روزرسانی</string>
     <string name="update_download_failed">دانلود به‌روزرسانی ناموفق بود. بعداً دوباره تلاش کنید.</string>
     <string name="update_car_title">این به‌روزرسانی Vela را از Android Auto حذف می‌کند</string>
-    <string name="update_car_body">Vela به‌گونه‌ای نصب شده که Android Auto آن را می‌پذیرد. نصب این به‌روزرسانی در این بخش جایگزین آن می‌شود و خودرو تا زمانی که فایل را با ابزاری که بار اول استفاده کردید (AAEnabler، King Installer) نصب نکنید، Vela را نمایش نخواهد داد.\\n\\nفایل را ذخیره کنید و به همان روش نصب کنید تا عملکرد خودرو حفظ شود.</string>
+    <string name="update_car_body">Vela به‌گونه‌ای نصب شده که Android Auto آن را می‌پذیرد. نصب این به‌روزرسانی در این بخش جایگزین آن می‌شود و خودرو تا زمانی که فایل را با ابزاری که بار اول استفاده کردید (AAEnabler، King Installer) نصب نکنید، Vela را نمایش نخواهد داد.\n\nفایل را ذخیره کنید و به همان روش نصب کنید تا عملکرد خودرو حفظ شود.</string>
     <string name="update_car_save">ذخیره فایل</string>
     <string name="update_car_anyway">به‌روزرسانی به هر حال</string>
     <string name="download_notif_channel">دانلودها</string>
@@ -1441,9 +1441,9 @@
     <string name="mapvm_stop_added">توقف اضافه شد</string>
     <string name="voice_error_title">جستجوی صوتی آغاز نشد</string>
     <string name="voice_error_retry">تلاش مجدد</string>
-    <string name="voice_error_model">مدل صوتی آماده نیست. آن را در مسیر Settings \\u2192 Search دوباره دانلود کنید.</string>
+    <string name="voice_error_model">مدل صوتی آماده نیست. آن را در مسیر Settings \u2192 Search دوباره دانلود کنید.</string>
     <string name="voice_error_permission">Vela برای گوش دادن به مجوز میکروفون نیاز دارد. آن را در تنظیمات برنامه‌های اندروید بدهید.</string>
-    <string name="voice_error_vad">بخشی از مدل صوتی مفقود است. آن را در مسیر Settings \\u2192 Search دوباره دانلود کنید.</string>
+    <string name="voice_error_vad">بخشی از مدل صوتی مفقود است. آن را در مسیر Settings \u2192 Search دوباره دانلود کنید.</string>
     <string name="voice_error_audio">این گوشی میکروفون خود را برای Vela باز نکرد. سایر برنامه‌های ضبط صدا را ببندید و دوباره تلاش کنید.</string>
     <string name="voice_error_recording">ضبط صدا به‌طور غیرمنتظره متوقف شد. دوباره تلاش کنید.</string>
     <string name="no_browser_installed">دستگاه شما مرورگر ندارد</string>
