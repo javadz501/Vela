@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
-import app.vela.core.voice.VelaPiper
 
 /**
  * First-run welcome + a *tasteful* one-time donation prompt.
@@ -38,11 +37,6 @@ object Onboarding {
      *  setup means the first navigation just works. Android 13+ only; suppressed once granted or
      *  answered. A denial gets one plain-words are-you-sure in VelaRoot, then the app moves on. */
     val showNotifPrompt = mutableStateOf(false)
-
-    /** True for the single session where the one-time "download the Vela neural voice?" prompt should
-     *  show — offered right after the notification step so the best voice is one tap away. Suppressed
-     *  once the model is present or the user has answered. */
-    val showVoicePrompt = mutableStateOf(false)
 
     // Forks: point this at your own funding page.
     val DONATE_URL: String get() = app.vela.core.config.VelaLinks.donate()
@@ -85,11 +79,7 @@ object Onboarding {
         val locationPromptDone = p.getBoolean("location_prompt_done", false)
         showLocationPrompt.value = welcomeDone.value && !locationPromptDone && !hasLocation(context)
 
-        // Voice prompt: offer the neural voice once, unless it's already downloaded or answered. On a
-        // brand-new install welcomeDone is still false here (welcome not seen yet) → completeWelcome
-        // arms the location step, whose dismissal arms this one.
-        val voicePromptDone = p.getBoolean("voice_prompt_done", false)
-        showVoicePrompt.value = welcomeDone.value && !voicePromptDone && !VelaPiper.isReady(context)
+
     }
 
     private fun hasLocation(context: Context): Boolean =
@@ -104,16 +94,13 @@ object Onboarding {
             ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
             PackageManager.PERMISSION_GRANTED
 
-    /** Mark the location step handled (whatever the user chose) so it never shows again, and arm the
-     *  next step: notifications where the OS needs an ask, else straight to the voice offer. */
+    /** Mark the location step handled and arm notifications when Android requires permission. */
     fun dismissLocationPrompt(context: Context) {
         showLocationPrompt.value = false
         val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         p.edit().putBoolean("location_prompt_done", true).apply()
         if (!p.getBoolean("notif_prompt_done", false) && !hasNotifications(context)) {
             showNotifPrompt.value = true
-        } else {
-            showVoicePrompt.value = !p.getBoolean("voice_prompt_done", false) && !VelaPiper.isReady(context)
         }
     }
 
@@ -122,28 +109,17 @@ object Onboarding {
         showNotifPrompt.value = false
         val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         p.edit().putBoolean("notif_prompt_done", true).apply()
-        showVoicePrompt.value = !p.getBoolean("voice_prompt_done", false) && !VelaPiper.isReady(context)
-    }
-
-    /** Mark the voice prompt handled so it never shows again. It's the last onboarding step. */
-    fun dismissVoicePrompt(context: Context) {
-        showVoicePrompt.value = false
-        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-            .edit().putBoolean("voice_prompt_done", true).apply()
     }
 
     fun completeWelcome(context: Context) {
         welcomeDone.value = true
         val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         p.edit().putBoolean("welcome_done", true).apply()
-        // First-run order: location → notifications → voice. Arm location here; each step's
-        // dismissal arms the next. If a step is somehow already granted/answered, skip past it.
+        // First-run order: location, then notifications when Android requires permission.
         if (!p.getBoolean("location_prompt_done", false) && !hasLocation(context)) {
             showLocationPrompt.value = true
         } else if (!p.getBoolean("notif_prompt_done", false) && !hasNotifications(context)) {
             showNotifPrompt.value = true
-        } else {
-            showVoicePrompt.value = !p.getBoolean("voice_prompt_done", false) && !VelaPiper.isReady(context)
         }
     }
 
