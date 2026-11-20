@@ -9,7 +9,7 @@ enum class VoiceGender { FEMALE, MALE, NEUTRAL, MULTI }
 /**
  * One browsable Piper voice. [id] is simultaneously the sherpa asset id, the on-disk dir name, and
  * the `.onnx` file stem (`<id>.onnx`), the single source of truth. Its `lang_REGION` prefix
- * (`en_US`, `fr_FR`, `es_MX`, …) gives the [langCode] (for grouping voices by language + pairing to
+ * (`en_US`, `en_GB`) gives the [langCode] (for grouping voices by language + pairing to
  * the app locale) and the [region]. Pure data (no Android types) so it lives in `:core` and is
  * unit-tested.
  */
@@ -27,10 +27,10 @@ data class PiperVoice(
     val sizeBytes: Long get() = sizeMb * 1_000_000L
     val multiSpeaker: Boolean get() = numSpeakers > 1
 
-    /** Language code from the id prefix: "en", "fr", "de", … (for grouping + app-locale pairing). */
+    /** Language code from the id prefix: "en" (Persian uses the phone system TTS) (for grouping + app-locale pairing). */
     val langCode: String get() = id.substringBefore('_')
 
-    /** Region from the id prefix: "US", "GB", "FR", "MX", "BR", … (shown in the row). */
+    /** Region from the id prefix: "US", "GB" (shown in the row). */
     val region: String get() = id.substringBefore('-').substringAfter('_', "")
 }
 
@@ -51,10 +51,7 @@ object PiperCatalog {
     fun languageLabel(langCode: String): String = LANGUAGE_LABELS[langCode] ?: langCode.uppercase()
 
     private val LANGUAGE_LABELS: Map<String, String> = mapOf(
-        "en" to "English", "fr" to "Français", "de" to "Deutsch", "es" to "Español",
-        "it" to "Italiano", "pt" to "Português", "nl" to "Nederlands", "ru" to "Русский",
-        "pl" to "Polski", "sv" to "Svenska", "uk" to "Українська", "hu" to "Magyar", "ro" to "Română",
-        "zh" to "中文", "ja" to "日本語", "fa" to "فارسی",
+        "en" to "English", "fa" to "فارسی",
     )
 
     /** The recommended default voice for a language code (used to auto-suggest a voice for the app
@@ -64,7 +61,6 @@ object PiperCatalog {
 
     /** Curated Piper voices worth offering for spoken navigation. `recommended` = the best voice for
      *  its language (the auto-suggested default; the ★-marked, top-of-group one). */
-    val ALL: List<PiperVoice> = listOf(
         // ── English (US) ──
         PiperVoice("en_US-hfc_female-medium", "HFC Female", VoiceGender.FEMALE, VoiceQuality.MEDIUM, 67, 1, "Bright, clear, the default, very Google-like", recommended = true),
         PiperVoice("en_US-libritts_r-medium", "LibriTTS-R", VoiceGender.MULTI, VoiceQuality.MEDIUM, 82, 904, "904 variants to pick from"),
@@ -88,41 +84,6 @@ object PiperCatalog {
         PiperVoice("en_GB-northern_english_male-medium", "Northern Male", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Northern-English UK male, down-to-earth"),
         PiperVoice("en_GB-alan-medium", "Alan", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Steady UK male, classic British navigation tone"),
         PiperVoice("en_GB-vctk-medium", "VCTK", VoiceGender.MULTI, VoiceQuality.MEDIUM, 80, 109, "109-voice UK pack, a huge range of accents"),
-        // ── Français ──
-        PiperVoice("fr_FR-siwis-medium", "Siwis", VoiceGender.FEMALE, VoiceQuality.MEDIUM, 67, 1, "Voix française claire et standard", recommended = true),
-        PiperVoice("fr_FR-tom-medium", "Tom", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Voix masculine française, naturelle"),
-        PiperVoice("fr_FR-upmc-medium", "UPMC", VoiceGender.MULTI, VoiceQuality.MEDIUM, 80, 2, "Deux voix (femme + homme)"),
-        // ── Deutsch ──
-        PiperVoice("de_DE-thorsten-medium", "Thorsten", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Klare deutsche Referenzstimme", recommended = true),
-        PiperVoice("de_DE-kerstin-low", "Kerstin", VoiceGender.FEMALE, VoiceQuality.LOW, 67, 1, "Weibliche deutsche Stimme"),
-        PiperVoice("de_DE-thorsten_emotional-medium", "Thorsten (Emotional)", VoiceGender.MULTI, VoiceQuality.MEDIUM, 67, 8, "Acht Sprechstile"),
-        // ── Español ──
-        PiperVoice("es_ES-davefx-medium", "DaveFX", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Voz española clara (España)", recommended = true),
-        PiperVoice("es_ES-sharvard-medium", "Sharvard", VoiceGender.MULTI, VoiceQuality.MEDIUM, 80, 2, "Dos voces (España)"),
-        PiperVoice("es_MX-claude-high", "Claude", VoiceGender.FEMALE, VoiceQuality.HIGH, 115, 1, "Voz mexicana de alta calidad"),
-        // ── Italiano ──
-        PiperVoice("it_IT-paola-medium", "Paola", VoiceGender.FEMALE, VoiceQuality.MEDIUM, 67, 1, "Voce italiana chiara", recommended = true),
-        // ── Português (Brasil) ──
-        PiperVoice("pt_BR-faber-medium", "Faber", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Voz brasileira clara", recommended = true),
-        PiperVoice("pt_BR-cadu-medium", "Cadu", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Voz masculina brasileira"),
-        // ── Nederlands ──
-        PiperVoice("nl_NL-alex-medium", "Alex", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Heldere Nederlandse stem", recommended = true),
-        PiperVoice("nl_NL-ronnie-medium", "Ronnie", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Nederlandse mannenstem"),
-        // ── Русский ──
-        PiperVoice("ru_RU-irina-medium", "Irina", VoiceGender.FEMALE, VoiceQuality.MEDIUM, 67, 1, "Чёткий русский женский голос", recommended = true),
-        PiperVoice("ru_RU-dmitri-medium", "Dmitri", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Русский мужской голос"),
-        // ── Polski / Svenska / Українська ──
-        PiperVoice("pl_PL-mc_speech-medium", "MC Speech", VoiceGender.NEUTRAL, VoiceQuality.MEDIUM, 67, 1, "Wyraźny polski głos", recommended = true),
-        PiperVoice("sv_SE-nst-medium", "NST", VoiceGender.NEUTRAL, VoiceQuality.MEDIUM, 67, 1, "Tydlig svensk röst", recommended = true),
-        PiperVoice("uk_UA-ukrainian_tts-medium", "Ukrainian TTS", VoiceGender.MULTI, VoiceQuality.MEDIUM, 80, 3, "Три українські голоси", recommended = true),
-        // ── Magyar ──
-        PiperVoice("hu_HU-anna-medium", "Anna", VoiceGender.FEMALE, VoiceQuality.MEDIUM, 63, 1, "Tiszta, érthető magyar női hang", recommended = true),
-        // ── Română ── (issue #759; the one Romanian voice Piper has)
-        PiperVoice("ro_RO-mihai-medium", "Mihai", VoiceGender.MALE, VoiceQuality.MEDIUM, 67, 1, "Voce masculină românească, clară", recommended = true),
-        // ── 中文 ── (one Mandarin voice serves Simplified and Traditional locales — a Piper voice
-        // is a per-LANGUAGE model, and langCode "zh" pairs it with both zh and zh-TW nav text.
-        // No Japanese Piper voice exists; ja spoken guidance uses the system-TTS fallback.)
-        PiperVoice("zh_CN-huayan-medium", "Huayan", VoiceGender.FEMALE, VoiceQuality.MEDIUM, 64, 1, "清晰自然的普通话女声", recommended = true),
     )
 
     fun byId(id: String): PiperVoice? = ALL.firstOrNull { it.id == id }
