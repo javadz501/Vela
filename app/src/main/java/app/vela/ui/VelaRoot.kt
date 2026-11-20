@@ -165,30 +165,11 @@ fun VelaRoot(vm: MapViewModel = hiltViewModel()) {
         MapScreen(
             vm = vm,
             onOpenSettings = openSettings,
-            // The no-voice heads-up's pill: straight into the voice library.
-            onOpenVoiceSettings = {
-                openSettings()
-                navController.navigate(app.vela.ui.settings.SettingsSection.VOICE.route)
-                navController.currentBackStackEntry?.savedStateHandle?.set("openLibrary", true)
-            },
         )
         SettingsScreen(vm = vm, navController = navController)
         if (!showSettings) {
-            // Location is asked via the system dialog fired above (no rationale screen). The voice
-            // offer is the next step once that's answered.
-            if (Onboarding.showVoicePrompt.value) {
-                VoicePrompt(
-                    // The Vela voice is recommended for EVERYONE, but the choice is honest: the
-                    // prominent button downloads it, the quiet one keeps whatever voice the phone
-                    // already has. Same prompt regardless of what's installed.
-                    sizeMb = vm.defaultVoiceSizeMb(),
-                    onDownload = {
-                        vm.downloadPiper()
-                        Onboarding.dismissVoicePrompt(context)
-                    },
-                    onUseExisting = { Onboarding.dismissVoicePrompt(context) },
-                )
-            } else if (Onboarding.showDonatePrompt.value) {
+            // Keep onboarding dialogs mutually exclusive; permission prompts run before optional notices.
+            if (Onboarding.showDonatePrompt.value) {
                 DonatePrompt(
                     onDonate = {
                         Onboarding.openDonate(context)
@@ -218,30 +199,3 @@ fun VelaRoot(vm: MapViewModel = hiltViewModel()) {
     }
 }
 
-/** One-time, first-run offer of Vela's on-device neural voice. RECOMMENDED for everyone, but an
- *  honest two-way choice: the prominent "Download Vela voice" vs a quiet, low-emphasis "Use existing
- *  voice" that keeps whatever TTS the phone already has (nav still works through it). Not a fake or
- *  disabled option, just visibly de-emphasized so the recommendation is clear. Either choice is
- *  one-time; the voice is changeable any time in Settings → Voice. [sizeMb] is the real download
- *  size, so the number never goes stale. */
-@Composable
-private fun VoicePrompt(sizeMb: Int, onDownload: () -> Unit, onUseExisting: () -> Unit) {
-    VelaDialog(
-        onDismissRequest = onUseExisting,
-        title = stringResource(R.string.root_voice_title),
-        confirmText = stringResource(R.string.root_voice_download),
-        onConfirm = onDownload,
-        dismissText = stringResource(R.string.root_voice_use_system),
-        onDismiss = onUseExisting,
-        dismissLowEmphasis = true,
-        text = {
-            // Two short paragraphs: the pitch, then the alternative + where to change it. The blank
-            // line keeps the block from reading as one dense wall on a small screen.
-            Text(
-                stringResource(R.string.root_voice_body_intro, sizeMb) + "\n\n" +
-                    stringResource(R.string.root_voice_body_system) + " " +
-                    stringResource(R.string.root_voice_body_outro),
-            )
-        },
-    )
-}
