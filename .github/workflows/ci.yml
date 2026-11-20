@@ -129,7 +129,7 @@ jobs:
           test "$(stat -c%s core/libs/kxml2-vela.jar)" -gt 10000
 
       - name: Unit tests
-        run: ./gradlew :core:test --no-daemon
+        run: ./gradlew :core:test :app:test --no-daemon
 
       - name: Check translations
         # Android lint's MissingTranslation doesn't run on assemble/test, so a missed locale
