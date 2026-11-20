@@ -2624,24 +2624,35 @@ object FaNavStrings : NavStrings by EnNavStrings {
         "straight" -> "مستقیم"
         else -> ""
     }
+    private fun exitOrdinal(number: Int): String = when (number) {
+        1 -> "اولین خروجی"
+        2 -> "دومین خروجی"
+        3 -> "سومین خروجی"
+        else -> "خروجی شماره " + digits(number.toString())
+    }
     override fun ferry(): String = "با کشتی عبور کنید"
     override fun phrase(type: String, mod: String?, road: String?, dest: String?, exitNo: String?, rbExit: Int?): String {
         val direction = side(mod)
         val roadText = road?.takeIf { it.isNotBlank() }?.let { " و وارد مسیر «" + it + "» شوید" }.orEmpty()
-        val destination = dest?.takeIf { it.isNotBlank() }?.let { " به سمت " + it }.orEmpty()
+        val destination = dest?.takeIf { it.isNotBlank() }?.let { " به سمت «" + it + "»" }.orEmpty()
         val exit = exitNo?.let { " شماره " + digits(it) }.orEmpty()
         return when (type) {
-            "depart" -> road?.let { "از " + it + " حرکت کنید" } ?: "مسیر را آغاز کنید"
+            "depart" -> road?.takeIf { it.isNotBlank() }?.let { "از مسیر «" + it + "» حرکت کنید" } ?: "مسیر را آغاز کنید"
             "arrive" -> "به مقصد رسیدید"
             "turn", "end of road" -> if (direction.isNotBlank()) "به سمت " + direction + " بپیچید" + roadText else "به مسیر ادامه دهید" + roadText
             "continue", "new name" -> road?.takeIf { it.isNotBlank() }?.let { "در مسیر «" + it + "» به حرکت ادامه دهید" } ?: "به مسیر ادامه دهید"
             "merge" -> road?.takeIf { it.isNotBlank() }?.let { "به مسیر «" + it + "» بپیوندید" } ?: "به مسیر اصلی بپیوندید"
-            "on ramp" -> "وارد رمپ شوید" + exit + destination
-            "off ramp" -> "از خروجی" + exit + " خارج شوید" + destination
-            "fork" -> if (direction.isNotBlank()) "در دوراهی به سمت " + direction + " بروید" + destination else "در دوراهی مسیر را ادامه دهید" + destination
-            "roundabout", "rotary" -> "وارد میدان شوید" + (rbExit?.let { " و از خروجی " + digits(it.toString()) + " خارج شوید" }.orEmpty())
+            "on ramp" -> "وارد رمپ" + exit + " شوید" + destination
+            "off ramp" -> "از خروجی" + exit + destination + " خارج شوید"
+            "fork" -> when {
+                direction.isNotBlank() && dest.isNullOrBlank() -> "در دوراهی، مسیر سمت " + direction + " را انتخاب کنید"
+                direction.isNotBlank() -> "در دوراهی، مسیر سمت " + direction + " را به‌سوی «" + dest + "» انتخاب کنید"
+                dest.isNullOrBlank() -> "در دوراهی مسیر را ادامه دهید"
+                else -> "در دوراهی مسیر به‌سوی «" + dest + "» را انتخاب کنید"
+            }
+            "roundabout", "rotary" -> "وارد میدان شوید" + (rbExit?.let { " و از " + exitOrdinal(it) + " خارج شوید" }.orEmpty())
             "roundabout turn" -> "از میدان خارج شوید" + roadText
-            "notification" -> "به مسیر ادامه دهید" + roadText
+            "notification" -> road?.takeIf { it.isNotBlank() }?.let { "در مسیر «" + it + "» به حرکت ادامه دهید" } ?: "به مسیر ادامه دهید"
             else -> if (direction.isNotBlank()) "به سمت " + direction + " بروید" + roadText else "به مسیر ادامه دهید" + roadText
         }
     }
@@ -2697,7 +2708,7 @@ object FaNavStrings : NavStrings by EnNavStrings {
     override fun useLanes(side: LaneSide, count: Int): String {
         val direction = when (side) { LaneSide.LEFT -> "چپ"; LaneSide.RIGHT -> "راست"; LaneSide.CENTER -> "میانی" }
         val n = digits(count.toString())
-        return if (count > 1) "از " + n + " خط " + direction + " استفاده کنید" else "از خط " + direction + " استفاده کنید"
+        return if (count > 1) "از " + n + " خط سمت " + direction + " استفاده کنید" else "از خط سمت " + direction + " استفاده کنید"
     }
 }
 
