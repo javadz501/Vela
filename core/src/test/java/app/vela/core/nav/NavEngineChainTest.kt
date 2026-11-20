@@ -88,12 +88,14 @@ class NavEngineChainTest {
         assertTrue("the second turn gets its own approach: $said", said.any { it.startsWith("In ") && "Oak Avenue" in it })
     }
 
-    @Test fun `a language with no line for it says the turns apart`() {
-        NavStringsRegistry.setLocale(Locale.forLanguageTag("sv"))
+    @Test fun `Persian chains close turns using Persian word order`() {
+        NavStringsRegistry.setLocale(Locale.forLanguageTag("fa-IR"))
         val said = drive(route(80.0), 80.0)
         val both = said.filter { "Elm Street" in it && "Oak Avenue" in it }
-        assertTrue("$said", both.isEmpty())
-        assertTrue("and the second turn keeps its approach line: $said", said.count { "Oak Avenue" in it } >= 2)
+        assertEquals("$said", 1, both.size)
+        assertTrue("$said", both.single().contains("، سپس "))
+        assertTrue("$said", both.single().startsWith("به سمت راست بپیچید"))
+        assertTrue("$said", both.single().contains("به سمت چپ بپیچید"))
     }
 
     @Test fun `one short line a turn carries the next turn too`() {
