@@ -229,7 +229,7 @@ jobs:
           for apk in "${apks[@]}"; do
             "$apksigner" verify --verbose --print-certs "$apk"
             package="$("$aapt" dump badging "$apk" | sed -n "s/^package: name='\\([^']*\\)'.*/\\1/p" | head -n1)"
-            test "$package" = "app.vela" || { echo "::error::Unexpected applicationId: $package"; exit 1; }
+            test "$package" = "app.vela.fork" || { echo "::error::Unexpected applicationId: $package"; exit 1; }
             cert="$("$apksigner" verify --print-certs "$apk" | sed -n 's/.*certificate SHA-256 digest: //p' | head -n1 | tr -d ':' | tr '[:lower:]' '[:upper:]')"
             test "$cert" = "$expected_cert" || { echo "::error::Signing certificate does not match upstream Vela identity."; exit 1; }
             printf 'Verified %s: applicationId=%s, certificate=%s\n' "$apk" "$package" "$cert"
@@ -261,7 +261,7 @@ jobs:
           test -s "$ARM64_APK"
           cp "$ARM64_APK" vela-maps-persian.apk
           APKS=(vela-maps-persian.apk)
-          NOTES="$(printf 'Persian preview build — ARM64 (arm64-v8a) only. This fork is signed with its own established keystore and is not update-compatible with the official upstream Vela signing key. Uninstall the official Vela app before installing this fork; back up app data first. UI localization is in progress and untranslated strings fall back to English. Persian navigation uses phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\narchitecture: arm64-v8a\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
+          NOTES="$(printf 'Persian preview build — ARM64 (arm64-v8a) only. This fork is signed with its own established keystore and is not update-compatible with the official upstream Vela signing key. This fork uses applicationId app.vela.fork and can be installed alongside official Vela. App data and offline downloads remain separate. UI localization is in progress and untranslated strings fall back to English. Persian navigation uses phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\narchitecture: arm64-v8a\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
           gh release delete persian --yes --cleanup-tag 2>/dev/null || true
           gh release create persian \
             --prerelease \
