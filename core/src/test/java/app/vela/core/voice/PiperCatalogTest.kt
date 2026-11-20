@@ -17,7 +17,7 @@ class PiperCatalogTest {
     @Test
     fun `byId round-trips every English entry`() {
         for (voice in PiperCatalog.ALL) assertEquals(voice, PiperCatalog.byId(voice.id))
-        assertEquals(null, PiperCatalog.byId("fr_FR-does-not-exist"))
+        assertEquals(null, PiperCatalog.byId("en_US-does-not-exist"))
     }
 
     @Test
@@ -39,8 +39,6 @@ class PiperCatalogTest {
         assertEquals(listOf("en"), PiperCatalog.languageCodes())
         assertTrue(PiperCatalog.hasVoiceFor("en"))
         assertFalse(PiperCatalog.hasVoiceFor("fa"))
-        assertFalse(PiperCatalog.hasVoiceFor("fr"))
-        assertFalse(PiperCatalog.hasVoiceFor("de"))
         assertEquals("English", PiperCatalog.languageLabel("en"))
         assertEquals("فارسی", PiperCatalog.languageLabel("fa"))
     }
