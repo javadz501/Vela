@@ -29,10 +29,16 @@ class NavEngineStopCueTest {
     /** East 1500 m, a left turn onto [road] (null: a road with no name), then north 500 m. */
     private fun route(road: String? = "North Road"): Route {
         val poly = (0..150).map { pt(it * 10.0, 0.0) } + (1..50).map { pt(1500.0, it * 10.0) }
-        val text = if (road != null) "Turn left onto $road" else "Turn left"
+        val persian = NavStringsRegistry.current().locale.language == "fa"
+        val text = if (road != null) {
+            if (persian) "به سمت چپ بپیچید و وارد مسیر «$road» شوید" else "Turn left onto $road"
+        } else {
+            if (persian) "به سمت چپ بپیچید" else "Turn left"
+        }
+        val short = if (persian) "به سمت چپ بپیچید" else "Turn left"
         val ms = listOf(
             Maneuver(ManeuverType.DEPART, "Head east", poly.first(), 1500.0, 150.0),
-            Maneuver(ManeuverType.TURN_LEFT, text, pt(1500.0, 0.0), 500.0, 50.0, road = road, instructionNoRoad = "Turn left"),
+            Maneuver(ManeuverType.TURN_LEFT, text, pt(1500.0, 0.0), 500.0, 50.0, road = road, instructionNoRoad = short),
             Maneuver(ManeuverType.ARRIVE, "Arrive", poly.last(), 0.0, 0.0),
         )
         return Route(poly, listOf(RouteLeg(2000.0, 200.0, null, ms)), 2000.0, 200.0, null)
