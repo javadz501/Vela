@@ -129,7 +129,7 @@ jobs:
           test "$(stat -c%s core/libs/kxml2-vela.jar)" -gt 10000
 
       - name: Unit tests
-        run: ./gradlew :core:test :app:test --no-daemon
+        run: ./gradlew :core:test --no-daemon
 
       - name: Check translations
         # Android lint's MissingTranslation doesn't run on assemble/test, so a missed locale
@@ -183,6 +183,10 @@ jobs:
           || curl -fsSL -o "$f" "https://github.com/PimpinPumpkin/Vela/releases/download/cronet-runtime/cronet-$v.aar" \
           || bash scripts/build-cronet-aar.sh "$v" app/libs
           test "$(stat -c%s "$f")" -gt 10000000
+
+      - name: App unit tests
+        # The app module resolves Cronet's AAR during resource processing, so run these after fetching it.
+        run: ./gradlew :app:test --no-daemon
 
       - name: Build release APK
         env:
