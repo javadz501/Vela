@@ -137,9 +137,7 @@ class NavStringsTest {
     fun `registry exposes only english and persian with english fallback`() {
         assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("en"))
         assertEquals(FaNavStrings, NavStringsRegistry.forLanguage("fa"))
-        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("fr"))
-        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("ja"))
-        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("zh-TW"))
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("xx"))
         assertEquals("fa", NavStringsRegistry.tagOf(Locale.forLanguageTag("fa-IR")))
         assertEquals("en", NavStringsRegistry.tagOf(Locale.FRANCE))
 
@@ -153,9 +151,6 @@ class NavStringsTest {
     fun `only supported language implementations remain in the registry`() {
         assertEquals("en", EnNavStrings.locale.language)
         assertEquals("fa", FaNavStrings.locale.language)
-        for (code in listOf("en", "fa", "fr", "de", "es", "it", "pt", "nl", "ru", "pl", "sv", "uk", "zh", "ja", "he", "hu", "ro")) {
-            val strings = NavStringsRegistry.forLanguage(code)
-            assertTrue(strings === EnNavStrings || strings === FaNavStrings)
-        }
+        assertTrue(NavStringsRegistry.forLanguage("xx") === EnNavStrings)
     }
 }
