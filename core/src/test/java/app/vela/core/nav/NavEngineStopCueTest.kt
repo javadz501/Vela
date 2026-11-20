@@ -130,10 +130,17 @@ class NavEngineStopCueTest {
         assertTrue(said.toString(), said.contains("In 150 meters, Davis Food Co-op will be on your right"))
     }
 
-    @Test fun `the stop is said in the app's language`() {
-        NavStringsRegistry.setLocale(Locale.FRANCE)
+    @Test fun `the stop is said in the app's Persian language`() {
+        NavStringsRegistry.setLocale(Locale.forLanguageTag("fa-IR"))
         val said = drive(route(), stopAt(route(), 200.0))
-        assertTrue(said.toString(), said.any { it.endsWith("puis Davis Food Co-op sera sur votre droite") })
+        val withStop = said.filter { "Davis Food Co-op" in it }
+        assertEquals(said.toString(), 2, withStop.size)
+        assertTrue(said.toString(), withStop.first().startsWith("۴۰۰ متر دیگر، "))
+        assertTrue(said.toString(), withStop.first().endsWith("، سپس Davis Food Co-op در سمت راست شما خواهد بود"))
+        assertEquals(
+            "به سمت چپ بپیچید و وارد مسیر «North Road» شوید، سپس Davis Food Co-op در سمت راست شما خواهد بود",
+            withStop.last(),
+        )
     }
 
     @Test fun `with no stop the turn is said as before`() {
