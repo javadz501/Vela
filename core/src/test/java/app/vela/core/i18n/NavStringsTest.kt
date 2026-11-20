@@ -210,8 +210,14 @@ class NavStringsTest {
             "sv" to ("vänster" to "höger"), "uk" to ("лів" to "прав"), "he" to ("שמאלה" to "ימינה"),
             "ro" to ("stânga" to "dreapta"),
         )
+        val legacyTables = mapOf(
+            "fr" to FrNavStrings, "de" to DeNavStrings, "es" to EsNavStrings,
+            "it" to ItNavStrings, "pt" to PtPtNavStrings, "nl" to NlNavStrings,
+            "ru" to RuNavStrings, "pl" to PlNavStrings, "sv" to SvNavStrings,
+            "uk" to UkNavStrings, "he" to HeNavStrings, "ro" to RoNavStrings,
+        )
         for ((code, words) in sideWords) {
-            val ns = NavStringsRegistry.forLanguage(code)
+            val ns = legacyTables.getValue(code)
             val (l, r) = words
             val keepRight = ns.phrase("fork", "slight right", "I 80", null, null, null).lowercase()
             val keepLeft = ns.phrase("fork", "slight left", "I 80", null, null, null).lowercase()
@@ -226,7 +232,7 @@ class NavStringsTest {
     /** Romanian: "de" between a number of 20 or more and its noun, feminine ordinals for the
      *  roundabout exits, and the sign tail after "spre" dropped on a repeat (issue #759). */
     @Test fun `romanian counts and ordinals`() {
-        val ro = NavStringsRegistry.forLanguage("ro")
+        val ro = RoNavStrings
         assertEquals(RoNavStrings, ro)
         assertEquals("200 de metri", ro.spokenDistance(200.0, imperial = false))
         assertEquals("10 metri", ro.spokenDistance(12.0, imperial = false))
@@ -250,7 +256,7 @@ class NavStringsTest {
     }
 
     @Test fun `ukrainian fractional km uses genitive singular`() {
-        val uk = NavStringsRegistry.forLanguage("uk")
+        val uk = UkNavStrings
         assertTrue(uk.spokenDistance(1200.0, imperial = false).contains("кілометра"))
         assertTrue(uk.spokenDistance(3000.0, imperial = false).contains("кілометри"))
         assertTrue(uk.spokenDistance(5000.0, imperial = false).contains("кілометрів"))
