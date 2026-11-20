@@ -1541,4 +1541,6 @@
     <string name="place_avoid_short_ferries">Ferries</string>
     <string name="place_avoid_short_cameras">Cameras</string>
     <string name="trip_shortcut_themed">Match themed icons</string>
+    <string name="map_speed_label">SPEED</string>
+    <string name="map_limit_label">LIMIT</string>
 </resources>
