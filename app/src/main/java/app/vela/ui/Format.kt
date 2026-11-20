@@ -3,6 +3,7 @@ package app.vela.ui
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import java.util.Locale
+import app.vela.core.i18n.formatPersianDuration
 import kotlin.math.roundToInt
 
 /**
@@ -84,22 +85,6 @@ fun formatDuration(seconds: Double): String {
     if (totalMin < 1) return "<1 min"
     if (totalMin < 60) return "$totalMin min"
     return if (m == 0) "$h h" else "$h h $m min"
-}
-
-/** Persian duration label with explicit spacing and Persian digits; ICU short units can split letters on some Android builds. */
-internal fun formatPersianDuration(totalMinutes: Int): String {
-    fun digits(value: Int): String = value.toString().map { ch ->
-        if (ch in '0'..'9') ('۰'.code + (ch.code - '0'.code)).toChar() else ch
-    }.joinToString("")
-
-    if (totalMinutes < 1) return "کمتر از ۱ دقیقه"
-    val hours = totalMinutes / 60
-    val minutes = totalMinutes % 60
-    return when {
-        hours == 0 -> "${digits(minutes)} دقیقه"
-        minutes == 0 -> "${digits(hours)} ساعت"
-        else -> "${digits(hours)} ساعت و ${digits(minutes)} دقیقه"
-    }
 }
 
 /** Current speed as a (value, unit) pair for the speedometer, e.g. (65, "mph") —
