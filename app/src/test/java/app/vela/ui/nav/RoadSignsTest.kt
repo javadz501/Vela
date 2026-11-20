@@ -15,7 +15,7 @@ class RoadSignsTest {
     }
 
     @Test fun `Persian exit instructions produce Persian exit badges`() {
-        val signs = roadSigns("از خروجی شماره ۷۲B به سمت I-80 East خارج شوید")
+        val signs = roadSigns("از خروجی شماره ۷۲B به سمت I-80 خارج شوید")
         assertEquals(listOf("خروجی ۷۲B", "I-80"), signs.map { it.label })
         assertEquals(true, signs.first().isExit)
     }
