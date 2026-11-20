@@ -20,10 +20,8 @@ import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 /** The active-guidance car screen: renders [NavSession] state into a [NavigationTemplate]
- *  (route map surface + next-maneuver card + destination ETA). Voice already speaks from NavSession.
- *  The action strip is icon-only: the voice button, which steps on, alerts only and off (its slot
- *  goes to a titled "Faster -N min" offer when one is pending), and a red end button that stops
- *  the session. */
+ *  (route map surface + next-maneuver card + destination ETA). Navigation is silent in this build.
+ *  The action strip contains a faster-route offer when one is pending and a red end button. */
 class ActiveNavCarScreen(carContext: CarContext, private val deps: CarDeps) :
     Screen(carContext), DefaultLifecycleObserver {
 
@@ -43,7 +41,7 @@ class ActiveNavCarScreen(carContext: CarContext, private val deps: CarDeps) :
     init {
         lifecycle.addObserver(this)
         // Re-render on each nav-state change (state emits ~1 Hz during guidance); pop when the trip
-        // ends. Voice already announces the arrival, so returning to the landing screen is enough.
+        // ends. Returning to the landing screen is enough.
         lifecycleScope.launch {
             deps.navSession.state.collect { s ->
                 if (!left && (s.arrived || !s.navigating)) {
