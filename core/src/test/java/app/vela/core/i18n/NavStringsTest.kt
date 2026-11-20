@@ -39,23 +39,20 @@ class NavStringsTest {
         assertEquals("Continuez sur Rue de Rivoli", fr.phrase("continue", "straight", "Rue de Rivoli", null, null, null))
     }
 
-    @Test fun `registry defaults to english and switches by language`() {
-        assertEquals(EnNavStrings, NavStringsRegistry.current()) // default, locale-independent
-        assertEquals(FrNavStrings, NavStringsRegistry.forLanguage("fr"))
-        assertEquals(JaNavStrings, NavStringsRegistry.forLanguage("ja")) // now translated
-        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("th")) // untranslated → English fallback
-        // Portuguese splits by country: Portugal's table for pt and pt-PT, Brazil's for pt-BR (PR #825).
-        assertEquals("pt", NavStringsRegistry.tagOf(java.util.Locale("pt")))
-        assertEquals("pt", NavStringsRegistry.tagOf(java.util.Locale("pt", "PT")))
-        assertEquals("pt-br", NavStringsRegistry.tagOf(java.util.Locale("pt", "BR")))
-        assertEquals(PtPtNavStrings, NavStringsRegistry.forLanguage("pt"))
-        assertEquals(PtPtNavStrings, NavStringsRegistry.forLanguage("pt-PT"))
-        assertEquals(PtBrNavStrings, NavStringsRegistry.forLanguage("pt-br"))
-        assertEquals("Vire à esquerda na Rua Augusta", PtPtNavStrings.phrase("turn", "left", "Rua Augusta", null, null, null))
-        assertEquals("1 quilómetro", PtPtNavStrings.spokenDistance(1000.0, imperial = false))
+    @Test fun `registry exposes only English and Persian`() {
+        assertEquals(EnNavStrings, NavStringsRegistry.current())
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("en"))
+        assertEquals(FaNavStrings, NavStringsRegistry.forLanguage("fa"))
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("fr"))
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("ja"))
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("th"))
+        assertEquals("fa", NavStringsRegistry.tagOf(Locale.forLanguageTag("fa-IR")))
+        assertEquals("en", NavStringsRegistry.tagOf(Locale.FRANCE))
+        NavStringsRegistry.setLocale(Locale.forLanguageTag("fa-IR"))
+        assertEquals(FaNavStrings, NavStringsRegistry.current())
         NavStringsRegistry.setLocale(Locale.FRANCE)
-        assertEquals(FrNavStrings, NavStringsRegistry.current())
-        NavStringsRegistry.setLocale(Locale.US) // reset so other tests see English
+        assertEquals(EnNavStrings, NavStringsRegistry.current())
+        NavStringsRegistry.setLocale(Locale.US)
         assertEquals(EnNavStrings, NavStringsRegistry.current())
     }
 
@@ -153,12 +150,14 @@ class NavStringsTest {
     }
 
     @Test fun `chinese and japanese phrases plus the zh script split in the registry`() {
-        assertEquals(ZhNavStrings, NavStringsRegistry.forLanguage("zh"))
-        assertEquals(ZhTwNavStrings, NavStringsRegistry.forLanguage("zh-TW"))
-        assertEquals(JaNavStrings, NavStringsRegistry.forLanguage("ja"))
-        assertEquals("zh", NavStringsRegistry.tagOf(Locale.SIMPLIFIED_CHINESE))
-        assertEquals("zh-tw", NavStringsRegistry.tagOf(Locale.TAIWAN))
-        assertEquals("zh-tw", NavStringsRegistry.tagOf(Locale.forLanguageTag("zh-Hant")))
+        // These legacy translation objects remain in source for upstream compatibility, but
+        // this fork's runtime registry deliberately exposes only English and Persian.
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("zh"))
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("zh-TW"))
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("ja"))
+        assertEquals("en", NavStringsRegistry.tagOf(Locale.SIMPLIFIED_CHINESE))
+        assertEquals("en", NavStringsRegistry.tagOf(Locale.TAIWAN))
+        assertEquals("en", NavStringsRegistry.tagOf(Locale.forLanguageTag("zh-Hant")))
         assertEquals("向左转，进入中山路", ZhNavStrings.phrase("turn", "left", "中山路", null, null, null))
         assertEquals("迴轉，進入中山路", ZhTwNavStrings.phrase("uturn", null, "中山路", null, null, null))
         assertEquals("左に曲がります、本町通り に入ります", JaNavStrings.phrase("turn", "left", "本町通り", null, null, null))
@@ -169,8 +168,8 @@ class NavStringsTest {
         assertEquals("500 メートル先、右に曲がります", JaNavStrings.inThen("500 メートル", "右に曲がります"))
     }
 
-    @Test fun `every registered language produces non-blank nav strings and keeps road names`() {
-        val langs = listOf("fr", "de", "es", "it", "pt", "nl", "ru", "pl", "sv", "uk", "hu", "ro", "zh", "ja", "he", "fa")
+    @Test fun `only supported languages are selected by the registry`() {
+        val langs = listOf("en", "fa")
         for (code in langs) {
             val ns = NavStringsRegistry.forLanguage(code)
             assertEquals("$code should map to its own NavStrings", code, ns.locale.language)
@@ -195,6 +194,7 @@ class NavStringsTest {
             // The road NAME is data — it must survive untranslated in the output.
             assertTrue("$code keeps road name", ns.phrase("turn", "left", "Rue de Rivoli", null, null, null).contains("Rue de Rivoli"))
         }
+        assertEquals(EnNavStrings, NavStringsRegistry.forLanguage("de"))
     }
 
     /** OSRM forks are almost always "slight left"/"slight right" — EVERY language's fork phrase must
