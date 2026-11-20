@@ -8242,9 +8242,6 @@ class MapViewModel @Inject constructor(
                 asrActiveId = app.vela.voice.AsrEngine.active(appContext).id,
             )
         }
-        // "Load voice search at startup" (Settings > Performance): the earlier behavior, kept as a
-        // choice and on by default only on roomy phones.
-        if (app.vela.ui.SpeechPreload.on.value) warmAsrForSearch()
     }
 
     /** Pre-build the recognizer when the user REACHES for search (the search box gains focus), not
