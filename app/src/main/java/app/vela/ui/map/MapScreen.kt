@@ -1677,18 +1677,13 @@ fun MapScreen(
                     if (state.inNavOverview) Icon(Sym.ZoomInMap, contentDescription = stringResource(R.string.mapscreen_recenter))
                     else Icon(Sym.ZoomOutMap, contentDescription = stringResource(R.string.nav_overview))
                 }
-                // With pause in the bar, this slot is plain mute: one button, one meaning, no
-                // pop-out to reach past. Otherwise the two hold controls share one button here
-                // (tap opens, second tap pauses, long press mutes).
-                if (navPauseInBar) {
-                    // The glyph is the state; a tap opens the three voice choices (issue 735).
-                    app.vela.ui.nav.NavVoiceButton(muted = state.voiceMuted, onVoice = vm::setVoiceMode)
-                } else {
-                    app.vela.ui.nav.NavHoldControls(
-                        paused = state.navPaused,
-                        muted = state.voiceMuted,
-                        onPause = vm::toggleNavPause,
-                        onVoice = vm::setVoiceMode,
+                app.vela.ui.nav.NavFab(
+                    onClick = vm::toggleNavPause,
+                    modifier = Modifier.dpadHighlight(CircleShape),
+                ) {
+                    Icon(
+                        if (state.navPaused) Sym.PlayArrow else Sym.Pause,
+                        contentDescription = stringResource(if (state.navPaused) R.string.nav_resume else R.string.nav_pause),
                     )
                 }
                 app.vela.ui.nav.NavFab(

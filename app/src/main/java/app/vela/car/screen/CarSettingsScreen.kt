@@ -22,11 +22,6 @@ class CarSettingsScreen(carContext: CarContext, private val deps: CarDeps) : Scr
     override fun onGetTemplate(): Template {
         val list = ItemList.Builder()
             .addItem(
-                toggleRow(app.vela.R.string.car_setting_voice, !deps.voiceGuide.muted) { on ->
-                    app.vela.car.CarVoice.set(carContext, deps.voiceGuide, on)
-                },
-            )
-            .addItem(
                 toggleRow(app.vela.R.string.car_setting_avoid_tolls, RoutingPrefs.avoidTolls) { on ->
                     RoutingPrefs.avoidTolls = on
                     prefs.edit().putBoolean("avoid_tolls", on).apply()

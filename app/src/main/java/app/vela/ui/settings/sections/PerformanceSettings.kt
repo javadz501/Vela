@@ -28,14 +28,6 @@ internal fun PerformanceSettingsScreen(onBack: () -> Unit) {
         Spacer(Modifier.height(4.dp))
         PageIntro(stringResource(R.string.settings_performance_intro))
         SettingsGroup {
-        ToggleRow(
-            label = stringResource(R.string.settings_speech_preload),
-            checked = app.vela.ui.SpeechPreload.on.value,
-            onCheckedChange = { app.vela.ui.SpeechPreload.set(context, it) },
-            hint = stringResource(R.string.settings_speech_preload_hint),
-            switchModifier = topRow,
-        )
-        GroupDivider()
         FullPlaceLoadRow()
         GroupDivider()
         // From Navigation (2026-10-03): it exists for the frame rate in turns, so it lives with the

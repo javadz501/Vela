@@ -184,21 +184,6 @@ jobs:
           || bash scripts/build-cronet-aar.sh "$v" app/libs
           test "$(stat -c%s "$f")" -gt 10000000
 
-      - name: Fetch TTS runtime AAR
-        # sherpa-onnx neural-TTS runtime (the Piper voices). It's a 57 MB prebuilt AAR (no Maven
-        # artifact) hosted on the fixed-tag `tts-runtime` release, gitignored out of the repo —
-        # fetch it into app/libs/ so :app can package the arm64 .so. Verify the size so a truncated
-        # download fails loud instead of producing a runtime-crashing APK.
-        run: |
-          mkdir -p app/libs
-          # The `tts-runtime` release only lives on the upstream repo, so a FORK's CI (github.repository
-          # = the fork) 404s. Try this repo first, then fall back to the upstream release.
-          curl -fSL -o app/libs/sherpa-onnx-1.13.3.aar \
-            "https://github.com/${{ github.repository }}/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar" \
-          || curl -fSL -o app/libs/sherpa-onnx-1.13.3.aar \
-            "https://github.com/PimpinPumpkin/Vela/releases/download/tts-runtime/sherpa-onnx-1.13.3.aar"
-          test "$(stat -c%s app/libs/sherpa-onnx-1.13.3.aar)" -gt 50000000
-
       - name: Build release APK
         env:
           VELA_KEYSTORE_PATH: ${{ runner.temp }}/vela-release.jks

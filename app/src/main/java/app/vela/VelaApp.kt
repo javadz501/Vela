@@ -86,7 +86,6 @@ class VelaApp : Application(), coil.ImageLoaderFactory {
         ).filterValues { it.isNotBlank() }
         // Device memory class first: the Coil cap and the eager-warm decisions read it.
         app.vela.ui.MemoryPressure.init(this)
-        app.vela.ui.SpeechPreload.init(this) // after MemoryPressure: its default reads the RAM tier
         app.vela.ui.FullPlaceLoad.init(this)
         // Google-host requests over Chrome's network stack (Cronet), built lazily on the first one.
         // Calibration `useCronet` 0, or an engine that fails to build, leaves them on OkHttp.
@@ -225,7 +224,6 @@ class VelaApp : Application(), coil.ImageLoaderFactory {
         app.vela.ui.RoadNumbers.init(this) // numbered roads go by their number (issue #836), off by default
         app.vela.ui.SpokenDetail.init(this)
         app.vela.ui.RoutePicker.init(this)
-        app.vela.ui.VoiceSearch.init(this)
         app.vela.ui.ContactsSearch.init(this) // contacts-in-search toggle (issue #243)
         app.vela.diag.NavTrace.init(this) // opt-in nav smoothness trace (issue #251)
         app.vela.ui.MapLook.init(this) // which OpenFreeMap look the basemap loads (issue #750); before MapFonts

@@ -67,7 +67,7 @@ import org.maplibre.android.offline.OfflineRegion
  */
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-internal fun OfflineSettingsScreen(vm: MapViewModel, onBack: () -> Unit, onCloseSettings: () -> Unit, onOpenVoice: () -> Unit = {}) {
+internal fun OfflineSettingsScreen(vm: MapViewModel, onBack: () -> Unit, onCloseSettings: () -> Unit) {
     val state by vm.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
     SettingsScaffold(stringResource(R.string.settings_offline), onBack) { topRow ->
@@ -203,9 +203,6 @@ internal fun OfflineSettingsScreen(vm: MapViewModel, onBack: () -> Unit, onClose
                 GroupDivider()
                 StorageRow(stringResource(R.string.settings_storage_places), st.placesMb)
                 GroupDivider()
-                // Tappable: the voices and the speech models are managed on the Voice and Search
-                // pages, so the row takes you to the bigger of the two (Voice).
-                StorageRow(stringResource(R.string.settings_storage_voices), st.voicesMb, onClick = onOpenVoice)
             } ?: Hint(stringResource(R.string.settings_storage_measuring))
             androidx.compose.foundation.layout.Box(Modifier.padding(horizontal = 8.dp)) {
                 androidx.compose.material3.TextButton(

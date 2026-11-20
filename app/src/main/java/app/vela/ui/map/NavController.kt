@@ -614,11 +614,6 @@ internal class NavController(
         }
         // A resumed drive records into this drive's trip, never an older drive's (null removes it).
         navResumePrefs.edit().putString("trip", tripId).apply()
-        // If the phone has no voice engine, say so once instead of going silent - with a pill
-        // straight to the voice library. Not when spoken directions are OFF: silence is chosen.
-        if (voice.availableEngines().isEmpty() && !voice.muted) {
-            host.showStatus(appContext.getString(R.string.mapvm_no_voice_engine), voiceAction = true)
-        }
     }
 
     fun stopNav() {

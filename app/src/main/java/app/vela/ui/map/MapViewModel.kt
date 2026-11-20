@@ -741,17 +741,16 @@ class MapViewModel @Inject constructor(
                 _state.update { it.copy(poiPackInstalledIds = poiPackStore.installedIds(), cellsInstalled = cellStore.installed()) }
             }
         }
-        // Reclaim disk from the removed Kokoro/Matcha voices (up to ~500 MB of dead model files after
-        // the Piper-only switch). Off the main thread; a no-op once the dirs are gone.
+        // Remove speech model data from older installs; this fork no longer ships ASR or TTS.
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             runCatching {
-                java.io.File(appContext.filesDir, "kokoro").deleteRecursively()
-                java.io.File(appContext.filesDir, "matcha").deleteRecursively()
+                listOf("piper", "asr", "kokoro", "matcha", "engines").forEach { name ->
+                    java.io.File(appContext.filesDir, name).deleteRecursively()
+                }
+                java.io.File(appContext.filesDir, "voice.download.tmp").delete()
+                java.io.File(appContext.filesDir, "voice.staging").deleteRecursively()
             }
         }
-        // Relocate any pre-browser flat Piper install (filesDir/piper/*.onnx) into the per-voice subdir
-        // layout the voice browser expects — synchronous, rename-only (no re-download), crash-safe.
-        VelaPiper.migrateFlatLayoutIfNeeded(appContext)
         // Restore the saved voice; default to the downloaded Piper voice.
         val savedRaw = appContext.getSharedPreferences("vela_settings", Context.MODE_PRIVATE)
             .getString("voice_engine", null)

@@ -85,7 +85,6 @@ internal fun SettingsHub(
             SettingsSection.MAP to stringResource(R.string.settings_map),
             SettingsSection.PLACES to stringResource(R.string.settings_places),
             SettingsSection.NAVIGATION to stringResource(R.string.settings_navigation),
-            SettingsSection.VOICE to stringResource(R.string.settings_voice),
             SettingsSection.SEARCH to stringResource(R.string.settings_search),
             SettingsSection.OFFLINE to stringResource(R.string.settings_offline),
             SettingsSection.SAVED_PLACES to stringResource(R.string.settings_saved_places),
@@ -164,18 +163,6 @@ internal fun SettingsHub(
             subtitle = stringResource(R.string.settings_hub_navigation_sub),
             modifier = rowModifier(SettingsSection.NAVIGATION, first = false),
             onClick = { onOpen(SettingsSection.NAVIGATION, null) },
-        )
-        HubRow(
-            icon = SymOutlined.VolumeUp,
-            title = stringResource(R.string.settings_voice),
-            // A voice download keeps its progress visible from the hub (it used to sit at the top
-            // of the Voice section precisely so a collapsed library couldn't hide it).
-            subtitle = if (state.voiceDownloadingId != null) {
-                if (state.voiceInstalling) stringResource(R.string.settings_voice_search_installing)
-                else stringResource(R.string.settings_voice_search_downloading, ((state.voiceDownloadPct ?: 0f) * 100).toInt())
-            } else stringResource(R.string.settings_hub_voice_sub),
-            modifier = rowModifier(SettingsSection.VOICE, first = false),
-            onClick = { onOpen(SettingsSection.VOICE, null) },
         )
         HubRow(
             icon = SymOutlined.Mic,
@@ -385,21 +372,11 @@ private val SEARCH_INDEX: List<Pair<Int, SettingsSection>> = listOf(
     R.string.settings_parking_history to SettingsSection.SAVED_PLACES,
     R.string.settings_saved_routes to SettingsSection.SAVED_PLACES,
     // Voice
-    R.string.settings_spoken_directions to SettingsSection.VOICE,
-    R.string.settings_spoken_road_names to SettingsSection.VOICE,
-    R.string.settings_spoken_detail to SettingsSection.VOICE,
-    R.string.settings_voice_volume to SettingsSection.VOICE,
-    R.string.settings_voice_library to SettingsSection.VOICE,
-    R.string.settings_voice_advanced to SettingsSection.VOICE,
-    R.string.settings_voice_test to SettingsSection.VOICE,
     // Search
-    R.string.settings_voice_search_toggle to SettingsSection.SEARCH,
     R.string.settings_contacts_search to SettingsSection.SEARCH,
     R.string.settings_quick_chips to SettingsSection.SEARCH,
     R.string.settings_other_locations_auto to SettingsSection.SEARCH,
     R.string.whatsnew_show_after_updates to SettingsSection.ABOUT,
-    R.string.settings_asr_engines_title to SettingsSection.SEARCH,
-    R.string.settings_voice_search_engine_title to SettingsSection.SEARCH,
     // Offline
     R.string.settings_offline to SettingsSection.OFFLINE,
     R.string.settings_offline_places_with_downloads to SettingsSection.OFFLINE,
@@ -439,7 +416,6 @@ private val SEARCH_INDEX: List<Pair<Int, SettingsSection>> = listOf(
     R.string.settings_nav_trace to SettingsSection.DIAGNOSTICS,
     R.string.settings_places_source to SettingsSection.PLACES,
     R.string.settings_cameras_group to SettingsSection.NAVIGATION,
-    R.string.voice_capture_examples_title to SettingsSection.SEARCH,
     // About
     R.string.settings_support to SettingsSection.ABOUT,
     R.string.settings_version to SettingsSection.ABOUT,
