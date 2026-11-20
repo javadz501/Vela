@@ -272,7 +272,7 @@
     <string name="settings_details_retry">تلاش دوباره برای زمان‌های شلوغی</string>
     <string name="settings_details_retry_hint">گوگل اغلب زمان‌های شلوغی را در پاسخ اول نمی‌فرستد؛ Vela حداکثر دو بار دیگر درخواست می‌کند.</string>
     <string name="settings_directions_language">زبان راهنمای مسیر</string>
-    <string name="settings_directions_language_hint">زبان نمایش و گفتار دستورهای مسیر است. صدای هماهنگ را از کتابخانه صدا دریافت کنید.</string>
+    <string name="settings_directions_language_hint">زبان نمایش دستورهای متنی مسیریابی را مشخص می‌کند.</string>
     <string name="settings_directions_same_as_app">همان زبان برنامه</string>
     <string name="settings_dynamic_color">رنگ‌های پویا</string>
     <string name="settings_dynamic_color_hint">رنگ دکمه‌ها و بخش‌های برجسته را از تصویر پس‌زمینه می‌گیرد؛ نقشه خنثی باقی می‌ماند.</string>
@@ -300,7 +300,7 @@
     <string name="settings_keep_screen_on">روشن ماندن صفحه هنگام مسیریابی</string>
     <string name="settings_keep_screen_on_hint">هنگام راهنمای گام‌به‌گام، صفحه را روشن نگه می‌دارد.</string>
     <string name="settings_language">زبان</string>
-    <string name="settings_language_hint">زبان برنامه و راهنمای صوتی را تغییر می‌دهد.</string>
+    <string name="settings_language_hint">زبان نمایش بخش‌های مختلف برنامه را تغییر می‌دهد. دستورهای مسیریابی نیز از همین زبان پیروی می‌کنند، مگر اینکه در بخش زیر زبان دیگری انتخاب کنید.</string>
     <string name="settings_live_traffic">ترافیک زنده</string>
     <string name="settings_live_traffic_hint">تراکم ترافیک را هنگام مرور نقشه نمایش می‌دهد.</string>
     <string name="settings_load_photos">بارگیری عکس‌ها</string>

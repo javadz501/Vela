@@ -2712,35 +2712,10 @@ object NavStringsRegistry {
     /** Language key for a locale — plain language code, except Chinese where the SCRIPT matters:
      *  Traditional-script regions (TW/HK/MO, or an explicit Hant script) map to "zh-tw", and
      *  Portuguese, where Brazil ("pt-br") has its own guidance beside Portugal's ("pt"). */
-    fun tagOf(locale: Locale): String {
-        val lang = locale.language.lowercase()
-        if (lang == "pt") return if (locale.country.equals("BR", ignoreCase = true)) "pt-br" else "pt"
-        if (lang != "zh") return lang
-        val hant = locale.script.equals("Hant", ignoreCase = true) ||
-            locale.country.uppercase() in setOf("TW", "HK", "MO")
-        return if (hant) "zh-tw" else "zh"
-    }
+    fun tagOf(locale: Locale): String =
+        if (locale.language.equals("fa", ignoreCase = true)) "fa" else "en"
 
     /** The NavStrings for a language code ("fr", "en", …); English for anything not yet translated. */
-    fun forLanguage(language: String): NavStrings = when (language.lowercase()) {
-        "fr" -> FrNavStrings
-        "de" -> DeNavStrings
-        "es" -> EsNavStrings
-        "it" -> ItNavStrings
-        "pt","pt-pt" -> PtPtNavStrings
-        "pt-br" -> PtBrNavStrings
-        "nl" -> NlNavStrings
-        "ru" -> RuNavStrings
-        "pl" -> PlNavStrings
-        "sv" -> SvNavStrings
-        "uk" -> UkNavStrings
-        "hu" -> HuNavStrings
-        "ro" -> RoNavStrings
-        "zh" -> ZhNavStrings
-        "zh-tw" -> ZhTwNavStrings
-        "ja" -> JaNavStrings
-        "he", "iw" -> HeNavStrings // JDK 17+ normalizes the old code "iw" → "he"; accept both
-        "fa" -> FaNavStrings
-        else -> EnNavStrings
-    }
+    fun forLanguage(language: String): NavStrings =
+        if (language.equals("fa", ignoreCase = true)) FaNavStrings else EnNavStrings
 }

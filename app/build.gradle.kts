@@ -27,6 +27,7 @@ android {
     defaultConfig {
         // Preserve the upstream application ID for package and signing continuity.
         applicationId = (project.findProperty("appId") as String?)?.takeIf { it.isNotBlank() } ?: "app.vela.fork"
+        resourceConfigurations += listOf("en", "fa")
         minSdk = 26
         targetSdk = 35
         // Overridable from CI: -PappVersionCode / -PappVersionName (ci.yml derives them from the

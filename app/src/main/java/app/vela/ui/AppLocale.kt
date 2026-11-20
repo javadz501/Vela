@@ -32,14 +32,9 @@ object AppLocale {
     // "he" is the modern Hebrew code the picker + NavStrings use; the Android RESOURCES live in the
     // legacy-qualifier folder res/values-iw (AAPT's Hebrew qualifier), and the platform maps a "he"
     // locale onto values-iw, so the two agree. (Same legacy-pair handling as id/in, yi/ji.)
-    val SUPPORTED = listOf("en", "fr", "de", "es", "it", "pt", "pt-BR", "nl", "ru", "pl", "sv", "uk", "hu", "ro", "et", "zh", "zh-TW", "ja", "he", "fa")
+    val SUPPORTED = listOf("en", "fa")
 
-    private val ENDONYMS = mapOf(
-        "en" to "English", "fr" to "Français", "de" to "Deutsch", "es" to "Español",
-        "it" to "Italiano", "pt" to "Português (Portugal)", "pt-BR" to "Português (Brasil)", "nl" to "Nederlands", "ru" to "Русский",
-        "pl" to "Polski", "sv" to "Svenska", "uk" to "Українська", "hu" to "Magyar", "ro" to "Română", "et" to "Eesti",
-        "zh" to "简体中文", "zh-TW" to "繁體中文（台灣）", "ja" to "日本語", "he" to "עברית", "fa" to "فارسی",
-    )
+    private val ENDONYMS = mapOf("en" to "English", "fa" to "فارسی")
 
     /** The language's own name (endonym) — what a speaker of it expects to see in a language list. */
     fun endonym(code: String): String = ENDONYMS[code] ?: code.replaceFirstChar { it.uppercase() }
@@ -47,20 +42,20 @@ object AppLocale {
     /** The supported language closest to the device/system locale. Used when the user turns OFF
      *  "follow system language" so the revealed picker starts on a sensible current choice instead
      *  of nothing; falls back to English when the system language isn't one Vela ships. */
-    fun deviceDefaultSupported(): String {
-        val sys = Locale.getDefault()
-        // Chinese needs the script split: Traditional regions/scripts map to the zh-TW entry.
-        if (sys.language == "zh") {
-            return if (NavStringsRegistry.tagOf(sys) == "zh-tw") "zh-TW" else "zh"
-        }
-        // Portuguese splits by country: values-pt is European, values-pt-rBR Brazilian.
-        if (sys.language == "pt") return if (sys.country == "BR") "pt-BR" else "pt"
-        return sys.language.takeIf { it in SUPPORTED } ?: "en"
-    }
+    fun deviceDefaultSupported(): String =
+        if (Locale.getDefault().language == "fa") "fa" else "en"
 
     fun init(context: Context) {
-        language.value = prefs(context).getString(KEY, "") ?: ""
-        directions.value = prefs(context).getString(KEY_DIRECTIONS, "") ?: ""
+        val storedLanguage = prefs(context).getString(KEY, "").orEmpty()
+        val storedDirections = prefs(context).getString(KEY_DIRECTIONS, "").orEmpty()
+        language.value = normalize(storedLanguage)
+        directions.value = normalize(storedDirections)
+        if (language.value != storedLanguage || directions.value != storedDirections) {
+            prefs(context).edit()
+                .putString(KEY, language.value)
+                .putString(KEY_DIRECTIONS, directions.value)
+                .apply()
+        }
         apply()
     }
 
@@ -69,9 +64,10 @@ object AppLocale {
     var onLocaleChanged: (() -> Unit)? = null
 
     fun set(context: Context, langCode: String) {
-        val changed = langCode != language.value
-        language.value = langCode
-        prefs(context).edit().putString(KEY, langCode).apply()
+        val supportedCode = normalize(langCode)
+        val changed = supportedCode != language.value
+        language.value = supportedCode
+        prefs(context).edit().putString(KEY, supportedCode).apply()
         apply()
         // Re-create the Activity so `stringResource`/`getString` re-resolve in the new language
         // (the nav voice already switched via apply()); no-op when nothing actually changed.
@@ -81,8 +77,9 @@ object AppLocale {
     /** Set the directions language ("" = the same as the app). Only the nav text and the voice
      *  read it, so no Activity re-create is needed. */
     fun setDirections(context: Context, langCode: String) {
-        directions.value = langCode
-        prefs(context).edit().putString(KEY_DIRECTIONS, langCode).apply()
+        val supportedCode = normalize(langCode)
+        directions.value = supportedCode
+        prefs(context).edit().putString(KEY_DIRECTIONS, supportedCode).apply()
         apply()
     }
 
@@ -93,8 +90,11 @@ object AppLocale {
     /** The resolved locale — the system default when following the system, else the override.
      *  Hyphenated codes ("zh-TW") need [Locale.forLanguageTag]; `Locale("zh-TW")` would create a
      *  bogus lowercase "zh-tw" LANGUAGE and match nothing. */
-    fun effective(): Locale = language.value.takeIf { it.isNotBlank() }
-        ?.let { Locale.forLanguageTag(it) } ?: Locale.getDefault()
+    fun effective(): Locale = when (language.value) {
+        "fa" -> Locale.forLanguageTag("fa")
+        "en" -> Locale.ENGLISH
+        else -> Locale.getDefault().takeIf { it.language in SUPPORTED } ?: Locale.ENGLISH
+    }
 
     /** The device's own locale, captured on the first [wrap] BEFORE any override touches the JVM
      *  default - the value to restore when the user goes back to following the system. */
@@ -108,30 +108,32 @@ object AppLocale {
      *  (user 2026-07-10). */
     fun wrap(base: Context): Context {
         if (systemDefault == null) systemDefault = Locale.getDefault()
-        val lang = prefs(base).getString(KEY, "").orEmpty()
-        if (lang.isBlank()) {
-            systemDefault?.let { if (Locale.getDefault() != it) Locale.setDefault(it) }
-            syncAcceptLanguage()
-            return base
+        val stored = prefs(base).getString(KEY, "").orEmpty()
+        val lang = normalize(stored)
+        if (lang != stored) prefs(base).edit().putString(KEY, lang).apply()
+        val systemLocale = systemDefault ?: Locale.ENGLISH
+        val locale = when (lang) {
+            "fa" -> Locale.forLanguageTag("fa")
+            "en" -> Locale.ENGLISH
+            else -> systemLocale.takeIf { it.language in SUPPORTED } ?: Locale.ENGLISH
         }
-        val locale = Locale.forLanguageTag(lang) // handles hyphenated tags like zh-TW
         Locale.setDefault(locale)
-        syncAcceptLanguage()
+        syncAcceptLanguage(locale)
         val config = Configuration(base.resources.configuration)
         config.setLocale(locale)
-        // Force the RTL/LTR direction from the chosen locale. setLocale only auto-updates
-        // layoutDirection when the config's direction wasn't already set, but AdaptiveDensity.wrap
-        // runs first and hands over a config with an explicit (LTR) direction, so Hebrew never
-        // flipped the layout without this (found + fixed in the vela-dpad fork).
         config.setLayoutDirection(locale)
         return base.createConfigurationContext(config)
     }
 
-    /** Native Google requests name the same languages the WebViews do: both read the default locale
-     *  list (the picked language first, then the system's), through Chrome's own expansion. */
-    private fun syncAcceptLanguage() {
+    /** Keep app-originated requests within the two supported interface languages. */
+    private fun syncAcceptLanguage(locale: Locale) {
         app.vela.core.data.google.BrowserHeaders.acceptLanguage = app.vela.core.data.google.BrowserHeaders
-            .acceptLanguageFor(android.os.LocaleList.getDefault().toLanguageTags().split(','))
+            .acceptLanguageFor(listOf(locale.toLanguageTag()))
+    }
+
+    private fun normalize(code: String): String = when (code) {
+        "", "en", "fa" -> code
+        else -> "en"
     }
 
     /** Push the resolved locale into the app's locale-aware subsystems. */
