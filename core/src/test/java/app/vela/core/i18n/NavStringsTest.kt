@@ -97,6 +97,23 @@ class NavStringsTest {
     }
 
     @Test
+    fun `persian overrides every english-specific navigation helper`() {
+        assertEquals("از چراغ راهنمایی عبور کنید", FaNavStrings.passLights(1))
+        assertEquals("از ۲ چراغ راهنمایی عبور کنید", FaNavStrings.passLights(2))
+        assertEquals(
+            "از چراغ راهنمایی عبور کنید، سپس به راست بپیچید",
+            FaNavStrings.lightThen("از چراغ راهنمایی عبور کنید", "به راست بپیچید"),
+        )
+        assertEquals("به راست بپیچید، سپس به چپ بپیچید", FaNavStrings.thenNext("به راست بپیچید", "به چپ بپیچید"))
+        assertEquals("به سمت راست بپیچید", FaNavStrings.spokenSign("به سمت راست بپیچید"))
+        assertEquals("به سمت راست بپیچید", FaNavStrings.repeatShort("به سمت راست بپیچید"))
+        assertEquals("به سمت راست بپیچید", FaNavStrings.repeatWithRoute("به سمت راست بپیچید"))
+        assertEquals(emptyList<String>(), FaNavStrings.signParts("به سمت مرکز شهر"))
+        assertEquals(null, FaNavStrings.stayOn("به مسیر ادامه دهید", "I 80"))
+        assertEquals("نام خیابان", FaNavStrings.expandForSpeech("نام خیابان"))
+    }
+
+    @Test
     fun `persian generated prompts do not fall back to english templates`() {
         val prompts = listOf(
             FaNavStrings.inThen("۴۰۰ متر", "به راست بپیچید"),
