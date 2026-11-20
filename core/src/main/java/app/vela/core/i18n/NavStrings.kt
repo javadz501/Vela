@@ -493,6 +493,26 @@ object FaNavStrings : NavStrings by EnNavStrings {
         val n = digits(count.toString())
         return if (count > 1) "از " + n + " خط سمت " + direction + " استفاده کنید" else "از خط سمت " + direction + " استفاده کنید"
     }
+    override fun passLights(count: Int): String =
+        if (count <= 1) "از چراغ راهنمایی عبور کنید"
+        else "از ${digits(count.toString())} چراغ راهنمایی عبور کنید"
+
+    override fun lightThen(lead: String, instruction: String): String =
+        if (lead.isBlank()) instruction else "$lead، سپس $instruction"
+
+    override fun thenNext(instruction: String, next: String): String = "$instruction، سپس $next"
+
+    override fun spokenSign(instruction: String): String = instruction
+    override fun repeatShort(instruction: String): String = instruction
+    override fun repeatWithRoute(instruction: String): String = instruction
+    override fun signParts(instruction: String): List<String> = emptyList()
+    override fun stayOn(instruction: String, route: String): String? = null
+
+    override fun useLanesToDo(side: LaneSide, count: Int, instruction: String): String =
+        useLanes(side, count) + ". " + instruction
+
+    override fun expandForSpeech(text: String): String = text
+
 }
 
 object NavStringsRegistry {
