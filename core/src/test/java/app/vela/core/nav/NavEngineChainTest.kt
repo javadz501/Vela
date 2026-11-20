@@ -27,10 +27,15 @@ class NavEngineChainTest {
     /** East 1000 m, right onto Elm Street, south [gap] m, left onto Oak Avenue, east 600 m. */
     private fun route(gap: Double): Route {
         val poly = (0..100).map { pt(it * 10.0, 0.0) } + (1..(gap / 10).toInt()).map { pt(1000.0, -it * 10.0) } + (1..60).map { pt(1000.0 + it * 10.0, -gap) }
+        val persian = NavStringsRegistry.current().locale.language == "fa"
+        val right = if (persian) "به سمت راست بپیچید و وارد مسیر «Elm Street» شوید" else "Turn right onto Elm Street"
+        val left = if (persian) "به سمت چپ بپیچید و وارد مسیر «Oak Avenue» شوید" else "Turn left onto Oak Avenue"
+        val rightShort = if (persian) "به سمت راست بپیچید" else "Turn right"
+        val leftShort = if (persian) "به سمت چپ بپیچید" else "Turn left"
         val ms = listOf(
             Maneuver(ManeuverType.DEPART, "Head east", poly.first(), 1000.0, 100.0),
-            Maneuver(ManeuverType.TURN_RIGHT, "Turn right onto Elm Street", pt(1000.0, 0.0), gap, gap / 10, road = "Elm Street", instructionNoRoad = "Turn right"),
-            Maneuver(ManeuverType.TURN_LEFT, "Turn left onto Oak Avenue", pt(1000.0, -gap), 600.0, 60.0, road = "Oak Avenue", instructionNoRoad = "Turn left"),
+            Maneuver(ManeuverType.TURN_RIGHT, right, pt(1000.0, 0.0), gap, gap / 10, road = "Elm Street", instructionNoRoad = rightShort),
+            Maneuver(ManeuverType.TURN_LEFT, left, pt(1000.0, -gap), 600.0, 60.0, road = "Oak Avenue", instructionNoRoad = leftShort),
             Maneuver(ManeuverType.ARRIVE, "Arrive", poly.last(), 0.0, 0.0),
         )
         return Route(poly, listOf(RouteLeg(1600.0 + gap, 160.0, null, ms)), 1600.0 + gap, 160.0, null)
