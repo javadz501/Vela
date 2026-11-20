@@ -562,7 +562,7 @@ class MapViewModel @Inject constructor(
     // UK gas stations get their price from the Fuel Finder file (SPEC 5.8). Above init like nav.
     private val ukFuel = UkFuelPrices(appContext, viewModelScope, _state, http)
 
-    // The voice mode written from the car navigation screen:
+    // The voice mode persisted by the navigation model:
     // followed here so the phone's state and the drive button agree with it. A strong reference,
     // held above init: the prefs keep listeners weakly.
     private val voicePrefListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { p, key ->
