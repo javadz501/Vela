@@ -1498,4 +1498,6 @@
     <string name="driven_route_save">ذخیره مسیری که راندید</string>
     <string name="settings_page_transitions_hint">انیمیشن باز و بسته شدن صفحات و پنل‌های پایینی و پیش‌نمایش صفحه قبلی هنگام کشیدن به عقب.</string>
     <string name="trip_shortcut_themed">هماهنگی با نمادهای هم‌تم</string>
+    <string name="map_speed_label">حداکثر</string>
+    <string name="map_limit_label">سرعت</string>
 </resources>
