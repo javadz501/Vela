@@ -562,7 +562,7 @@ class MapViewModel @Inject constructor(
     // UK gas stations get their price from the Fuel Finder file (SPEC 5.8). Above init like nav.
     private val ukFuel = UkFuelPrices(appContext, viewModelScope, _state, http)
 
-    // The voice mode written from outside this model (the car's on/off switch, CarVoice):
+    // The voice mode written from the car navigation screen:
     // followed here so the phone's state and the drive button agree with it. A strong reference,
     // held above init: the prefs keep listeners weakly.
     private val voicePrefListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { p, key ->
@@ -10282,7 +10282,7 @@ class MapViewModel @Inject constructor(
         val prefs = appContext.getSharedPreferences("vela_settings", android.content.Context.MODE_PRIVATE)
         if (prefs.getBoolean(ROUTING_OFFER_DONE, false)) { routingOfferChecked = true; return }
         val ob = app.vela.ui.Onboarding
-        if (!ob.welcomeDone.value || ob.showLocationPrompt.value || ob.showNotifPrompt.value || ob.showVoicePrompt.value || ob.showDonatePrompt.value) return
+        if (!ob.welcomeDone.value || ob.showLocationPrompt.value || ob.showNotifPrompt.value || ob.showDonatePrompt.value) return
         val s = _state.value
         if (s.navigating || s.directionsOpen || s.selected != null || s.results.isNotEmpty() || s.offline) return
         if (s.routingDownloadingId != null) return
