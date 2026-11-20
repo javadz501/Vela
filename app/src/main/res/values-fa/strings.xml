@@ -562,4 +562,5 @@
         <item quantity="one">%d ایستگاه باقی مانده</item>
         <item quantity="other">%d ایستگاه باقی مانده</item>
     </plurals>
+    <string name="nav_compound_then">سپس</string>
 </resources>

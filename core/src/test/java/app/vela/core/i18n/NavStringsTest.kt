@@ -144,6 +144,9 @@ class NavStringsTest {
 
     @Test fun `persian navigation uses Persian directions and digits`() {
         assertEquals("به سمت راست بپیچید", FaNavStrings.phrase("turn", "right", null, null, null, null))
+        assertEquals("به سمت راست بپیچید و وارد مسیر «امام خمینی» شوید", FaNavStrings.phrase("turn", "right", "امام خمینی", null, null, null))
+        assertEquals("در مسیر «خیابان آزادی» به حرکت ادامه دهید", FaNavStrings.phrase("continue", "straight", "خیابان آزادی", null, null, null))
+        assertEquals("از خروجی شماره ۲ خارج شوید به سمت مرکز شهر", FaNavStrings.phrase("off ramp", null, null, "مرکز شهر", "۲", null))
         assertEquals("۴۰۰ متر", FaNavStrings.spokenDistance(400.0, imperial = false))
         assertEquals("۱٫۵ کیلومتر", FaNavStrings.spokenDistance(1500.0, imperial = false).replace(".", "٫"))
         assertEquals(FaNavStrings, NavStringsRegistry.forLanguage("fa"))

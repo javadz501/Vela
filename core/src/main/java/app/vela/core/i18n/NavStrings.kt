@@ -2627,22 +2627,22 @@ object FaNavStrings : NavStrings by EnNavStrings {
     override fun ferry(): String = "با کشتی عبور کنید"
     override fun phrase(type: String, mod: String?, road: String?, dest: String?, exitNo: String?, rbExit: Int?): String {
         val direction = side(mod)
-        val roadText = road?.takeIf { it.isNotBlank() }?.let { " به " + it }.orEmpty()
+        val roadText = road?.takeIf { it.isNotBlank() }?.let { " و وارد مسیر «" + it + "» شوید" }.orEmpty()
         val destination = dest?.takeIf { it.isNotBlank() }?.let { " به سمت " + it }.orEmpty()
         val exit = exitNo?.let { " شماره " + digits(it) }.orEmpty()
         return when (type) {
             "depart" -> road?.let { "از " + it + " حرکت کنید" } ?: "مسیر را آغاز کنید"
             "arrive" -> "به مقصد رسیدید"
             "turn", "end of road" -> if (direction.isNotBlank()) "به سمت " + direction + " بپیچید" + roadText else "به مسیر ادامه دهید" + roadText
-            "continue", "new name" -> "به مسیر ادامه دهید" + roadText
-            "merge" -> "در مسیر ادغام شوید" + roadText
+            "continue", "new name" -> road?.takeIf { it.isNotBlank() }?.let { "در مسیر «" + it + "» به حرکت ادامه دهید" } ?: "به مسیر ادامه دهید"
+            "merge" -> road?.takeIf { it.isNotBlank() }?.let { "به مسیر «" + it + "» بپیوندید" } ?: "به مسیر اصلی بپیوندید"
             "on ramp" -> "وارد رمپ شوید" + exit + destination
-            "off ramp" -> "از رمپ خارج شوید" + exit + destination
+            "off ramp" -> "از خروجی" + exit + " خارج شوید" + destination
             "fork" -> if (direction.isNotBlank()) "در دوراهی به سمت " + direction + " بروید" + destination else "در دوراهی مسیر را ادامه دهید" + destination
             "roundabout", "rotary" -> "وارد میدان شوید" + (rbExit?.let { " و از خروجی " + digits(it.toString()) + " خارج شوید" }.orEmpty())
             "roundabout turn" -> "از میدان خارج شوید" + roadText
             "notification" -> "به مسیر ادامه دهید" + roadText
-            else -> if (direction.isNotBlank()) "به سمت " + direction + " حرکت کنید" + roadText else "به مسیر ادامه دهید" + roadText
+            else -> if (direction.isNotBlank()) "به سمت " + direction + " بروید" + roadText else "به مسیر ادامه دهید" + roadText
         }
     }
     override fun spokenDistance(meters: Double, imperial: Boolean): String {
