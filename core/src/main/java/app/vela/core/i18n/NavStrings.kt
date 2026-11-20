@@ -154,8 +154,7 @@ interface NavStrings {
      * Expand road abbreviations + numbers so the TTS engine SAYS them ("St"→"Street", "128th"→"one
      * twenty-eighth"). English-specific, so it's **opt-in**: the default is identity, and ONLY
      * [EnNavStrings] overrides it. Other languages must leave the text — including road-name DATA —
-     * untouched, so an English rule can never mangle a foreign name (a French "Rue"/"Bd" is read
-     * natively by the French voice).
+     * untouched, so an English rule can never mangle a foreign name (foreign road names remain untouched).
      */
     fun expandForSpeech(text: String): String = text
 }
