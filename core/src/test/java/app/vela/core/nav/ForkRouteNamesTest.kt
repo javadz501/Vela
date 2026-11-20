@@ -69,7 +69,7 @@ class ForkRouteNamesTest {
     }
 
     @Test fun `a language with no stay-on line keeps its text`() {
-        NavStringsRegistry.setLocale(Locale.forLanguageTag("sv"))
+        NavStringsRegistry.setLocale(Locale.forLanguageTag("fa-IR"))
         val s = steps("I 80 West", "I 80")
         assertEquals(s[2].instruction, RouteGeometry.stayOnForks(s)[2].instruction)
     }
