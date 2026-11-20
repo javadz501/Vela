@@ -388,11 +388,7 @@ private val EN_SPEECH_WORDS: List<Pair<Regex, String>> = listOf(
     Regex("\\bW\\b") to "West",
 )
 
-/**
- * French — the first non-English NavStrings, proving the per-language-template design (note the word
- * order: "à gauche **sur** X", the modifier folded into the verb phrase, roundabout ordinals "2e
- * sortie"). Road/dest names are passed through untranslated.
- */
+/** Persian navigation prompts. Road and destination labels remain source data. */
 object FaNavStrings : NavStrings by EnNavStrings {
     override val locale: Locale = Locale.forLanguageTag("fa-IR")
     private fun digits(value: String): String = value
