@@ -183,9 +183,7 @@ class ActiveNavCarScreen(carContext: CarContext, private val deps: CarDeps) :
                     .build(),
             )
         }
-        // Two buttons up here (user 2026-10-15, after a side-by-side with Google's car screen):
-        // mute and end. Pause and the search along the route stay on the phone, where a drive is
-        // paused and stops are added; four round buttons over the map read as clutter on a car.
+        // Keep the end-navigation action prominent. Voice output is intentionally silent in this fork.
         strip.addAction(
             Action.Builder()
                 .setIcon(carIcon(app.vela.R.drawable.ic_car_close))
