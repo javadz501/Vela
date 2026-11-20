@@ -14,6 +14,12 @@ class RoadSignsTest {
         assertEquals(listOf("Exit 72B", "I 80", "US-50"), signs.map { it.label })
     }
 
+    @Test fun `Persian exit instructions produce Persian exit badges`() {
+        val signs = roadSigns("از خروجی شماره ۷۲B به سمت I-80 East خارج شوید")
+        assertEquals(listOf("خروجی ۷۲B", "I-80"), signs.map { it.label })
+        assertEquals(true, signs.first().isExit)
+    }
+
     @Test fun `a direction letter does not make a second shield`() {
         assertEquals(routeKey("I-80 E"), routeKey("I 80"))
         assertEquals("CA99", routeKey("CA-99"))
