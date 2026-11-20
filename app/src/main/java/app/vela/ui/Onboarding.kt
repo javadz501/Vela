@@ -104,7 +104,7 @@ object Onboarding {
         }
     }
 
-    /** Mark the notification step handled so it never shows again, and arm the voice offer next. */
+    /** Mark the notification step handled so it never shows again. */
     fun dismissNotifPrompt(context: Context) {
         showNotifPrompt.value = false
         val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
