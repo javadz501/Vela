@@ -2709,13 +2709,11 @@ object NavStringsRegistry {
 
     fun setLocale(locale: Locale) { active = forLanguage(tagOf(locale)) }
 
-    /** Language key for a locale — plain language code, except Chinese where the SCRIPT matters:
-     *  Traditional-script regions (TW/HK/MO, or an explicit Hant script) map to "zh-tw", and
-     *  Portuguese, where Brazil ("pt-br") has its own guidance beside Portugal's ("pt"). */
+    /** Resolve every locale to one of the two languages shipped by this fork. */
     fun tagOf(locale: Locale): String =
         if (locale.language.equals("fa", ignoreCase = true)) "fa" else "en"
 
-    /** The NavStrings for a language code ("fr", "en", …); English for anything not yet translated. */
+    /** Persian navigation strings; English is the fallback and only other supported language. */
     fun forLanguage(language: String): NavStrings =
         if (language.equals("fa", ignoreCase = true)) FaNavStrings else EnNavStrings
 }

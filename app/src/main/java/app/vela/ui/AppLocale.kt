@@ -7,31 +7,22 @@ import app.vela.core.i18n.NavStringsRegistry
 import java.util.Locale
 
 /**
- * App language preference — **follow the system locale by default, or override to a specific language**
- * (like Google Maps' in-app language setting). A process-wide reactive holder + persisted pref, mirroring
- * [app.vela.ui.theme.AppTheme] / [Units]. Setting it drives everything Vela renders in the user's
- * language: the `strings.xml` UI chrome, the scrape locale (hl/gl), and the GENERATED nav text (via
- * [NavStringsRegistry]) unless [directions] picks another language for it. Resolved to an actual
- * [Locale] by [effective] and [directionsEffective].
+ * App language preference — follow the system only when it is English or Persian; unsupported
+ * system languages resolve to English. The user may explicitly choose English or Persian.
+ * A process-wide reactive holder + persisted preference drives Android resources, app-originated
+ * request locale, and generated on-screen navigation text.
  *
- * Set EXPLICITLY here (main thread, startup + on change) and read from the registry at the leaf, rather
- * than calling `Locale.getDefault()` deep in the nav/TTS code (which runs off the main thread).
+ * Resolve the locale here rather than reading `Locale.getDefault()` in navigation code.
  */
 object AppLocale {
-    /** "" = follow the system; otherwise a language code ("en", "fr", "de", …). */
+    /** "" = follow an English or Persian system locale; otherwise use English. */
     val language = mutableStateOf("")
 
-    /** The directions language: "" = the same as the app; otherwise a code from [SUPPORTED].
-     *  It drives the generated nav text and the voice, so the menus can stay in one language
-     *  while turns are shown and spoken in another (issue 701). */
+    /** The directions language: "" = the same as the app; otherwise "en" or "fa".
+     *  It controls on-screen navigation text independently of the app menus. */
     val directions = mutableStateOf("")
 
-    /** The languages Vela's generated nav voice is translated into (and, rolling out, the UI chrome).
-     *  This is the source of truth for the in-app language picker — keep it in sync with the NavStrings
-     *  table in :core. */
-    // "he" is the modern Hebrew code the picker + NavStrings use; the Android RESOURCES live in the
-    // legacy-qualifier folder res/values-iw (AAPT's Hebrew qualifier), and the platform maps a "he"
-    // locale onto values-iw, so the two agree. (Same legacy-pair handling as id/in, yi/ji.)
+    /** The only languages exposed by this fork's language pickers. */
     val SUPPORTED = listOf("en", "fa")
 
     private val ENDONYMS = mapOf("en" to "English", "fa" to "فارسی")
@@ -69,13 +60,12 @@ object AppLocale {
         language.value = supportedCode
         prefs(context).edit().putString(KEY, supportedCode).apply()
         apply()
-        // Re-create the Activity so `stringResource`/`getString` re-resolve in the new language
-        // (the nav voice already switched via apply()); no-op when nothing actually changed.
+        // Re-create the Activity so `stringResource`/`getString` re-resolve in the new language;
+        // navigation text is updated by apply().
         if (changed) onLocaleChanged?.invoke()
     }
 
-    /** Set the directions language ("" = the same as the app). Only the nav text and the voice
-     *  read it, so no Activity re-create is needed. */
+    /** Set the on-screen navigation language ("" = the same as the app). No Activity re-create is needed. */
     fun setDirections(context: Context, langCode: String) {
         val supportedCode = normalize(langCode)
         directions.value = supportedCode
@@ -87,25 +77,18 @@ object AppLocale {
     fun directionsEffective(): Locale = directions.value.takeIf { it.isNotBlank() }
         ?.let { Locale.forLanguageTag(it) } ?: effective()
 
-    /** The resolved locale — the system default when following the system, else the override.
-     *  Hyphenated codes ("zh-TW") need [Locale.forLanguageTag]; `Locale("zh-TW")` would create a
-     *  bogus lowercase "zh-tw" LANGUAGE and match nothing. */
+    /** The resolved locale, restricted to English and Persian. */
     fun effective(): Locale = when (language.value) {
         "fa" -> Locale.forLanguageTag("fa")
         "en" -> Locale.ENGLISH
         else -> Locale.getDefault().takeIf { it.language in SUPPORTED } ?: Locale.ENGLISH
     }
 
-    /** The device's own locale, captured on the first [wrap] BEFORE any override touches the JVM
-     *  default - the value to restore when the user goes back to following the system. */
+    /** The device locale captured before the app applies its own language override. */
     private var systemDefault: Locale? = null
 
-    /** Wrap a base [Context] with the chosen language so `stringResource`/`getString` resolve to it.
-     *  Reads the pref directly (it runs from `attachBaseContext`, before [init]). When FOLLOWING the
-     *  system it also RESTORES `Locale.getDefault()`: `setDefault` is process-global and survived the
-     *  activity re-create, so after switching Russian back to English the parking-history dates kept
-     *  printing Russian months and the place scrape kept fetching hl=ru until the process died
-     *  (user 2026-07-10). */
+    /** Wrap the base context using only English or Persian. Unsupported system locales use English.
+     *  The preference is read here because this runs from `attachBaseContext`, before [init]. */
     fun wrap(base: Context): Context {
         if (systemDefault == null) systemDefault = Locale.getDefault()
         val stored = prefs(base).getString(KEY, "").orEmpty()
