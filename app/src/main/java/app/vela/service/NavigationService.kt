@@ -415,17 +415,19 @@ class NavigationService : Service() {
                         enableVibration(false)
                     },
                 )
-                // HIGH so it pops as a heads-up, but explicitly soundless and buzz-free: the spoken
-                // guidance is the audio channel, and a system ding on top of "turn right onto..."
-                // would double-announce every turn.
+                // Background maneuver alerts are a separate audible channel. Keep the ongoing
+                // foreground-service notification silent, but let each new turn notification use
+                // the system notification sound and a short vibration. A new channel ID is required
+                // because Android does not let an app change sound/vibration on an existing channel.
                 nm.createNotificationChannel(
                     NotificationChannel(
                         TURN_CHANNEL_ID,
                         context.getString(R.string.navservice_channel_turns_name),
                         NotificationManager.IMPORTANCE_HIGH,
                     ).apply {
-                        setSound(null, null)
-                        enableVibration(false)
+                        setSound(android.provider.Settings.System.DEFAULT_NOTIFICATION_URI, null)
+                        enableVibration(true)
+                        vibrationPattern = longArrayOf(0L, 180L, 90L, 180L)
                     },
                 )
             }
@@ -437,7 +439,7 @@ class NavigationService : Service() {
         internal const val CHANNEL_ID = "vela_nav_drive"
         /** The LOW-importance channel the drive used to live on, deleted on first run. */
         private const val OLD_CHANNEL_ID = "vela_nav"
-        internal const val TURN_CHANNEL_ID = "vela_nav_turns"
+        internal const val TURN_CHANNEL_ID = "vela_nav_turns_v2"
         private const val NOTIF_ID = 42
 
         /** The live-update bar's color for road that is not congested: the route line's own blue,
