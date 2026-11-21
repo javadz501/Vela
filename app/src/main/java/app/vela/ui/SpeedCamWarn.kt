@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 
 /**
- * Whether an approaching speed camera is announced OUT LOUD during navigation (issue #229).
+ * Whether an approaching speed camera triggers a short audible tone during navigation (issue #229).
  *
  * Separate from [SpeedCams], which only draws them on the map, for two reasons. Seeing a marker
  * and being spoken to are different enough that wanting one is not wanting the other. And warning
@@ -14,10 +14,10 @@ import androidx.compose.runtime.mutableStateOf
  * -directions mute like every other prompt.
  */
 object SpeedCamWarn {
-    val on = mutableStateOf(false)
+    val on = mutableStateOf(true)
 
     fun init(context: Context) {
-        on.value = prefs(context).getBoolean(KEY, false)
+        on.value = prefs(context).getBoolean(KEY, true)
     }
 
     fun set(context: Context, value: Boolean) {

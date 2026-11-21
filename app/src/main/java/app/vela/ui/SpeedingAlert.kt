@@ -4,17 +4,17 @@ import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 
 /**
- * Whether Vela says so out loud when you are over the posted limit while navigating (issue
+ * Whether Vela plays a short tone when you are over the posted limit while navigating (issue
  * #404). Off by default: being told off by your phone is an opt-in. Timing lives in :core
  * [app.vela.core.nav.SpeedingAlerts]; the posted limit is whatever the speed widget shows
  * (the offline graph's maxspeed, else the online overlay), so it only speaks where a limit is
- * known. Respects the global spoken-directions mute like every other prompt.
+ * known. Uses a non-verbal tone; TTS is not used.
  */
 object SpeedingAlert {
-    val on = mutableStateOf(false)
+    val on = mutableStateOf(true)
 
     fun init(context: Context) {
-        on.value = prefs(context).getBoolean(KEY, false)
+        on.value = prefs(context).getBoolean(KEY, true)
     }
 
     fun set(context: Context, value: Boolean) {
