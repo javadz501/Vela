@@ -7,11 +7,9 @@ import androidx.compose.runtime.mutableStateOf
  * Whether an approaching speed camera triggers a short audible tone during navigation (issue #229).
  *
  * Separate from [SpeedCams], which only draws them on the map, for two reasons. Seeing a marker
- * and being spoken to are different enough that wanting one is not wanting the other. And warning
- * about speed cameras while driving is treated differently country to country - some ban devices
- * that do it - so the spoken half is its own deliberate opt-in rather than something that arrives
- * with a map layer. Nested under the camera toggle in Settings, and it respects the global spoken
- * -directions mute like every other prompt.
+ * and hearing a tone are different enough that the warning remains independently configurable.
+ * Camera-warning features are restricted in some countries, so users should disable this option
+ * wherever local law requires. It is nested under the camera toggle in Settings.
  */
 object SpeedCamWarn {
     val on = mutableStateOf(true)
