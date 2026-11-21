@@ -577,14 +577,24 @@ private fun FitDuration(text: String, style: androidx.compose.ui.text.TextStyle,
     val scaleState = remember(text) { androidx.compose.runtime.mutableStateOf(1f) }
     val styled = remember(text) {
         androidx.compose.ui.text.buildAnnotatedString {
-            text.forEach { ch ->
-                pushStyle(androidx.compose.ui.text.SpanStyle(fontWeight = if (ch.isDigit() || ch == '<') FontWeight.SemiBold else FontWeight.Normal))
-                append(ch); pop()
+            val numberPattern = Regex("<?[0-9۰-۹]+")
+            var cursor = 0
+            numberPattern.findAll(text).forEach { match ->
+                append(text.substring(cursor, match.range.first))
+                pushStyle(androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.SemiBold))
+                append(match.value)
+                pop()
+                cursor = match.range.last + 1
             }
+            append(text.substring(cursor))
         }
     }
+    val durationStyle = style.copy(
+        textDirection = androidx.compose.ui.text.style.TextDirection.ContentOrRtl,
+        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+    )
     Text(
-        styled, style = style, color = color, maxLines = 1, softWrap = false,
+        styled, style = durationStyle, color = color, maxLines = 1, softWrap = false,
         fontSize = style.fontSize * scaleState.value,
         onTextLayout = { if (it.hasVisualOverflow && scaleState.value > 0.55f) scaleState.value *= 0.92f },
     )
