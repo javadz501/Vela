@@ -7,7 +7,7 @@ import org.junit.Test
 class TypeDirectionTest {
     @Test
     fun allTypographyStylesUseRequestedRtlDirection() {
-        val typography = velaTypography(direction = TextDirection.ContentOrRtl)
+        val typography = velaTypography(direction = TextDirection.Rtl)
         val directions = listOf(
             typography.displayLarge.textDirection,
             typography.displayMedium.textDirection,
@@ -26,7 +26,7 @@ class TypeDirectionTest {
             typography.labelSmall.textDirection,
         )
 
-        directions.forEach { assertEquals(TextDirection.ContentOrRtl, it) }
+        directions.forEach { assertEquals(TextDirection.Rtl, it) }
     }
 
     @Test
