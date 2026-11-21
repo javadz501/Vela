@@ -127,9 +127,22 @@ fun VelaTheme(
         darkTheme -> DarkColors
         else -> LightColors
     }
-    val family = if (app.vela.ui.AppLocale.effective().language == "fa" && app.vela.ui.AppFont.customName.value == null) PersianTypeface else app.vela.ui.AppFont.family.value
-    val typography = androidx.compose.runtime.remember(family) { velaTypography(family) }
-    MaterialTheme(colorScheme = colorScheme, typography = typography, content = content)
+    val isPersian = app.vela.ui.AppLocale.effective().language == "fa"
+    val family = if (isPersian && app.vela.ui.AppFont.customName.value == null) PersianTypeface else app.vela.ui.AppFont.family.value
+    val textDirection = if (isPersian) {
+        androidx.compose.ui.text.style.TextDirection.ContentOrRtl
+    } else {
+        androidx.compose.ui.text.style.TextDirection.ContentOrLtr
+    }
+    val typography = androidx.compose.runtime.remember(family, textDirection) {
+        velaTypography(family, textDirection)
+    }
+    androidx.compose.runtime.CompositionLocalProvider(
+        androidx.compose.ui.platform.LocalLayoutDirection provides
+            if (isPersian) androidx.compose.ui.unit.LayoutDirection.Rtl else androidx.compose.ui.unit.LayoutDirection.Ltr,
+    ) {
+        MaterialTheme(colorScheme = colorScheme, typography = typography, content = content)
+    }
 }
 
 /** True only while the wallpaper's colors are really in use: the setting is on AND the phone's
