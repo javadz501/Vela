@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 
 /**
  * Whether fixed speed/radar cameras are drawn on the map (issue #229). Same reactive-holder shape
- * as [Flock]; OFF by default - the audience that wants radar warnings (mostly Europe) opts in. The
+ * as [Flock]; ON by default in this fork so the nearby warning feature has camera data. The
  * cameras come from the baked road-features region ([app.vela.data.RoadFeatures], checked through
  * MapViewModel.roadFeaturesCover); a live per-viewport Overpass fetch answers only where the manifest
  * has no region.

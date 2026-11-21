@@ -91,7 +91,7 @@ internal fun CameraSettingsGroup() {
             )
         }
         // Plate cameras coming up while navigating: a heads-up card and a short tone, each its
-        // own opt-in. Not nested under the layer toggle: the bundled dataset is loaded either way.
+        // own setting. Not nested under the layer toggle: the bundled dataset is loaded either way.
         GroupDivider()
         ToggleRow(
             label = stringResource(R.string.settings_flock_nav_card),
