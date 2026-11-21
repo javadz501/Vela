@@ -3,6 +3,7 @@ package app.vela.ui.theme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.isSpecified
+import androidx.compose.ui.text.style.TextDirection
 
 /**
  * The Material 3 type scale, bumped ~12% across the board — every Vela UI element
@@ -22,8 +23,11 @@ private fun TextStyle.scaled(): TextStyle = copy(
  * a font file of their own - see [app.vela.ui.AppFont]). Applying the family here means one place
  * decides it, rather than every composable that sets a style having to remember.
  */
-fun velaTypography(family: androidx.compose.ui.text.font.FontFamily? = null): Typography {
-    fun TextStyle.f(): TextStyle = if (family == null) this else copy(fontFamily = family)
+fun velaTypography(
+    family: androidx.compose.ui.text.font.FontFamily? = null,
+    direction: TextDirection = TextDirection.ContentOrLtr,
+): Typography {
+    fun TextStyle.f(): TextStyle = copy(fontFamily = family ?: fontFamily, textDirection = direction)
     return VelaTypography.run {
         copy(
             displayLarge = displayLarge.f(), displayMedium = displayMedium.f(), displaySmall = displaySmall.f(),
