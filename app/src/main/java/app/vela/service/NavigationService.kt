@@ -54,7 +54,6 @@ import javax.inject.Inject
 class NavigationService : Service() {
 
     @Inject lateinit var navSession: NavSession
-    @Inject lateinit var voice: app.vela.core.voice.VoiceGuide
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var observing = false
@@ -96,20 +95,23 @@ class NavigationService : Service() {
             return START_NOT_STICKY
         }
 
-        // Backgrounded turn alerts (user 2026-07-24): the ongoing notification is deliberately
-        // silent/minimized, but when guidance SPEAKS while the app isn't visible, the shade
-        // should show the turn the voice just said. Post-mute hook, so a muted drive stays
-        // quiet in the shade too; foreground drives already show the banner card.
-        voice.onPromptAlert = {
-            if (!app.vela.ui.AppVisibility.foreground.value) {
-                runCatching { notificationManager().notify(TURN_ALERT_ID, buildTurnAlert()) }
-            }
-        }
-
+        // Background turn notifications are driven by maneuver changes, not by TTS.
         if (!observing) {
             observing = true
+            lastTurnAlertKey = navSession.state.value.let { state ->
+                if (state.navigating && state.maneuverText.isNotBlank()) "${state.nav.stepIndex}|${state.maneuverText}" else null
+            }
             navSession.state
                 .onEach { s ->
+                    if (s.navigating && !s.paused && s.maneuverText.isNotBlank()) {
+                        val turnKey = "${s.nav.stepIndex}|${s.maneuverText}"
+                        if (turnKey != lastTurnAlertKey) {
+                            lastTurnAlertKey = turnKey
+                            if (!app.vela.ui.AppVisibility.foreground.value) {
+                                runCatching { notificationManager().notify(TURN_ALERT_ID, buildTurnAlert()) }
+                            }
+                        }
+                    }
                     when {
                         !s.navigating && !s.arrived -> teardown()
                         s.arrived -> {
@@ -150,6 +152,7 @@ class NavigationService : Service() {
     }
 
     private var lastNotifKey: String? = null
+    private var lastTurnAlertKey: String? = null
 
     /** What the ongoing notification shows, as text: equal keys draw the same notification. */
     private fun notifKey(s: NavSession.State): String {
@@ -337,10 +340,8 @@ class NavigationService : Service() {
     }
 
 
-    /** The transient heads-up posted when guidance speaks in the background: same title/text as
-     *  the ongoing card, but on the HIGH channel (visual pop, no sound - the voice IS the sound),
-     *  its own id (a posted notification can never change channel, so the FGS card can't just be
-     *  re-posted louder), self-expiring so the shade doesn't collect two nav rows. */
+    /** The transient heads-up posted when the next maneuver changes in the background. It is
+     *  independent of speech synthesis and self-expires so the shade does not collect stale rows. */
     private fun buildTurnAlert(): Notification {
         ensureChannel()
         val base = buildNotification()
@@ -374,7 +375,6 @@ class NavigationService : Service() {
     }
 
     private fun teardown() {
-        voice.onPromptAlert = null
         runCatching { stopForeground(STOP_FOREGROUND_REMOVE) }
         // Also clear a DETACHED arrival notification (the arrived branch posts one dismissable —
         // tapping Done in-app must not leave it stranded in the shade).
