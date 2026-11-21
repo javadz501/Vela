@@ -241,7 +241,7 @@
     <string name="settings_app_name_generic_hint">آیکن اجراکننده را به‌جای Vela Maps فقط «نقشه‌ها» نمایش می‌دهد. ممکن است پس از تغییر، لازم باشد میان‌بر صفحه اصلی را دوباره اضافه کنید.</string>
     <string name="settings_app_name_title">نام برنامه</string>
     <string name="settings_appearance">ظاهر</string>
-    <string name="settings_appearance_hint">فقط روی Vela اعمال می‌شود.</string>
+    <string name="settings_appearance_hint">این تنظیم فقط بر ظاهر برنامهٔ Vela اثر می‌گذارد.</string>
     <string name="settings_back">بازگشت</string>
     <string name="settings_bike_safe">ترجیح مسیر دوچرخه از مسیر دوچرخه و خیابان خلوت</string>
     <string name="settings_bike_safe_hint">مسیرهای دوچرخه، مسیرهای علامت‌گذاری‌شده، خطوط دوچرخه و خیابان‌های مسکونی را به جاده سریع ترجیح می‌دهند.</string>
@@ -409,7 +409,7 @@
     <string name="settings_texture_render_hint">نقشه را با روشی سازگارتر رسم می‌کند تا از برخی خطاهای درایور گرافیکی دستگاه جلوگیری شود. اگر نقشه هنگام شروع برنامه باعث بسته‌شدن آن شود، خودکار فعال می‌شود. کمی کندتر است و برای اعمال به راه‌اندازی دوباره نیاز دارد.</string>
     <string name="settings_theme_amoled">مشکی AMOLED</string>
     <string name="settings_theme_auto">روز و شب</string>
-    <string name="settings_theme_auto_hint">در روز روشن و پس از غروب تاریک می‌شود؛ زمان تغییر بر اساس موقعیت شما محاسبه می‌شود.</string>
+    <string name="settings_theme_auto_hint">در روشنایی روز، ظاهر روشن و پس از غروب، ظاهر تیره فعال می‌شود. زمان تغییر بر اساس موقعیت مکانی شما محاسبه می‌شود.</string>
     <string name="settings_theme_dark">تاریک</string>
     <string name="settings_theme_light">روشن</string>
     <string name="settings_title">تنظیمات</string>
@@ -1341,7 +1341,7 @@
     <string name="settings_map_look_positron">Positron</string>
     <string name="settings_map_look_fiord">Fiord</string>
     <string name="settings_map_look_dark">مشکی</string>
-    <string name="settings_map_look_hint">Vela سبک Liberty از OpenFreeMap با رنگ‌ها، نمادها و عرض جاده‌های اختصاصی Vela است. سایر موارد همان سبک‌های Bright، Positron، Fiord و Black (سبک Dark آن) از OpenFreeMap هستند؛ Fiord و Black فارغ از پوسته، تیره هستند.</string>
+    <string name="settings_map_look_hint">سبک Vela بر پایهٔ Liberty در OpenFreeMap ساخته شده و رنگ‌ها، نمادها و پهنای جاده‌های اختصاصی خود را دارد. سبک‌های Bright، Positron، Fiord و Black نیز از OpenFreeMap ارائه می‌شوند. سبک‌های Fiord و Black، مستقل از پوستهٔ برنامه، همیشه تیره هستند.</string>
     <string name="settings_map_colors">رنگ‌های نقشه</string>
     <string name="settings_map_buttons">دکمه‌های نقشه</string>
     <string name="settings_map_buttons_round">گرد</string>
