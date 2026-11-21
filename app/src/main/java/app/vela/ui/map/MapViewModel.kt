@@ -5829,7 +5829,7 @@ class MapViewModel @Inject constructor(
      *  list editor's preview. */
     fun playListSound(sound: String, name: String) {
         val notes = app.vela.core.nav.PassAlerts.notes(sound)
-        if (notes != null) voice.placeTone(notes) else if (sound == app.vela.core.nav.PassAlerts.NAME && name.isNotBlank()) voice.speak(name)
+        if (notes != null) voice.placeTone(notes) else if (sound == app.vela.core.nav.PassAlerts.NAME) voice.alertChime()
     }
 
     // Several places at once.

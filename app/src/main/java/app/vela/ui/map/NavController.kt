@@ -1495,7 +1495,7 @@ internal class NavController(
     /** A speeding, camera, Flock or bridge alert: spoken, or a chime in "Alerts only", or nothing with the
      *  voice off (issue 735). The chime checks the mode itself. */
     private fun alert(msg: String) {
-        if (voice.muted) voice.alertChime() else voice.speak(msg)
+        voice.alertChime()
     }
 
     // Movable bridges on the CURRENT route with their NDW openings, ascending along-route meters,
