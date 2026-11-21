@@ -125,13 +125,13 @@
     <string name="settings_flock">Surveillance cameras</string>
     <string name="settings_flock_hint">Shows mapped automated license-plate reader (Flock) cameras, from the community DeFlock project in OpenStreetMap. On by default.</string>
     <string name="settings_speed_cams">Speed cameras</string>
-    <string name="settings_speed_cam_warn">Warn me out loud</string>
-    <string name="settings_speed_cam_warn_hint">Says \"Speed camera ahead\" and shows a card as you approach one while navigating, about twelve seconds ahead. Follows your spoken-directions setting. Warning about cameras while driving is restricted in some countries, so this is off unless you turn it on.</string>
+    <string name="settings_speed_cam_warn">Sound alert for speed cameras</string>
+    <string name="settings_speed_cam_warn_hint">Plays a short two-note tone and shows a card about twelve seconds before an approaching speed camera. Camera-warning features are restricted in some countries; turn this off where required.</string>
     <string name="nav_speed_camera_ahead">Speed camera ahead</string>
     <string name="settings_flock_nav_card">Plate camera heads-up</string>
     <string name="settings_flock_nav_card_hint">While navigating, shows a card as you get close to a license plate camera on your route. Cameras aimed across your road are skipped. Off by default.</string>
-    <string name="settings_flock_nav_voice">Say when a plate camera is ahead</string>
-    <string name="settings_flock_nav_voice_hint">While navigating, says \"License plate camera ahead\" as you get close to one on your route, about twelve seconds before you reach it. Follows your spoken-directions setting. Off by default.</string>
+    <string name="settings_flock_nav_voice">Sound alert for plate cameras</string>
+    <string name="settings_flock_nav_voice_hint">While navigating, plays a short two-note tone about twelve seconds before an approaching plate camera on your route. Cameras aimed across your road are skipped.</string>
     <string name="nav_flock_camera_ahead">License plate camera ahead</string>
     <string name="nav_flock_cameras_ahead">License plate cameras ahead</string>
     <string name="settings_speed_cams_hint">Shows fixed radar and speed cameras mapped in OpenStreetMap. Fixed installations only; coverage follows the map, strongest in Europe. Off by default.</string>
@@ -1367,7 +1367,7 @@
     <string name="settings_traffic_lights">Traffic-light guidance</string>
     <string name="settings_traffic_lights_hint">Spoken landmark cues: pass the light, then turn. English only, off by default.</string>
     <string name="settings_speeding_alert">Speeding alert</string>
-    <string name="settings_speeding_alert_hint">Says \"You\'re over the speed limit\" once you have been over the posted limit for a few seconds, and again after you slow down and creep back over it. Only where a posted limit is known, the one the speed badge shows. Off unless you turn it on.</string>
+    <string name="settings_speeding_alert_hint">Plays a short tone after you remain above the posted limit for a few seconds, then rearms after you slow down. Only works where a posted limit is known.</string>
     <string name="nav_speeding_alert">You\'re over the speed limit</string>
     <string name="settings_softkeys">Hardware softkeys</string>
     <string name="settings_softkeys_hint">Zoom the map with the phone\'s two soft keys. Keypad phones only.</string>

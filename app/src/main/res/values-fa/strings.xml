@@ -282,7 +282,7 @@
     <string name="settings_flock_detour_hint">در صورت عبور مسیر اصلی از دوربین‌ها، مسیر فرعی کم‌دوربین‌تری را بررسی می‌کند.</string>
     <string name="settings_flock_hint">دوربین‌های ثبت خودکار پلاک را روی نقشه نشان می‌دهد.</string>
     <string name="settings_flock_nav_card">هشدار دوربین ثبت پلاک</string>
-    <string name="settings_flock_nav_voice">اعلام صوتی دوربین ثبت پلاک</string>
+    <string name="settings_flock_nav_voice">هشدار صوتی دوربین ثبت پلاک</string>
     <string name="settings_flock_route_alert">پرهیز از دوربین‌های نظارتی</string>
     <string name="settings_flock_route_alert_hint">تعداد دوربین‌های ثبت پلاک در هر مسیر را می‌شمارد و در صورت امکان مسیر کم‌دوربین‌تر را انتخاب می‌کند.</string>
     <string name="settings_follow_system">پیروی از سیستم</string>
@@ -399,7 +399,7 @@
     <string name="settings_softkeys_calibrate">کالیبره کردن کلیدها</string>
     <string name="settings_softkeys_calibrate_hint">اگر کلیدها نقشه را بزرگ‌نمایی نمی‌کنند، اینجا را لمس کنید و ابتدا کلید چپ و سپس راست را فشار دهید.</string>
     <string name="settings_softkeys_hint">با دو کلید نرم‌افزاری تلفن نقشه را بزرگ‌نمایی کنید؛ فقط برای تلفن‌های صفحه‌کلیدی.</string>
-    <string name="settings_speed_cam_warn_hint">هنگام نزدیک شدن به دوربین، هشدار صوتی و کارت نمایش می‌دهد.</string>
+    <string name="settings_speed_cam_warn_hint">حدود ۱۲ ثانیه پیش از رسیدن به دوربین کنترل سرعت، صدای هشدار کوتاه و کارت تصویری نمایش می‌دهد. در کشورهایی که هشدار دوربین محدودیت قانونی دارد، این گزینه را خاموش کنید.</string>
     <string name="settings_speed_cams">دوربین‌های کنترل سرعت</string>
     <string name="settings_speed_cams_hint">دوربین‌های ثابت کنترل سرعت ثبت‌شده در OpenStreetMap را نشان می‌دهد.</string>
     <string name="settings_speeding_alert">هشدار سرعت غیرمجاز</string>
@@ -572,9 +572,9 @@
     <string name="settings_routing_full">دریافت کامل · %1$d٪</string>
     <string name="mapvm_poipack_ready">مکان‌های %1$s اکنون به‌صورت آفلاین قابل جست‌وجو هستند</string>
     <string name="mapvm_poipack_unavailable">هنوز بسته مکان‌های %1$s منتشر نشده است. پس از انتشار، اینجا نمایش داده می‌شود.</string>
-    <string name="settings_speed_cam_warn">با صدای بلند هشدار بده</string>
-    <string name="settings_flock_nav_card_hint">هنگام مسیریابی، با نزدیک‌شدن به دوربین ثبت پلاک در مسیر، کارتی نمایش داده می‌شود. دوربین‌هایی که روبه‌روی مسیر حرکت شما قرار ندارند نادیده گرفته می‌شوند. این گزینه به‌طور پیش‌فرض خاموش است.</string>
-    <string name="settings_flock_nav_voice_hint">هنگام مسیریابی، حدود ۱۲ ثانیه پیش از رسیدن به دوربین ثبت پلاک، نزدیک‌شدن به آن اعلام می‌شود. این قابلیت از تنظیم راهنمای صوتی پیروی می‌کند و به‌طور پیش‌فرض خاموش است.</string>
+    <string name="settings_speed_cam_warn">هشدار صوتی دوربین کنترل سرعت</string>
+    <string name="settings_flock_nav_card_hint">هنگام مسیریابی، با نزدیک‌شدن به دوربین ثبت پلاک در مسیر، یک کارت هشدار نمایش داده می‌شود. دوربین‌هایی که روبه‌روی مسیر حرکت شما قرار ندارند نادیده گرفته می‌شوند.</string>
+    <string name="settings_flock_nav_voice_hint">هنگام مسیریابی، حدود ۱۲ ثانیه پیش از رسیدن به دوربین ثبت پلاک در مسیر، یک صدای هشدار کوتاه پخش می‌شود. دوربین‌هایی که روبه‌روی عرض مسیر قرار ندارند نادیده گرفته می‌شوند.</string>
     <string name="exp_chooser_slower">‏%1$s کندتر از سریع‌ترین مسیر</string>
     <string name="exp_chooser_via">از مسیر %1$s</string>
     <string name="exp_chooser_share_text">مسیریابی به %1$s: ‏%2$s، ‏%3$s</string>
