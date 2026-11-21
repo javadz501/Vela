@@ -7,8 +7,7 @@ import androidx.compose.runtime.mutableStateOf
  * Heads-up for license-plate (Flock / ALPR) cameras coming up on the route while navigating.
  *
  * Two independent options, both ON by default: [card] shows the heads-up card, [voice] plays
- * "License plate camera ahead" as a short tone (independent of the speech
- * applies). Neither depends on the map layer ([Flock]): the bundled camera dataset is in memory
+ * a short tone. Neither depends on the map layer ([Flock]): the bundled camera dataset is in memory
  * either way. Only cameras that face along the route count ([app.vela.core.nav.CameraFacing]).
  * Timing is the speed-camera warning's, shared in :core [app.vela.core.nav.CameraAlerts].
  */
