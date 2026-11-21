@@ -130,7 +130,7 @@ fun VelaTheme(
     val isPersian = app.vela.ui.AppLocale.effective().language == "fa"
     val family = if (isPersian && app.vela.ui.AppFont.customName.value == null) PersianTypeface else app.vela.ui.AppFont.family.value
     val textDirection = if (isPersian) {
-        androidx.compose.ui.text.style.TextDirection.ContentOrRtl
+        androidx.compose.ui.text.style.TextDirection.Rtl
     } else {
         androidx.compose.ui.text.style.TextDirection.ContentOrLtr
     }
