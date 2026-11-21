@@ -63,8 +63,8 @@ internal fun CameraSettingsGroup() {
             hint = stringResource(R.string.settings_speed_cams_hint),
             leading = { app.vela.ui.SpeedCameraBadge() },
         )
-        // The spoken warning is nested: it only means anything once the cameras are being tracked,
-        // and it is its own opt-in because being spoken to is a different ask from seeing a marker
+        // The audible warning is nested: it only means anything once the cameras are being tracked,
+        // and it is independently configurable from seeing a marker
         // (and is restricted in some countries).
         if (app.vela.ui.SpeedCams.on.value) {
             ToggleRow(
@@ -90,7 +90,7 @@ internal fun CameraSettingsGroup() {
                 hint = stringResource(R.string.settings_flock_detour_hint),
             )
         }
-        // Plate cameras coming up while navigating: a heads-up card and a spoken line, each its
+        // Plate cameras coming up while navigating: a heads-up card and a short tone, each its
         // own opt-in. Not nested under the layer toggle: the bundled dataset is loaded either way.
         GroupDivider()
         ToggleRow(

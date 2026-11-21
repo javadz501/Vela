@@ -6,22 +6,22 @@ import androidx.compose.runtime.mutableStateOf
 /**
  * Heads-up for license-plate (Flock / ALPR) cameras coming up on the route while navigating.
  *
- * Two separate opt-ins, both OFF by default: [card] shows the heads-up card, [voice] says
- * "License plate camera ahead" through the normal nav voice (so the spoken-directions mute
+ * Two independent options, both ON by default: [card] shows the heads-up card, [voice] plays
+ * "License plate camera ahead" as a short tone (independent of the speech
  * applies). Neither depends on the map layer ([Flock]): the bundled camera dataset is in memory
  * either way. Only cameras that face along the route count ([app.vela.core.nav.CameraFacing]).
  * Timing is the speed-camera warning's, shared in :core [app.vela.core.nav.CameraAlerts].
  */
 object FlockNavAlert {
-    val card = mutableStateOf(false)
-    val voice = mutableStateOf(false)
+    val card = mutableStateOf(true)
+    val voice = mutableStateOf(true)
 
     val any: Boolean get() = card.value || voice.value
 
     fun init(context: Context) {
         val p = prefs(context)
-        card.value = p.getBoolean(KEY_CARD, false)
-        voice.value = p.getBoolean(KEY_VOICE, false)
+        card.value = p.getBoolean(KEY_CARD, true)
+        voice.value = p.getBoolean(KEY_VOICE, true)
     }
 
     fun setCard(context: Context, value: Boolean) {
