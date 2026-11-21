@@ -51,8 +51,8 @@ permissions:
   actions: read
   contents: write
 
-# A newer commit on the same branch supersedes an older build; only the latest
-# signed APK is eligible to replace the rolling Persian preview release.
+# A newer commit on the same branch supersedes an older build. Every Persian build is
+# archived under an immutable versioned tag before the rolling preview release is replaced.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -235,6 +235,89 @@ jobs:
           RUN_SHA="$(gh run view "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --json headSha --jq '.headSha')"
           test "$RUN_SHA" = "$GITHUB_SHA"
           printf 'CLI verified branch and run commit: %s\n' "$GITHUB_SHA"
+
+      - name: Archive current Persian build (immutable release)
+        # Keep every successful Persian APK under a version-specific tag. These tags do not
+        # match the v0.* filter used by the nightly-pruning job and are never automatically deleted.
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          VER="${{ steps.ver.outputs.name }}"
+          CODE="${{ steps.ver.outputs.code }}"
+          APK="app/build/outputs/apk/release/app-arm64-v8a-release.apk"
+          ARCHIVE_TAG="persian-v${VER}"
+          test -s "$APK"
+          cp "$APK" vela-maps-persian.apk
+          NOTES="$(printf 'Archived Persian preview build — ARM64 (arm64-v8a) only. This fork uses applicationId app.vela.fork and its established signing identity.\n\nversionName: %s\nversionCode: %s\narchitecture: arm64-v8a\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
+          META="$RUNNER_TEMP/persian-archive-current.json"
+          if gh release view "$ARCHIVE_TAG" --repo "$GITHUB_REPOSITORY" --json targetCommitish,assets > "$META" 2>/dev/null; then
+            EXISTING_TARGET="$(jq -r '.targetCommitish // empty' "$META")"
+            HAS_APK="$(jq -r '[.assets[].name] | any(. == "vela-maps-persian.apk")' "$META")"
+            if [ "$EXISTING_TARGET" != "$GITHUB_SHA" ] || [ "$HAS_APK" != "true" ]; then
+              echo "::error::Immutable archive $ARCHIVE_TAG already exists but does not match this build. Refusing to overwrite it."
+              exit 1
+            fi
+            echo "Immutable archive $ARCHIVE_TAG already exists and matches this build."
+          else
+            gh release create "$ARCHIVE_TAG" vela-maps-persian.apk \
+              --repo "$GITHUB_REPOSITORY" \
+              --prerelease \
+              --target "$GITHUB_SHA" \
+              --title "Vela Persian Preview $VER" \
+              --notes "$NOTES"
+          fi
+
+      - name: Archive previous rolling Persian build
+        # Before replacing the rolling tag, preserve its APK and original release notes under
+        # the version tag. This also bootstraps an archive for the preview that existed before
+        # immutable archiving was introduced.
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          META="$RUNNER_TEMP/persian-rolling-release.json"
+          if ! gh release view persian --repo "$GITHUB_REPOSITORY" --json targetCommitish,body,assets > "$META" 2>/dev/null; then
+            echo "No previous rolling Persian release exists; skipping previous-build archival."
+            exit 0
+          fi
+
+          PREV_NOTES="$(jq -r '.body // empty' "$META")"
+          PREV_SHA="$(jq -r '.targetCommitish // empty' "$META")"
+          PREV_VERSION="$(printf '%s\n' "$PREV_NOTES" | sed -n 's/^versionName: //p' | head -n1)"
+          HAS_APK="$(jq -r '[.assets[].name] | any(. == "vela-maps-persian.apk")' "$META")"
+
+          if [[ ! "$PREV_VERSION" =~ ^0\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?$ ]] || \
+             [[ ! "$PREV_SHA" =~ ^[0-9a-f]{40}$ ]] || [ "$HAS_APK" != "true" ]; then
+            echo "::error::Previous rolling release metadata is incomplete or unexpected. Refusing to replace an unarchived build."
+            exit 1
+          fi
+
+          ARCHIVE_TAG="persian-v${PREV_VERSION}"
+          ARCHIVE_META="$RUNNER_TEMP/persian-archive-previous.json"
+          if gh release view "$ARCHIVE_TAG" --repo "$GITHUB_REPOSITORY" --json targetCommitish,assets > "$ARCHIVE_META" 2>/dev/null; then
+            EXISTING_TARGET="$(jq -r '.targetCommitish // empty' "$ARCHIVE_META")"
+            ARCHIVE_HAS_APK="$(jq -r '[.assets[].name] | any(. == "vela-maps-persian.apk")' "$ARCHIVE_META")"
+            if [ "$EXISTING_TARGET" != "$PREV_SHA" ] || [ "$ARCHIVE_HAS_APK" != "true" ]; then
+              echo "::error::Archive $ARCHIVE_TAG exists but does not match the previous rolling release. Refusing to overwrite it."
+              exit 1
+            fi
+            echo "Previous build $ARCHIVE_TAG is already archived."
+          else
+            DOWNLOAD_DIR="$RUNNER_TEMP/persian-previous-apk"
+            mkdir -p "$DOWNLOAD_DIR"
+            gh release download persian --repo "$GITHUB_REPOSITORY" \
+              --pattern "vela-maps-persian.apk" --dir "$DOWNLOAD_DIR"
+            test -s "$DOWNLOAD_DIR/vela-maps-persian.apk"
+            gh release create "$ARCHIVE_TAG" "$DOWNLOAD_DIR/vela-maps-persian.apk" \
+              --repo "$GITHUB_REPOSITORY" \
+              --prerelease \
+              --target "$PREV_SHA" \
+              --title "Vela Persian Preview $PREV_VERSION" \
+              --notes "$PREV_NOTES"
+          fi
 
       - name: Publish persian branch build (rolling release)
         # Pushes and manual builds from the customization branch use a dedicated non-v0.* tag.
