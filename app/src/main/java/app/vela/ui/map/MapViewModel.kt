@@ -5825,8 +5825,7 @@ class MapViewModel @Inject constructor(
         flashStatus(if (hit.list.isBlank()) hit.name else "${hit.name} · ${hit.list}", 5_000L)
     }
 
-    /** Plays a list sound: its tone, or [name] spoken for the "say its name" choice. Also the
-     *  list editor's preview. */
+    /** Plays a list sound: its tone, or a generic alert tone for the former "say its name" choice. */
     fun playListSound(sound: String, name: String) {
         val notes = app.vela.core.nav.PassAlerts.notes(sound)
         if (notes != null) voice.placeTone(notes) else if (sound == app.vela.core.nav.PassAlerts.NAME) voice.alertChime()

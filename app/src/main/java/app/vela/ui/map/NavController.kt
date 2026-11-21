@@ -1492,8 +1492,7 @@ internal class NavController(
         app.vela.car.CarBridge.toast(msg)
     }
 
-    /** A speeding, camera, Flock or bridge alert: spoken, or a chime in "Alerts only", or nothing with the
-     *  voice off (issue 735). The chime checks the mode itself. */
+    /** A speeding, camera, Flock or bridge alert: a non-verbal tone. Speech is disabled in this fork. */
     private fun alert(msg: String) {
         voice.alertChime()
     }
