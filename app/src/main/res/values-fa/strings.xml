@@ -403,7 +403,7 @@
     <string name="settings_speed_cams">دوربین‌های کنترل سرعت</string>
     <string name="settings_speed_cams_hint">دوربین‌های ثابت کنترل سرعت ثبت‌شده در OpenStreetMap را نشان می‌دهد.</string>
     <string name="settings_speeding_alert">هشدار سرعت غیرمجاز</string>
-    <string name="settings_speeding_alert_hint">اگر چند ثانیه از سرعت مجاز درج‌شده بیشتر بروید، هشدار می‌دهد و پس از کاهش و افزایش دوباره سرعت تکرار می‌کند.</string>
+    <string name="settings_speeding_alert_hint">اگر چند ثانیه از سرعت مجاز درج‌شده بیشتر بروید، یک صدای هشدار کوتاه پخش می‌شود و پس از کاهش و افزایش دوباره سرعت تکرار می‌شود.</string>
     <string name="settings_texture_render">رندر سازگار</string>
     <string name="settings_texture_render_auto_hint">پس از دو بار بسته‌شدن نقشه هنگام شروع، در %1$s به‌طور خودکار فعال شد. اگر نقشه بدون آن درست کار می‌کند، خاموش نگهش دارید؛ این حالت کندتر است.</string>
     <string name="settings_texture_render_hint">نقشه را با روشی سازگارتر رسم می‌کند تا از برخی خطاهای درایور گرافیکی دستگاه جلوگیری شود. اگر نقشه هنگام شروع برنامه باعث بسته‌شدن آن شود، خودکار فعال می‌شود. کمی کندتر است و برای اعمال به راه‌اندازی دوباره نیاز دارد.</string>

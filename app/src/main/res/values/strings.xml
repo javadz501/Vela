@@ -129,7 +129,7 @@
     <string name="settings_speed_cam_warn_hint">Plays a short two-note tone and shows a card about twelve seconds before an approaching speed camera. Camera-warning features are restricted in some countries; turn this off where required.</string>
     <string name="nav_speed_camera_ahead">Speed camera ahead</string>
     <string name="settings_flock_nav_card">Plate camera heads-up</string>
-    <string name="settings_flock_nav_card_hint">While navigating, shows a card as you get close to a license plate camera on your route. Cameras aimed across your road are skipped. Off by default.</string>
+    <string name="settings_flock_nav_card_hint">While navigating, shows a card as you get close to a license plate camera on your route. Cameras aimed across your road are skipped.</string>
     <string name="settings_flock_nav_voice">Sound alert for plate cameras</string>
     <string name="settings_flock_nav_voice_hint">While navigating, plays a short two-note tone about twelve seconds before an approaching plate camera on your route. Cameras aimed across your road are skipped.</string>
     <string name="nav_flock_camera_ahead">License plate camera ahead</string>
