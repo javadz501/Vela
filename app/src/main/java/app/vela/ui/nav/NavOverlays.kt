@@ -590,7 +590,11 @@ private fun FitDuration(text: String, style: androidx.compose.ui.text.TextStyle,
         }
     }
     val durationStyle = style.copy(
-        textDirection = androidx.compose.ui.text.style.TextDirection.ContentOrRtl,
+        textDirection = if (app.vela.ui.AppLocale.effective().language == "fa") {
+            androidx.compose.ui.text.style.TextDirection.Rtl
+        } else {
+            androidx.compose.ui.text.style.TextDirection.ContentOrLtr
+        },
         textAlign = androidx.compose.ui.text.style.TextAlign.Center,
     )
     Text(
