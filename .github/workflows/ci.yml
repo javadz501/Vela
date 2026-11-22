@@ -253,7 +253,7 @@ jobs:
           NOTES="$(printf 'Archived Persian preview build — ARM64 (arm64-v8a) only. This fork uses applicationId app.vela.fork and its established signing identity.\n\nversionName: %s\nversionCode: %s\narchitecture: arm64-v8a\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
           META="$RUNNER_TEMP/persian-archive-current.json"
           ARCHIVE_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/$ARCHIVE_TAG"
-          if curl -fsSL "$ARCHIVE_URL" -o "$META"; then
+          if curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$ARCHIVE_URL" -o "$META"; then
             EXISTING_TARGET="$(jq -r '.target_commitish // empty' "$META")"
             HAS_APK="$(jq -r '[.assets[].name] | any(. == "vela-maps-persian.apk")' "$META")"
             if [ "$EXISTING_TARGET" != "$GITHUB_SHA" ] || [ "$HAS_APK" != "true" ]; then
@@ -280,7 +280,7 @@ jobs:
           set -euo pipefail
           META="$RUNNER_TEMP/persian-rolling-release.json"
           ROLLING_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/persian"
-          if ! curl -fsSL "$ROLLING_URL" -o "$META"; then
+          if ! curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$ROLLING_URL" -o "$META"; then
             echo "No previous rolling Persian release exists; skipping legacy APK preservation."
             exit 0
           fi
@@ -298,13 +298,13 @@ jobs:
 
           DOWNLOAD_DIR="$RUNNER_TEMP/persian-previous-apk"
           mkdir -p "$DOWNLOAD_DIR"
-          curl -fL "$PREV_APK_URL" -o "$DOWNLOAD_DIR/vela-maps-persian.apk"
+          gh release download persian --repo "$GITHUB_REPOSITORY" --pattern "vela-maps-persian.apk" --dir "$DOWNLOAD_DIR" --clobber
           test -s "$DOWNLOAD_DIR/vela-maps-persian.apk"
 
           CURRENT_TAG="persian-v${{ steps.ver.outputs.name }}"
           CURRENT_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/$CURRENT_TAG"
           CURRENT_META="$RUNNER_TEMP/persian-current-archive.json"
-          curl -fsSL "$CURRENT_URL" -o "$CURRENT_META"
+          curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$CURRENT_URL" -o "$CURRENT_META"
           CURRENT_RELEASE_ID="$(jq -r '.id // empty' "$CURRENT_META")"
           if [[ ! "$CURRENT_RELEASE_ID" =~ ^[0-9]+$ ]]; then
             echo "::error::Current immutable Persian release is unavailable."
@@ -330,7 +330,7 @@ jobs:
           # Remove only the malformed archive created by the earlier attempt, after its APK is safe.
           BAD_ARCHIVE_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/persian-v$PREV_VERSION"
           BAD_ARCHIVE_META="$RUNNER_TEMP/persian-malformed-archive.json"
-          if curl -fsSL "$BAD_ARCHIVE_URL" -o "$BAD_ARCHIVE_META"; then
+          if curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$BAD_ARCHIVE_URL" -o "$BAD_ARCHIVE_META"; then
             BAD_TARGET="$(jq -r '.target_commitish // empty' "$BAD_ARCHIVE_META")"
             BAD_ID="$(jq -r '.id // empty' "$BAD_ARCHIVE_META")"
             if [ "$BAD_TARGET" != "$PREV_SHA" ] && [[ "$BAD_ID" =~ ^[0-9]+$ ]]; then
@@ -358,7 +358,7 @@ jobs:
 
           ROLLING_META="$RUNNER_TEMP/persian-rolling-publish.json"
           ROLLING_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/persian"
-          curl -fsSL "$ROLLING_URL" -o "$ROLLING_META"
+          curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$ROLLING_URL" -o "$ROLLING_META"
           RELEASE_ID="$(jq -r '.id // empty' "$ROLLING_META")"
           ASSET_ID="$(jq -r '.assets[] | select(.name == "vela-maps-persian.apk") | .id' "$ROLLING_META")"
           if [[ ! "$RELEASE_ID" =~ ^[0-9]+$ ]] || [[ ! "$ASSET_ID" =~ ^[0-9]+$ ]]; then
@@ -391,14 +391,14 @@ jobs:
           set -euo pipefail
           RELEASE_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/persian"
           RELEASE_META="$RUNNER_TEMP/persian-release-check.json"
-          curl -fsSL "$RELEASE_URL" -o "$RELEASE_META"
+          curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$RELEASE_URL" -o "$RELEASE_META"
           test "$(jq -r '.tag_name' "$RELEASE_META")" = "persian"
           test "$(jq -r '.prerelease' "$RELEASE_META")" = "true"
           grep -Fq "commit: $GITHUB_SHA" <(jq -r '.body' "$RELEASE_META")
           APK_URL="$(jq -r '.assets[] | select(.name == "vela-maps-persian.apk") | .browser_download_url' "$RELEASE_META")"
           test -n "$APK_URL" && [ "$APK_URL" != "null" ]
           mkdir -p "$RUNNER_TEMP/persian-release-check"
-          curl -fL "$APK_URL" -o "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk"
+          gh release download persian --repo "$GITHUB_REPOSITORY" --pattern "vela-maps-persian.apk" --dir "$RUNNER_TEMP/persian-release-check" --clobber
           test -s "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk"
           EXPECTED_SHA="$(sha256sum vela-maps-persian.apk | awk '{print $1}')"
           ACTUAL_SHA="$(sha256sum "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk" | awk '{print $1}')"
