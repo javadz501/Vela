@@ -42,32 +42,9 @@ data class Maneuver(
     // "Pass the traffic light, then ..." for the ones still ahead of the car when it speaks.
     val lightsBeforeM: List<Double> = emptyList(),
 ) {
-    /**
-     * Ordinal used for ordinary junction guidance. This is a directional convention, not a count
-     * of every road connected to the junction: right = first, straight = second, left = third.
-     * Straight is only announced when lane data confirms a genuine onward fork.
-     * Roundabouts and signed motorway ramps retain their own exit numbering.
-     */
-    val junctionExitOrdinal: Int?
-        get() = when (type) {
-            ManeuverType.TURN_RIGHT, ManeuverType.SLIGHT_RIGHT, ManeuverType.SHARP_RIGHT,
-            ManeuverType.FORK_RIGHT, ManeuverType.KEEP_RIGHT -> 1
-            ManeuverType.TURN_LEFT, ManeuverType.SLIGHT_LEFT, ManeuverType.SHARP_LEFT,
-            ManeuverType.FORK_LEFT, ManeuverType.KEEP_LEFT -> 3
-            ManeuverType.CONTINUE, ManeuverType.STRAIGHT ->
-                if (continueHasGenuineFork(lanes)) 2 else null
-            else -> null
-        }
-
     /** What the VOICE should say for this maneuver, honoring the spoken-street-names preference. */
-    fun spokenInstruction(): String {
-        val includeRoad = app.vela.core.nav.SpokenRoadNames.enabled
-        val base = if (includeRoad) instruction else instructionNoRoad ?: instruction
-        val ordinal = junctionExitOrdinal ?: return base
-        val direction = when (ordinal) { 1 -> "right"; 2 -> "straight"; else -> "left" }
-        val spokenRoad = if (includeRoad) road?.takeIf { it.isNotBlank() } ?: ref?.takeIf { it.isNotBlank() } else null
-        return app.vela.core.i18n.NavStringsRegistry.current().junctionExit(ordinal, direction, spokenRoad, base)
-    }
+    fun spokenInstruction(): String =
+        if (app.vela.core.nav.SpokenRoadNames.enabled) instruction else instructionNoRoad ?: instruction
 
     /** The road (name, ref) you are on [traveledM] meters past this maneuver: the last rename
      *  already passed, else the road the maneuver itself entered. */
