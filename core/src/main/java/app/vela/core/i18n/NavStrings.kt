@@ -29,6 +29,14 @@ interface NavStrings {
      */
     fun phrase(type: String, mod: String?, road: String?, dest: String?, exitNo: String?, rbExit: Int?): String
 
+    /**
+     * Spoken ordinal for an ordinary junction branch. This deliberately does not alter roundabout
+     * or signed motorway-exit instructions. Implementations without a localized template keep the
+     * router's original instruction.
+     */
+    fun junctionExit(ordinal: Int, direction: String, road: String?, fallbackInstruction: String): String =
+        fallbackInstruction
+
     /** A ferry leg on a walk or a ride: EN "Take the ferry". Every language overrides it. */
     fun ferry(): String
 
@@ -163,6 +171,16 @@ interface NavStrings {
 object EnNavStrings : NavStrings {
     override fun ferry() = "Take the ferry"
     override val locale: Locale = Locale.US
+
+    override fun junctionExit(ordinal: Int, direction: String, road: String?, fallbackInstruction: String): String {
+        val side = when (direction) {
+            "right" -> "to the right"
+            "left" -> "to the left"
+            else -> "straight ahead"
+        }
+        val onto = road?.let { " onto $it" }.orEmpty()
+        return "At the next junction, take the ${enOrdinal(ordinal)} exit $side$onto"
+    }
 
     override fun phrase(type: String, mod: String?, road: String?, dest: String?, exitNo: String?, rbExit: Int?): String {
         val onto = if (road != null) " onto $road" else ""
@@ -407,6 +425,16 @@ object FaNavStrings : NavStrings by EnNavStrings {
         else -> "خروجی شماره " + digits(number.toString())
     }
     override fun ferry(): String = "با کشتی عبور کنید"
+    override fun junctionExit(ordinal: Int, direction: String, road: String?, fallbackInstruction: String): String {
+        val exit = exitOrdinal(ordinal)
+        val instruction = when (direction) {
+            "right" -> "در تقاطع بعدی، از $exit به سمت راست بروید"
+            "left" -> "در تقاطع بعدی، از $exit به سمت چپ بروید"
+            else -> "در تقاطع بعدی، از $exit مستقیم عبور کنید"
+        }
+        val roadText = road?.takeIf { it.isNotBlank() }?.let { " و وارد مسیر «$it» شوید" }.orEmpty()
+        return instruction + roadText
+    }
     override fun phrase(type: String, mod: String?, road: String?, dest: String?, exitNo: String?, rbExit: Int?): String {
         val direction = side(mod)
         val roadText = road?.takeIf { it.isNotBlank() }?.let { " و وارد مسیر «" + it + "» شوید" }.orEmpty()
