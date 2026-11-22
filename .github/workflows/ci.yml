@@ -331,11 +331,19 @@ jobs:
               --target "$GITHUB_SHA" \
               --title "Vela Persian Preview $PREV_VERSION" \
               --notes "$PREV_NOTES"
-            curl -fsSL "$ARCHIVE_URL" -o "$ARCHIVE_META"
+            for attempt in {1..10}; do
+              if curl -fsSL "$ARCHIVE_URL" -o "$ARCHIVE_META"; then
+                break
+              fi
+              sleep 3
+            done
+            test -s "$ARCHIVE_META"
             ARCHIVE_ID="$(jq -r '.id // empty' "$ARCHIVE_META")"
             test -n "$ARCHIVE_ID" && [ "$ARCHIVE_ID" != "null" ]
             gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/$ARCHIVE_TAG" -f sha="$PREV_SHA" -F force=true
             gh api --method PATCH "repos/$GITHUB_REPOSITORY/releases/$ARCHIVE_ID" -f target_commitish="$PREV_SHA"
+            curl -fsSL "$ARCHIVE_URL" -o "$ARCHIVE_META"
+            test "$(jq -r '.target_commitish' "$ARCHIVE_META")" = "$PREV_SHA"
             test "$(jq -r '.assets[] | select(.name == "vela-maps-persian.apk") | .name' "$ARCHIVE_META")" = "vela-maps-persian.apk"
           fi
 
