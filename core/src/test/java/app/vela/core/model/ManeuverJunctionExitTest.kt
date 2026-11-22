@@ -34,6 +34,18 @@ class ManeuverJunctionExitTest {
         )
         assertEquals(2, maneuver(ManeuverType.CONTINUE, forkLanes).junctionExitOrdinal)
         assertEquals(2, maneuver(ManeuverType.STRAIGHT, forkLanes).junctionExitOrdinal)
+
+        val straightWithLeftTurnBay = listOf(
+            Lane(indications = listOf("straight"), valid = true),
+            Lane(indications = listOf("left"), valid = false),
+        )
+        assertEquals(2, maneuver(ManeuverType.CONTINUE, straightWithLeftTurnBay).junctionExitOrdinal)
+
+        val unmarkedAlternative = listOf(
+            Lane(indications = listOf("straight"), valid = true),
+            Lane(indications = listOf("none"), valid = false),
+        )
+        assertEquals(null, maneuver(ManeuverType.CONTINUE, unmarkedAlternative).junctionExitOrdinal)
         assertEquals(null, maneuver(ManeuverType.CONTINUE).junctionExitOrdinal)
         assertEquals(null, maneuver(ManeuverType.STRAIGHT).junctionExitOrdinal)
     }

@@ -495,15 +495,13 @@ object NavEngine {
         // changes under you — Google stays silent there too), so drop the voice + haptics; the
         // step stays on the map + step list. STRAIGHT is the same "no driver action" case — OSRM
         // stamps a dead-straight rename / straight-through as "turn"+"straight" (→ STRAIGHT), and a
-        // spoken "go straight" while the road just renames under you is exactly the reported noise;
-        // silence it too. One escape hatch for BOTH: only when the lanes show a GENUINE fork — an off
-        // lane that ALSO goes straight-ish, i.e. a parallel road you'd drift onto ("use the left 2 lanes
-        // to stay on I-80") — do we speak (continueHasGenuineFork). A plain turn bay at an intersection
-        // (an off lane marked only left/right) is NOT a fork: you sail straight through, Google stays
-        // silent, and so do we — the reported "it says use the lanes to continue when only the name changes".
+        // spoken "go straight" while the road just renames under you is noise; silence it too.
+        // Speak a straight ordinal only when lane arrows prove this is an actual junction: the
+        // selected lanes form a valid block and another lane explicitly offers a directional branch.
+        // An unmarked "none" lane or a plain road rename is not enough evidence.
         val redundantContinue =
             (target.type == ManeuverType.CONTINUE || target.type == ManeuverType.STRAIGHT) &&
-                !app.vela.core.model.continueHasGenuineFork(target.lanes) ||
+                !app.vela.core.model.continueHasJunctionChoice(target.lanes) ||
                 ringExit(route.maneuvers, idxCur)
         // MUTE turn guidance while off-route (Google's behavior): the progress snap still maps
         // the driver onto the OLD route while a reroute is pending (or failing in a dead spot),
@@ -852,12 +850,12 @@ object NavEngine {
         return j < ms.size && ms[j].type == ManeuverType.MERGE
     }
 
-    /** The voice says nothing for maneuver [i] in any setting: a continue or a straight-on with no
-     *  real fork in its lanes, or a roundabout's own exit ([ringExit]). */
+    /** The voice says nothing for a road rename or unmarked continuation, or a roundabout's own
+     *  exit ([ringExit]). A straight junction choice is spoken when explicit lane arrows prove it. */
     private fun quiet(ms: List<Maneuver>, i: Int): Boolean {
         val m = ms[i]
         return (m.type == ManeuverType.CONTINUE || m.type == ManeuverType.STRAIGHT) &&
-            !app.vela.core.model.continueHasGenuineFork(m.lanes) || ringExit(ms, i)
+            !app.vela.core.model.continueHasJunctionChoice(m.lanes) || ringExit(ms, i)
     }
 
     /**

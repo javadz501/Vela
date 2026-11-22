@@ -55,7 +55,7 @@ data class Maneuver(
             ManeuverType.TURN_LEFT, ManeuverType.SLIGHT_LEFT, ManeuverType.SHARP_LEFT,
             ManeuverType.FORK_LEFT, ManeuverType.KEEP_LEFT -> 3
             ManeuverType.CONTINUE, ManeuverType.STRAIGHT ->
-                if (continueHasGenuineFork(lanes)) 2 else null
+                if (continueHasJunctionChoice(lanes)) 2 else null
             else -> null
         }
 
@@ -140,7 +140,21 @@ fun laneGuidance(lanes: List<Lane>): LaneGuidance? {
 }
 
 /**
- * For a CONTINUE/STRAIGHT maneuver, whether the lanes represent a GENUINE fork worth announcing —
+ * Whether explicit lane arrows confirm that a CONTINUE/STRAIGHT step is at a junction with another
+ * selectable branch. The route's own lane must be a contiguous valid subset; at least one other
+ * lane must name a real direction. Unmarked "none" lanes are not treated as evidence.
+ */
+fun continueHasJunctionChoice(lanes: List<Lane>): Boolean {
+    if (laneGuidance(lanes) == null) return false
+    return lanes.any { lane ->
+        !lane.valid && lane.indications.any { indication ->
+            indication == "left" || indication == "right" || indication == "straight" ||
+                indication == "uturn" || indication.startsWith("slight") || indication.startsWith("sharp")
+        }
+    }
+}
+
+$helperNeedle
  * an "off" (invalid) lane that itself offers a straight/slight onward path, i.e. a parallel road you
  * could accidentally follow ("use the left 2 lanes to stay on I-80"). This is the case Google DOES
  * voice. It is FALSE for a plain turn bay at an intersection (an off lane marked only left/right/uturn):
