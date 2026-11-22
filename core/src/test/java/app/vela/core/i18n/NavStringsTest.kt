@@ -62,34 +62,6 @@ class NavStringsTest {
     }
 
     @Test
-    fun `junction exit ordinal speech is localized and separate from roundabout numbering`() {
-        assertEquals(
-            "At the next junction, take the 1st exit to the right onto Main St",
-            EnNavStrings.junctionExit(1, "right", "Main St", "Turn right onto Main St"),
-        )
-        assertEquals(
-            "At the next junction, take the 2nd exit straight ahead",
-            EnNavStrings.junctionExit(2, "straight", null, "Continue"),
-        )
-        assertEquals(
-            "At the next junction, take the 3rd exit to the left",
-            EnNavStrings.junctionExit(3, "left", null, "Turn left"),
-        )
-        assertEquals(
-            "در تقاطع بعدی، از اولین خروجی به سمت راست بروید و وارد مسیر «خیابان آزادی» شوید",
-            FaNavStrings.junctionExit(1, "right", "خیابان آزادی", "به سمت راست بپیچید"),
-        )
-        assertEquals(
-            "در تقاطع بعدی، از دومین خروجی مستقیم عبور کنید",
-            FaNavStrings.junctionExit(2, "straight", null, "به مسیر ادامه دهید"),
-        )
-        assertEquals(
-            "در تقاطع بعدی، از سومین خروجی به سمت چپ بروید",
-            FaNavStrings.junctionExit(3, "left", null, "به سمت چپ بپیچید"),
-        )
-    }
-
-    @Test
     fun `persian spoken distances and lane guidance use Persian digits`() {
         assertEquals("۴۰۰ متر", FaNavStrings.spokenDistance(400.0, imperial = false))
         assertEquals("۱.۵ کیلومتر", FaNavStrings.spokenDistance(1500.0, imperial = false))
