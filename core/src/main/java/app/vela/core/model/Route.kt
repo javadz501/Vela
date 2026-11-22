@@ -55,7 +55,7 @@ data class Maneuver(
             ManeuverType.TURN_LEFT, ManeuverType.SLIGHT_LEFT, ManeuverType.SHARP_LEFT,
             ManeuverType.FORK_LEFT, ManeuverType.KEEP_LEFT -> 3
             ManeuverType.CONTINUE, ManeuverType.STRAIGHT ->
-                if (continueHasJunctionChoice(lanes)) 2 else null
+                if (continueHasGenuineFork(lanes)) 2 else null
             else -> null
         }
 
@@ -137,21 +137,6 @@ fun laneGuidance(lanes: List<Lane>): LaneGuidance? {
         else -> LaneSide.CENTER
     }
     return LaneGuidance(side, valid.size)
-}
-
-/**
- * Whether explicit lane arrows confirm that a CONTINUE/STRAIGHT step is at a junction with another
- * selectable branch. The route's own lane must be a contiguous valid subset; at least one other
- * lane must name a real direction. Unmarked "none" lanes are not treated as evidence.
- */
-fun continueHasJunctionChoice(lanes: List<Lane>): Boolean {
-    if (laneGuidance(lanes) == null) return false
-    return lanes.any { lane ->
-        !lane.valid && lane.indications.any { indication ->
-            indication == "left" || indication == "right" || indication == "straight" ||
-                indication == "uturn" || indication.startsWith("slight") || indication.startsWith("sharp")
-        }
-    }
 }
 
 /**
