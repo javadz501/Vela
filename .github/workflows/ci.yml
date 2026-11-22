@@ -272,7 +272,8 @@ jobs:
 
       - name: Archive previous rolling Persian build
         # The public repository's release metadata is readable without the Actions token.
-        # This preserves the pre-immutable rolling build before the rolling tag is replaced.
+        # Preserve the pre-immutable rolling build; create its release at this run's commit,
+        # then move only the newly created version tag to the previous build's exact commit.
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -302,9 +303,19 @@ jobs:
           if curl -fsSL "$ARCHIVE_URL" -o "$ARCHIVE_META"; then
             EXISTING_TARGET="$(jq -r '.target_commitish // empty' "$ARCHIVE_META")"
             ARCHIVE_HAS_APK="$(jq -r '[.assets[].name] | any(. == "vela-maps-persian.apk")' "$ARCHIVE_META")"
-            if [ "$EXISTING_TARGET" != "$PREV_SHA" ] || [ "$ARCHIVE_HAS_APK" != "true" ]; then
+            ARCHIVE_NOTES="$(jq -r '.body // empty' "$ARCHIVE_META")"
+            if [ "$EXISTING_TARGET" != "$PREV_SHA" ] && ! printf '%s\n' "$ARCHIVE_NOTES" | grep -Fq "commit: $PREV_SHA"; then
               echo "::error::Archive $ARCHIVE_TAG exists but does not match the previous rolling release. Refusing to overwrite it."
               exit 1
+            fi
+            if [ "$ARCHIVE_HAS_APK" != "true" ]; then
+              echo "::error::Archive $ARCHIVE_TAG exists without its APK asset."
+              exit 1
+            fi
+            if [ "$EXISTING_TARGET" != "$PREV_SHA" ]; then
+              gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/$ARCHIVE_TAG" -f sha="$PREV_SHA" -F force=true
+              ARCHIVE_ID="$(jq -r '.id' "$ARCHIVE_META")"
+              gh api --method PATCH "repos/$GITHUB_REPOSITORY/releases/$ARCHIVE_ID" -f target_commitish="$PREV_SHA"
             fi
             echo "Previous build $ARCHIVE_TAG is already archived."
           else
@@ -317,13 +328,19 @@ jobs:
             gh release create "$ARCHIVE_TAG" "$DOWNLOAD_DIR/vela-maps-persian.apk" \
               --repo "$GITHUB_REPOSITORY" \
               --prerelease \
-              --target "$PREV_SHA" \
+              --target "$GITHUB_SHA" \
               --title "Vela Persian Preview $PREV_VERSION" \
               --notes "$PREV_NOTES"
+            curl -fsSL "$ARCHIVE_URL" -o "$ARCHIVE_META"
+            ARCHIVE_ID="$(jq -r '.id // empty' "$ARCHIVE_META")"
+            test -n "$ARCHIVE_ID" && [ "$ARCHIVE_ID" != "null" ]
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/$ARCHIVE_TAG" -f sha="$PREV_SHA" -F force=true
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/releases/$ARCHIVE_ID" -f target_commitish="$PREV_SHA"
+            test "$(jq -r '.assets[] | select(.name == "vela-maps-persian.apk") | .name' "$ARCHIVE_META")" = "vela-maps-persian.apk"
           fi
 
       - name: Publish persian branch build (rolling release)
-        # Preserve immutable version archives, then recreate the rolling tag at this commit.
+        # Update the existing rolling release in place; keep its tag and download URL stable.
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -338,22 +355,33 @@ jobs:
 
           ROLLING_META="$RUNNER_TEMP/persian-rolling-publish.json"
           ROLLING_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/persian"
-          if curl -fsSL "$ROLLING_URL" -o "$ROLLING_META"; then
-            RELEASE_ID="$(jq -r '.id // empty' "$ROLLING_META")"
-            if [[ ! "$RELEASE_ID" =~ ^[0-9]+$ ]]; then
-              echo "::error::Could not determine the existing rolling release ID."
-              exit 1
-            fi
-            gh api --method DELETE "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID"
+          curl -fsSL "$ROLLING_URL" -o "$ROLLING_META"
+          RELEASE_ID="$(jq -r '.id // empty' "$ROLLING_META")"
+          ASSET_ID="$(jq -r '.assets[] | select(.name == "vela-maps-persian.apk") | .id' "$ROLLING_META")"
+          if [[ ! "$RELEASE_ID" =~ ^[0-9]+$ ]] || [[ ! "$ASSET_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::Existing rolling release or APK asset metadata is incomplete."
+            exit 1
           fi
-          # Release deletion does not remove the Git tag; remove it before creating the new rolling release.
-          gh api --method DELETE "repos/$GITHUB_REPOSITORY/git/refs/tags/persian" 2>/dev/null || true
-          gh release create persian \
-            --prerelease \
-            --target "$GITHUB_SHA" \
-            --title "Vela Persian Preview Build" \
-            --notes "$NOTES" \
-            vela-maps-persian.apk
+
+          gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/persian" -f sha="$GITHUB_SHA" -F force=true
+          gh api --method PATCH "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID" \
+            -f tag_name=persian \
+            -f target_commitish="$GITHUB_SHA" \
+            -f name="Vela Persian Preview Build" \
+            -f body="$NOTES" \
+            -F prerelease=true
+          gh api --method DELETE "repos/$GITHUB_REPOSITORY/releases/assets/$ASSET_ID"
+
+          curl --fail-with-body --silent --show-error \
+            --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header "Accept: application/vnd.github+json" \
+            --header "Content-Type: application/vnd.android.package-archive" \
+            --data-binary "@vela-maps-persian.apk" \
+            "https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets?name=vela-maps-persian.apk" \
+            --output "$RUNNER_TEMP/persian-upload.json"
+          test "$(jq -r '.name' "$RUNNER_TEMP/persian-upload.json")" = "vela-maps-persian.apk"
+          test "$(jq -r '.state' "$RUNNER_TEMP/persian-upload.json")" = "uploaded"
 
       - name: Verify published release with GitHub CLI
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
@@ -366,17 +394,17 @@ jobs:
           curl -fsSL "$RELEASE_URL" -o "$RELEASE_META"
           test "$(jq -r '.tag_name' "$RELEASE_META")" = "persian"
           test "$(jq -r '.prerelease' "$RELEASE_META")" = "true"
+          test "$(jq -r '.target_commitish' "$RELEASE_META")" = "$GITHUB_SHA"
           APK_URL="$(jq -r '.assets[] | select(.name == "vela-maps-persian.apk") | .browser_download_url' "$RELEASE_META")"
           test -n "$APK_URL" && [ "$APK_URL" != "null" ]
           mkdir -p "$RUNNER_TEMP/persian-release-check"
           curl -fL "$APK_URL" -o "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk"
           test -s "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk"
-          apks=("$RUNNER_TEMP"/persian-release-check/*.apk)
-          test "${#apks[@]}" -gt 0
+          EXPECTED_SHA="$(sha256sum vela-maps-persian.apk | awk '{print $1}')"
+          ACTUAL_SHA="$(sha256sum "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk" | awk '{print $1}')"
+          test "$EXPECTED_SHA" = "$ACTUAL_SHA"
           apksigner="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n1)"
-          for apk in "${apks[@]}"; do
-            "$apksigner" verify --verbose --print-certs "$apk"
-          done
+          "$apksigner" verify --verbose --print-certs "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk"
 
       - name: Publish canary build (rolling release)
         # The canary CHANNEL: every push to the canary branch replaces the single APK on the
