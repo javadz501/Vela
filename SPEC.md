@@ -6732,11 +6732,11 @@ or last chip scrolls the row all the way to that end.
   While paused, one tap resumes. A long press steps the voice (on, alerts only, off). The
   slide-out is the key path to the voice. The glyph shows pause or resume, the accent fill a held
   drive, a crossed speaker a muted one, a bell "Alerts only" (4.9).
-- The "Then" tab hangs off the turn card's lower left in the card's color and names the next
-  step. The card's lower-left corner is square while the tab shows, and the lower-right too when
-  the tab is as wide as the card. Both widths are measured.
-- In portrait the turn card and its "Then" tab stay within `BANNER_MAX_FRACTION` (a third) of the
-  screen height. Past it the card's font scale steps down, by `BANNER_FIT_STEP` (0.9) or down to
+- The turn card shows the current maneuver only. The separate preview of the following
+  maneuver is omitted so the card stays shorter and leaves more of the map visible. Swiping the
+  card still previews earlier and later steps.
+- In portrait the turn card stays within `BANNER_MAX_FRACTION` (a third) of the screen height.
+  Past it the card's font scale steps down, by `BANNER_FIT_STEP` (0.9) or down to
   `BANNER_FIT_MIN_STEP` (0.7) for a card far over, never below the default text size, and tries
   one step back up at each new maneuver, never within one, so it cannot flip between two sizes.
   The distance is one line that shrinks to fit beside the road's shield (`FitText`, started over
