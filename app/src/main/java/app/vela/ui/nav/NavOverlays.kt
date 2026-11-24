@@ -168,23 +168,10 @@ fun ManeuverBanner(
     else NavBannerGreen
     val content = if (previewing) MaterialTheme.colorScheme.onSurfaceVariant
     else androidx.compose.ui.graphics.Color.White
-    // The detached "then" strip under the card is darker than the banner (Google's reads
-    // as a dimmer tab); preview follows the main card's own treatment.
-    val thenContainer = if (previewing) MaterialTheme.colorScheme.surfaceVariant
-    else MaterialTheme.colorScheme.surfaceContainerHigh
-    val thenContent = if (previewing) MaterialTheme.colorScheme.onSurfaceVariant
-    else MaterialTheme.colorScheme.onSurface
     // The card tracks your finger as you drag (translationX = offsetX); on release
     // past a threshold it slides the rest of the way out, swaps to the next/prev
     // step, then the new card slides in from the opposite edge — like flicking a
     // pager. Below threshold it springs back.
-    // The "Then" tab hangs off the card's lower left: the card's corner is square where they meet.
-    val thenShown = nextText != null && nextType != null && isCompoundNext(nextDistanceMeters) &&
-        (previewing || distanceMeters <= laneShowM)
-    // A long next step can make the tab as wide as the card: then the right corner squares off too.
-    var cardW by remember { androidx.compose.runtime.mutableIntStateOf(0) }
-    var tabW by remember { androidx.compose.runtime.mutableIntStateOf(0) }
-    val tabSpans = thenShown && tabW > 0 && tabW >= cardW - 2
     val offsetX = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
     // `pointerInput(Unit)` builds the gesture detector ONCE, capturing these lambdas
@@ -227,7 +214,6 @@ fun ManeuverBanner(
     Card(
         Modifier
             .fillMaxWidth()
-            .onSizeChanged { cardW = it.width }
             .graphicsLayer { translationX = offsetX.value }
             .pointerInput(Unit) {
                 detectHorizontalDragGestures(
@@ -269,7 +255,7 @@ fun ManeuverBanner(
             .then(
                 if (previewing) Modifier.clickable(onClick = onExitPreview) else Modifier.focusable(),
             ),
-        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp, bottomEnd = if (tabSpans) 0.dp else 24.dp, bottomStart = if (thenShown) 0.dp else 24.dp),
+        shape = RoundedCornerShape(24.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(containerColor = container, contentColor = content),
     ) {
@@ -408,36 +394,6 @@ fun ManeuverBanner(
             }
         }
     }
-        // Detached Google-style "then" strip: its own smaller, darker tab under the main
-        // card - just "then <arrow> <full instruction>", no shield chip, no distance.
-        // Same compound + approach gates as the old inline row.
-        if (thenShown) {
-            // Google's "Then" tab: hangs off the card's lower left in the card's own color,
-            // the word and the arrow only.
-            Card(
-                // As wide as its text needs, up to the whole card.
-                Modifier.fillMaxWidth().wrapContentWidth(Alignment.Start).onSizeChanged { tabW = it.width },
-                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-                colors = CardDefaults.cardColors(containerColor = container, contentColor = content),
-            ) {
-                Row(
-                    Modifier.padding(start = 18.dp, end = 18.dp, top = 6.dp, bottom = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(stringResource(R.string.nav_compound_then).replaceFirstChar { it.uppercase() }, style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.width(8.dp))
-                    Icon(
-                        if (isRoundabout(nextType)) rememberRoundaboutGlyph(nextRoundabout) else maneuverIcon(nextType),
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp),
-                    )
-                    Spacer(Modifier.width(8.dp))
-                    // Vela says what the next step is; Google's tab shows the arrow alone. Two lines,
-                    // so a long street name wraps instead of running off the tab (issue #799).
-                    Text(nextText, style = MaterialTheme.typography.bodyLarge, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                }
-            }
-        }
     }
     }
 }
