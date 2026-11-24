@@ -35,7 +35,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -121,8 +120,7 @@ import androidx.compose.material3.LocalContentColor
  * Top banner during navigation, styled like Google's: a large directional turn
  * arrow for [type], the distance to the maneuver, the instruction with any
  * **highway/exit shields** pulled out of the text, a **lane-guidance** strip
- * (from [laneHint]), and a compact "then <icon>" preview of the maneuver after
- * this one ([nextText]/[nextType]).
+ * (from [laneHint]).
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -146,8 +144,7 @@ fun ManeuverBanner(
     // routing can have only a street, an address, or nothing but the tapped coordinates).
     destName: String? = null,
     destAddress: String? = null,
-    // Approach gate for lane arrows AND the compound "then" row — speed-scaled by the caller
-    // (max(800 m, v×30 s)): a 75 mph exit needs the lanes ~1 km out, a city turn at 800 m.
+    // Approach gate for lane arrows, speed-scaled by the caller (max(800 m, v×30 s)).
     laneShowM: Double = LANE_SHOW_M,
     previewing: Boolean = false,
     // Off-route latch: the banner headline becomes "Rerouting..." (Google-style) instead of a stale
@@ -175,26 +172,13 @@ fun ManeuverBanner(
     else NavBannerGreen
     val content = if (previewing) MaterialTheme.colorScheme.onSurfaceVariant
     else androidx.compose.ui.graphics.Color.White
-    // The detached "then" strip under the card is darker than the banner (Google's reads
-    // as a dimmer tab); preview follows the main card's own treatment.
-    val thenContainer = if (previewing) MaterialTheme.colorScheme.surfaceVariant
-    else MaterialTheme.colorScheme.surfaceContainerHigh
-    val thenContent = if (previewing) MaterialTheme.colorScheme.onSurfaceVariant
-    else MaterialTheme.colorScheme.onSurface
     // The card tracks your finger as you drag (translationX = offsetX); on release
     // past a threshold it slides the rest of the way out, swaps to the next/prev
     // step, then the new card slides in from the opposite edge — like flicking a
     // pager. Below threshold it springs back.
-    // The "Then" tab hangs off the card's lower left: the card's corner is square where they meet.
-    // Off the route the old route's next step and lanes are stale: neither shows while it asks
-    // for a new one, nor with no signal to ask with.
+    // Off the route the old route's lanes are stale: they stay hidden while it asks for a
+    // new one, or when there is no signal to ask with.
     val offLine = (offRoute || backToRoute != null) && !previewing
-    val thenShown = nextText != null && nextType != null && isCompoundNext(nextDistanceMeters) &&
-        (previewing || distanceMeters <= laneShowM) && !offLine
-    // A long next step can make the tab as wide as the card: then the right corner squares off too.
-    var cardW by remember { androidx.compose.runtime.mutableIntStateOf(0) }
-    var tabW by remember { androidx.compose.runtime.mutableIntStateOf(0) }
-    val tabSpans = thenShown && tabW > 0 && tabW >= cardW - 2
     val offsetX = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
     // `pointerInput(Unit)` builds the gesture detector ONCE, capturing these lambdas
@@ -207,7 +191,7 @@ fun ManeuverBanner(
     // the 54dp glyph + full paddings buried the map on sub-500dp-tall displays, so the banner
     // shrinks its chrome there. Ordinary phones and tall head units never trip the gate.
     val compact = androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp < 500
-    // LARGE TEXT: in portrait the card and its "Then" tab stay within BANNER_MAX_FRACTION of the
+    // LARGE TEXT: in portrait the card stays within BANNER_MAX_FRACTION of the
     // screen. Past it the card's text steps down, never below the default size, and tries one step
     // back up at each new maneuver (never within one, so it cannot flip between two sizes).
     val baseDensity = LocalDensity.current
@@ -237,7 +221,6 @@ fun ManeuverBanner(
     Card(
         Modifier
             .fillMaxWidth()
-            .onSizeChanged { cardW = it.width }
             .graphicsLayer { translationX = offsetX.value }
             .pointerInput(Unit) {
                 detectHorizontalDragGestures(
@@ -279,7 +262,7 @@ fun ManeuverBanner(
             .then(
                 if (previewing) Modifier.clickable(onClick = onExitPreview) else Modifier.focusable(),
             ),
-        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp, bottomEnd = if (tabSpans) 0.dp else 24.dp, bottomStart = if (thenShown) 0.dp else 24.dp),
+        shape = RoundedCornerShape(24.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(containerColor = container, contentColor = content),
     ) {
@@ -445,37 +428,7 @@ fun ManeuverBanner(
             }
         }
     }
-        // Detached Google-style "then" strip: its own smaller, darker tab under the main
-        // card - just "then <arrow> <full instruction>", no shield chip, no distance.
-        // Same compound + approach gates as the old inline row.
-        if (thenShown) {
-            // Google's "Then" tab: hangs off the card's lower left in the card's own color,
-            // the word and the arrow only.
-            Card(
-                // As wide as its text needs, up to the whole card.
-                Modifier.fillMaxWidth().wrapContentWidth(Alignment.Start).onSizeChanged { tabW = it.width },
-                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-                colors = CardDefaults.cardColors(containerColor = container, contentColor = content),
-            ) {
-                Row(
-                    Modifier.padding(start = 18.dp, end = 18.dp, top = 6.dp, bottom = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(stringResource(R.string.nav_compound_then).replaceFirstChar { it.uppercase() }, style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.width(8.dp))
-                    Icon(
-                        if (isRoundabout(nextType)) rememberRoundaboutGlyph(nextRoundabout) else maneuverIcon(nextType),
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp),
-                    )
-                    Spacer(Modifier.width(8.dp))
-                    // Vela says what the next step is; Google's tab shows the arrow alone. Two lines,
-                    // so a long street name wraps instead of running off the tab (issue #799).
-                    Text(nextText, style = MaterialTheme.typography.bodyLarge, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                }
-            }
-        }
-    }
+then strip    }
     }
 }
 
