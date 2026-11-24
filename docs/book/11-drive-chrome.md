@@ -35,12 +35,13 @@ Every rule and constant is in [SPEC section 4](../../SPEC.md) (4.7 to 4.11, the 
 
 ### The turn banner
 
-`ManeuverBanner` (`ui/nav/NavOverlays.kt`) shows the maneuver's glyph, its distance and the
+`ManeuverBanner` (`ui/nav/NavOverlays.kt`) shows the current maneuver's glyph, distance and
 instruction, and pulls up to three shields out of the step: the exit tab, the maneuver's route
-number and route numbers in the text. Lane arrows and the "Then" tab appear within
-`max(800 m, speed x 30 s)` of the turn, so a highway exit shows its lanes about a kilometer out.
-Off route the headline reads "Rerouting". In landscape the banner and the bar are a column on
-the left.
+number and route numbers in the text. The separate preview of the following maneuver is omitted,
+keeping the card shorter and leaving more of the map visible. Swipe the card to inspect upcoming
+steps. Lane arrows appear within `max(800 m, speed x 30 s)` of the turn, so a highway exit shows
+them about a kilometer out. Off route the headline reads "Rerouting". In landscape the banner
+and the bar are a column on the left.
 
 A ramp, a fork or a keep shows the slight-left or slight-right arrow, the way you go and nothing
 else. A picture with both branches looked like a road sign offering either one. The step list,
