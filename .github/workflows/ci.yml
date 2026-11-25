@@ -237,8 +237,7 @@ jobs:
           printf 'CLI verified branch and run commit: %s\n' "$GITHUB_SHA"
 
       - name: Archive current Persian build (immutable release)
-        # Keep every successful Persian APK under a version-specific tag. These tags do not
-        # match the v0.* filter used by the nightly-pruning job and are never automatically deleted.
+        # Preserve the universal APK and every ABI-specific APK for this exact source revision.
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -246,23 +245,31 @@ jobs:
           set -euo pipefail
           VER="${{ steps.ver.outputs.name }}"
           CODE="${{ steps.ver.outputs.code }}"
-          APK="app/build/outputs/apk/release/app-arm64-v8a-release.apk"
           ARCHIVE_TAG="persian-v${VER}"
-          test -s "$APK"
-          cp "$APK" vela-maps-persian.apk
-          NOTES="$(printf 'Archived Persian preview build — ARM64 (arm64-v8a) only. This fork uses applicationId app.vela.fork and its established signing identity.\n\nversionName: %s\nversionCode: %s\narchitecture: arm64-v8a\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
+          mapfile -t STAGED_APKS < <(bash scripts/stage-apks.sh vela-maps-persian vela-maps-persian.apk)
+          cp vela-maps-persian-all.apk vela-maps-persian.apk
+          RELEASE_APKS=(vela-maps-persian.apk vela-maps-persian-arm64.apk vela-maps-persian-armv7.apk vela-maps-persian-x86.apk vela-maps-persian-x86_64.apk)
+          for apk in "${RELEASE_APKS[@]}"; do
+            test -s "$apk"
+          done
+          NOTES="$(printf 'Persian preview build — universal APK plus ABI-specific APKs (armeabi-v7a, arm64-v8a, x86, x86_64). This fork uses applicationId app.vela.fork and its established signing identity.\n\nversionName: %s\nversionCode: %s\narchitectures: universal, armeabi-v7a, arm64-v8a, x86, x86_64\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
           META="$RUNNER_TEMP/persian-archive-current.json"
           ARCHIVE_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/$ARCHIVE_TAG"
           if curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$ARCHIVE_URL" -o "$META"; then
             EXISTING_TARGET="$(jq -r '.target_commitish // empty' "$META")"
-            HAS_APK="$(jq -r '[.assets[].name] | any(. == "vela-maps-persian.apk")' "$META")"
-            if [ "$EXISTING_TARGET" != "$GITHUB_SHA" ] || [ "$HAS_APK" != "true" ]; then
-              echo "::error::Immutable archive $ARCHIVE_TAG already exists but does not match this build. Refusing to overwrite it."
+            for apk in "${RELEASE_APKS[@]}"; do
+              jq -e --arg name "$apk" '[.assets[].name] | any(. == $name)' "$META" >/dev/null || {
+                echo "::error::Immutable archive $ARCHIVE_TAG is missing $apk."
+                exit 1
+              }
+            done
+            if [ "$EXISTING_TARGET" != "$GITHUB_SHA" ]; then
+              echo "::error::Immutable archive $ARCHIVE_TAG points to a different commit. Refusing to overwrite it."
               exit 1
             fi
-            echo "Immutable archive $ARCHIVE_TAG already exists and matches this build."
+            echo "Immutable archive $ARCHIVE_TAG already contains all five APKs for this commit."
           else
-            gh release create "$ARCHIVE_TAG" vela-maps-persian.apk \
+            gh release create "$ARCHIVE_TAG" "${RELEASE_APKS[@]}" \
               --repo "$GITHUB_REPOSITORY" \
               --prerelease \
               --target "$GITHUB_SHA" \
@@ -343,7 +350,7 @@ jobs:
           fi
 
       - name: Publish persian branch build (rolling release)
-        # Update the existing release object and asset without changing its protected Git tag.
+        # The stable download name is the universal APK; four additional assets target each source ABI.
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -351,18 +358,20 @@ jobs:
           set -euo pipefail
           VER="${{ steps.ver.outputs.name }}"
           CODE="${{ steps.ver.outputs.code }}"
-          ARM64_APK="app/build/outputs/apk/release/app-arm64-v8a-release.apk"
-          test -s "$ARM64_APK"
-          cp "$ARM64_APK" vela-maps-persian.apk
-          NOTES="$(printf 'Persian preview build — ARM64 (arm64-v8a) only. This fork is signed with its own established keystore and is not update-compatible with the official upstream Vela signing key. This fork uses applicationId app.vela.fork and can be installed alongside official Vela. App data and offline downloads remain separate. UI localization is in progress and untranslated strings fall back to English. Persian navigation uses phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\narchitecture: arm64-v8a\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
+          mapfile -t STAGED_APKS < <(bash scripts/stage-apks.sh vela-maps-persian vela-maps-persian.apk)
+          cp vela-maps-persian-all.apk vela-maps-persian.apk
+          RELEASE_APKS=(vela-maps-persian.apk vela-maps-persian-arm64.apk vela-maps-persian-armv7.apk vela-maps-persian-x86.apk vela-maps-persian-x86_64.apk)
+          for apk in "${RELEASE_APKS[@]}"; do
+            test -s "$apk"
+          done
+          NOTES="$(printf 'Persian preview build — universal APK plus ABI-specific APKs (armeabi-v7a, arm64-v8a, x86, x86_64). This fork is signed with its established keystore and is not update-compatible with the official upstream Vela signing key. This fork uses applicationId app.vela.fork and can be installed alongside official Vela. App data and offline downloads remain separate. UI localization is in progress and untranslated strings fall back to English. Persian navigation uses phone TTS when no Persian neural voice is installed.\n\nversionName: %s\nversionCode: %s\narchitectures: universal, armeabi-v7a, arm64-v8a, x86, x86_64\ncommit: %s\n' "$VER" "$CODE" "$GITHUB_SHA")"
 
           ROLLING_META="$RUNNER_TEMP/persian-rolling-publish.json"
           ROLLING_URL="https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/persian"
           curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$ROLLING_URL" -o "$ROLLING_META"
           RELEASE_ID="$(jq -r '.id // empty' "$ROLLING_META")"
-          ASSET_ID="$(jq -r '.assets[] | select(.name == "vela-maps-persian.apk") | .id' "$ROLLING_META")"
-          if [[ ! "$RELEASE_ID" =~ ^[0-9]+$ ]] || [[ ! "$ASSET_ID" =~ ^[0-9]+$ ]]; then
-            echo "::error::Existing rolling release or APK asset metadata is incomplete."
+          if [[ ! "$RELEASE_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::Existing rolling release metadata is incomplete."
             exit 1
           fi
 
@@ -370,18 +379,23 @@ jobs:
             -f name="Vela Persian Preview Build" \
             -f body="$NOTES" \
             -F prerelease=true
-          gh api --method DELETE "repos/$GITHUB_REPOSITORY/releases/assets/$ASSET_ID"
 
-          curl --fail-with-body --silent --show-error \
-            --request POST \
-            --header "Authorization: Bearer $GH_TOKEN" \
-            --header "Accept: application/vnd.github+json" \
-            --header "Content-Type: application/vnd.android.package-archive" \
-            --data-binary "@vela-maps-persian.apk" \
-            "https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets?name=vela-maps-persian.apk" \
-            --output "$RUNNER_TEMP/persian-upload.json"
-          test "$(jq -r '.name' "$RUNNER_TEMP/persian-upload.json")" = "vela-maps-persian.apk"
-          test "$(jq -r '.state' "$RUNNER_TEMP/persian-upload.json")" = "uploaded"
+          for apk in "${RELEASE_APKS[@]}"; do
+            ASSET_ID="$(jq -r --arg name "$apk" '.assets[] | select(.name == $name) | .id' "$ROLLING_META" | head -n1)"
+            if [[ "$ASSET_ID" =~ ^[0-9]+$ ]]; then
+              gh api --method DELETE "repos/$GITHUB_REPOSITORY/releases/assets/$ASSET_ID"
+            fi
+            curl --fail-with-body --silent --show-error \
+              --request POST \
+              --header "Authorization: Bearer $GH_TOKEN" \
+              --header "Accept: application/vnd.github+json" \
+              --header "Content-Type: application/vnd.android.package-archive" \
+              --data-binary "@$apk" \
+              "https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets?name=$apk" \
+              --output "$RUNNER_TEMP/persian-upload.json"
+            test "$(jq -r '.name' "$RUNNER_TEMP/persian-upload.json")" = "$apk"
+            test "$(jq -r '.state' "$RUNNER_TEMP/persian-upload.json")" = "uploaded"
+          done
 
       - name: Verify published release with GitHub CLI
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/persian'
@@ -395,16 +409,18 @@ jobs:
           test "$(jq -r '.tag_name' "$RELEASE_META")" = "persian"
           test "$(jq -r '.prerelease' "$RELEASE_META")" = "true"
           grep -Fq "commit: $GITHUB_SHA" <(jq -r '.body' "$RELEASE_META")
-          APK_URL="$(jq -r '.assets[] | select(.name == "vela-maps-persian.apk") | .browser_download_url' "$RELEASE_META")"
-          test -n "$APK_URL" && [ "$APK_URL" != "null" ]
           mkdir -p "$RUNNER_TEMP/persian-release-check"
-          gh release download persian --repo "$GITHUB_REPOSITORY" --pattern "vela-maps-persian.apk" --dir "$RUNNER_TEMP/persian-release-check" --clobber
-          test -s "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk"
-          EXPECTED_SHA="$(sha256sum vela-maps-persian.apk | awk '{print $1}')"
-          ACTUAL_SHA="$(sha256sum "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk" | awk '{print $1}')"
-          test "$EXPECTED_SHA" = "$ACTUAL_SHA"
           apksigner="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n1)"
-          "$apksigner" verify --verbose --print-certs "$RUNNER_TEMP/persian-release-check/vela-maps-persian.apk"
+          for apk in vela-maps-persian.apk vela-maps-persian-arm64.apk vela-maps-persian-armv7.apk vela-maps-persian-x86.apk vela-maps-persian-x86_64.apk; do
+            APK_URL="$(jq -r --arg name "$apk" '.assets[] | select(.name == $name) | .browser_download_url' "$RELEASE_META")"
+            test -n "$APK_URL" && [ "$APK_URL" != "null" ]
+            gh release download persian --repo "$GITHUB_REPOSITORY" --pattern "$apk" --dir "$RUNNER_TEMP/persian-release-check" --clobber
+            test -s "$RUNNER_TEMP/persian-release-check/$apk"
+            EXPECTED_SHA="$(sha256sum "$apk" | awk '{print $1}')"
+            ACTUAL_SHA="$(sha256sum "$RUNNER_TEMP/persian-release-check/$apk" | awk '{print $1}')"
+            test "$EXPECTED_SHA" = "$ACTUAL_SHA"
+            "$apksigner" verify --verbose --print-certs "$RUNNER_TEMP/persian-release-check/$apk"
+          done
 
       - name: Publish canary build (rolling release)
         # The canary CHANNEL: every push to the canary branch replaces the single APK on the
